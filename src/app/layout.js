@@ -1,0 +1,29 @@
+import { Archivo } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/user/Navbar";
+
+const archivo = Archivo({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "DoKopi",
+  description: "Print with ease. Anywhere. Anytime.",
+};
+
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
+
+export default async function RootLayout({ children }) {
+  const session = await auth();
+  const apiKey=process.env.GOOGLE_MAP_API_KEY;
+
+  return (
+    <html lang="en">
+      <body className={archivo.className}>
+        <SessionProvider session={session}>
+          <Navbar apiKey={apiKey} />
+          {children}
+        </SessionProvider>
+      </body>
+    </html>
+  );
+}
