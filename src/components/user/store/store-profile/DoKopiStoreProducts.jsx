@@ -9,7 +9,7 @@ const DoKopiStoreProducts = () => {
           <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
             <div className="overflow-hidden rounded-md">
               <Image
-                src="/assets/product.webp"
+                src="/test/product.webp"
                 alt="store"
                 width={350}
                 height={350}
@@ -40,7 +40,7 @@ const DoKopiStoreProducts = () => {
           <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
             <div className="overflow-hidden rounded-md">
               <Image
-                src="/assets/product.webp"
+                src="/test/product.webp"
                 alt="store"
                 width={350}
                 height={350}
@@ -71,7 +71,7 @@ const DoKopiStoreProducts = () => {
           <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
             <div className="overflow-hidden rounded-md">
               <Image
-                src="/assets/product.webp"
+                src="/test/product.webp"
                 alt="store"
                 width={350}
                 height={350}
@@ -102,7 +102,7 @@ const DoKopiStoreProducts = () => {
           <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
             <div className="overflow-hidden rounded-md">
               <Image
-                src="/assets/product.webp"
+                src="/test/product.webp"
                 alt="store"
                 width={350}
                 height={350}
@@ -132,7 +132,7 @@ const DoKopiStoreProducts = () => {
           <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
             <div className="overflow-hidden rounded-md">
               <Image
-                src="/assets/product.webp"
+                src="/test/product.webp"
                 alt="store"
                 width={350}
                 height={350}
