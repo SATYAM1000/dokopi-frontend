@@ -6,18 +6,27 @@ const PrivacyPolicyPage = () => {
     <section className="w-full my-4">
       <Wrapper className={"w-full"}>
         <h1 className="text-3xl font-bold">Privacy Policy</h1>
-        <p>Last updated: May 08, 2024</p>
+        <p>Last updated: May 09, 2024</p>
         <p>
-          This Privacy Policy describes Our policies and procedures on the
-          collection, use and disclosure of Your information when You use the
-          Service and tells You about Your privacy rights and how the law
-          protects You.
+          Thank you for choosing Dokopi! This Privacy Policy explains how we
+          collect, use, and disclose information when you use our website
+          www.dokopi.com, particularly in relation to Google verification and
+          sign-in.
         </p>
+
+        <div className="my-4 flex flex-col">
+          <h2 className="text-2xl font-semibold">
+            Information Collection and Use
+          </h2>
+          <p className="font-medium">
+            We may collect several types of information for various purposes to
+            provide and improve our Service to you.
+          </p>
+        </div>
         <p>
           We use Your Personal data to provide and improve the Service. By using
           the Service, You agree to the collection and use of information in
-          accordance with this Privacy Policy. 
-          
+          accordance with this Privacy Policy.
         </p>
         <h2>Interpretation and Definitions</h2>
         <h3>Interpretation</h3>
@@ -137,13 +146,7 @@ const PrivacyPolicyPage = () => {
             <p>First name and last name</p>
           </li>
           <li>
-            <p>Phone number</p>
-          </li>
-          <li>
-            <p>Address, State, Province, ZIP/Postal code, City</p>
-          </li>
-          <li>
-            <p>Usage Data</p>
+            <p>Picture</p>
           </li>
         </ul>
         <h4>Usage Data</h4>
@@ -333,34 +336,6 @@ const PrivacyPolicyPage = () => {
             information with Service Providers to monitor and analyze the use of
             our Service, to contact You.
           </li>
-          <li>
-            <strong>For business transfers:</strong> We may share or transfer
-            Your personal information in connection with, or during negotiations
-            of, any merger, sale of Company assets, financing, or acquisition of
-            all or a portion of Our business to another company.
-          </li>
-          <li>
-            <strong>With Affiliates:</strong> We may share Your information with
-            Our affiliates, in which case we will require those affiliates to
-            honor this Privacy Policy. Affiliates include Our parent company and
-            any other subsidiaries, joint venture partners or other companies
-            that We control or that are under common control with Us.
-          </li>
-          <li>
-            <strong>With business partners:</strong> We may share Your
-            information with Our business partners to offer You certain
-            products, services or promotions.
-          </li>
-          <li>
-            <strong>With other users:</strong> when You share personal
-            information or otherwise interact in the public areas with other
-            users, such information may be viewed by all users and may be
-            publicly distributed outside.
-          </li>
-          <li>
-            <strong>With Your consent</strong>: We may disclose Your personal
-            information for any other purpose with Your consent.
-          </li>
         </ul>
         <h3>Retention of Your Personal Data</h3>
         <p>
@@ -506,7 +481,9 @@ const PrivacyPolicyPage = () => {
           us:
         </p>
         <ul>
-          <li className="mb-2 font-semibold text-blue-500">By email: satyam.scoe@gmail.com</li>
+          <li className="mb-2 font-semibold text-blue-500">
+            By email: satyam.scoe@gmail.com
+          </li>
         </ul>
       </Wrapper>
     </section>
