@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 const Footer = () => {
   return (
     <footer>
@@ -20,6 +21,20 @@ const Footer = () => {
           <p className="text-center text-xs leading-5 text-gray-500">
             &copy; {new Date().getFullYear()} DoKopi. All rights reserved.
           </p>
+         <div className="flex justify-center space-x-4">
+         <Link
+            href="/privacy-policy"
+            className="text-center text-xs leading-5 text-gray-500"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms-and-conditions"
+            className="text-center text-xs leading-5 text-gray-500"
+          >
+            Terms and Conditions
+          </Link>
+         </div>
         </div>
       </div>
     </footer>

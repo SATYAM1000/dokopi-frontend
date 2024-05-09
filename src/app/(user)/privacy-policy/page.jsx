@@ -1,3 +1,4 @@
+import Footer from "@/components/user/Footer";
 import Wrapper from "@/components/user/Wrapper";
 import React from "react";
 
@@ -10,8 +11,7 @@ const PrivacyPolicyPage = () => {
         <p className="text-[17px]  mt-2">
           Thank you for choosing Dokopi! This Privacy Policy explains how we
           collect, use, and disclose information when you use our website
-          www.dokopi.com, particularly in relation to Google verification and
-          sign-in.This policy also explains the choices that you can make about
+          www.dokopi.com.This policy also explains the choices that you can make about
           the way that we use your information.
         </p>
 
@@ -452,6 +452,7 @@ const PrivacyPolicyPage = () => {
             By email: satyam.scoe@gmail.com
           </li>
         </ul>
+        <Footer/>
       </Wrapper>
     </section>
   );
