@@ -8,7 +8,7 @@ import { IoMdStar } from "react-icons/io";
 import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-const SingleStoreCard = ({image}) => {
+const SingleStoreCard = ({ image }) => {
   return (
     <section className="rounded-xl shadow-md border">
       <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
@@ -21,36 +21,9 @@ const SingleStoreCard = ({image}) => {
             stopOnHover={true}
             showThumbs={false}
             showArrows={false}
-            
           >
             <div className="w-full h-full">
-              <Image
-                src={image}
-                alt="slide1"
-                fill
-                className="object-cover"
-                
-              />
-            </div>
-
-            <div>
-              <Image
-                src={"/test/store.jpeg"}
-                alt="slide1"
-                height={400}
-                width={400}
-                className=""
-              />
-            </div>
-
-            <div>
-              <Image
-                src={"/test/store.jpeg"}
-                alt="slide1"
-                height={400}
-                width={400}
-                className=""
-              />
+              <Image src={image} alt="slide1" fill className="object-cover" />
             </div>
           </Carousel>
         </div>
