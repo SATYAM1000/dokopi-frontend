@@ -91,7 +91,7 @@ const DoKopiSignIn = () => {
                           ></path>
                         </svg>
                       ) : (
-                        <ClipLoader color="#fbc02d" size={20} />
+                        <ClipLoader color="#000" size={20} />
                       )}
                       <p>Continue with Google</p>
                     </div>
