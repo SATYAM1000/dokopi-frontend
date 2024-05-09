@@ -10,12 +10,11 @@ const StoreContainer = () => {
         <section className="w-full">
           <div className="w-full min-h-screen flex flex-col gap-2 ">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
-              <SingleStoreCard />
-              <SingleStoreCard />
-              <SingleStoreCard />
-              <SingleStoreCard />
-              <SingleStoreCard />
-              <SingleStoreCard />
+              <SingleStoreCard image={"/test/store.jpg"} />
+              <SingleStoreCard image={"/test/store.jpg"} />
+              <SingleStoreCard image={"/test/store.jpg"} />
+              <SingleStoreCard image={"/test/store.jpg"} />
+              <SingleStoreCard image={"/test/store.jpg"} />
             </div>
           </div>
         </section>
