@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, startTransition } from "react";
+import React, { useState, startTransition } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
@@ -19,13 +19,6 @@ import { MoveRight } from "lucide-react";
 const DoKopiSignIn = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
-  // const signInWithGoogle = () => {
-  //   setShowLoader(true);
-  //   signIn("google", {
-  //     callbackUrl: "/",
-  //   });
-  //   setShowLoader(false);
-  // };
 
   const signInWithGoogle = () => {
     startTransition(() => {
@@ -54,9 +47,10 @@ const DoKopiSignIn = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className={`${!showLoader ? "cursor-pointer" : "cursor-not-allowed"} rounded-lg border-r-4 border-black border-b-4 `}
+                  className={`${
+                    !showLoader ? "cursor-pointer" : "cursor-not-allowed"
+                  } rounded-lg border-r-4 border-black border-b-4 `}
                   onClick={signInWithGoogle}
-                  
                 >
                   <div
                     className="flex items-center justify-between gap-2 overflow-hidden"
