@@ -16,7 +16,7 @@ import {
 
 const StoreHeader = () => {
   return (
-    <section className="w-full h-[70px] border-b border-black/[0.1]">
+    <section className="  w-full h-[70px] border-b border-black/[0.05]">
       <Wrapper
         className={"w-full h-[70px] flex items-center justify-between gap-4"}
       >
