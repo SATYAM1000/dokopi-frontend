@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const svgToDataUri = require("mini-svg-data-uri");
+import animations from '@midudev/tailwind-animations'
 
 const colors = require("tailwindcss/colors");
 const {
@@ -83,6 +84,7 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    animations,
     function ({ matchUtilities, theme }) {
       matchUtilities(
         {
