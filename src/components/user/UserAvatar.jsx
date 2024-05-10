@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, startTransition } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -13,12 +13,33 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { History,  Headphones, LayoutDashboard, LogOut, FileClock, Lock } from "lucide-react";
+import {
+  History,
+  Headphones,
+  LayoutDashboard,
+  LogOut,
+  FileClock,
+  Lock,
+} from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { ClipLoader } from "react-spinners";
 
 const UserAvatar = () => {
+  const [showLoader, setShowLoader] = useState(false);
   const currentUser = useCurrentUser();
   if (!currentUser) return null;
+
+  const handleSignOut = () => {
+    startTransition(() => {
+      setShowLoader(true);
+      localStorage.removeItem("userAddress");
+      signOut({
+        callbackUrl: "/",
+      }).finally(() => {
+        setShowLoader(false);
+      });
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -80,14 +101,19 @@ const UserAvatar = () => {
         <DropdownMenuItem
           asChild
           className="cursor-pointer"
-          onClick={() =>
-            signOut({
-              callbackUrl: "/",
-            })
-          }
+          onClick={handleSignOut}
         >
           <div className="flex items-center">
-            <LogOut size={17} />
+            {showLoader ? (
+              <ClipLoader
+                color="black"
+                loading={showLoader}
+                size={17}
+                aria-label="Loading Spinner"
+              />
+            ) : (
+              <LogOut size={17} />
+            )}
             <p className="pl-3">Logout</p>
           </div>
         </DropdownMenuItem>
