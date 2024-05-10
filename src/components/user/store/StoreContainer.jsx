@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Wrapper from "../Wrapper";
 import SingleStoreCard from "./SingleStoreCard";
 import { useQuery } from "@tanstack/react-query";
@@ -8,18 +8,45 @@ import StoreSkelton from "./StoreSkelton";
 import ErrorComponent from "../Error";
 
 const StoreContainer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allStores, setAllStores] = useState([]);
+  const [firstTime, setFirstTime] = useState(true);
+
   const { isLoading, error, data, isError, isFetching } = useQuery({
-    queryKey: ["fetch-nearest-stores"],
-    queryFn: () =>
+    queryKey: ["fetch-nearest-stores", currentPage],
+    queryFn: ({ pageParam = currentPage }) =>
       axios
         .get(
-          `http://localhost:4000/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=10&skip=0`
+          `http://localhost:4000/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${
+            (pageParam - 1) * 6
+          }`
         )
-        .then((res) => res.data)
-        .catch((err) => console.log(err)),
+        .then((res) => res.data),
     retry: false,
     refetchOnWindowFocus: false,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage?.data?.pagination?.hasMore) {
+        return lastPage?.data?.pagination?.currentPage + 1;
+      }
+      return undefined;
+    },
   });
+
+  const handleLoadMore = () => {
+    if (firstTime) {
+      setFirstTime(false);
+    }
+    if (data?.data?.pagination?.hasMore) {
+      // Check for 'hasMore' before incrementing
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (data && data.data && data.data.stores) {
+      setAllStores((prevStores) => [...prevStores, ...data.data.stores]);
+    }
+  }, [data]);
 
   if (isError) {
     return <ErrorComponent errorMessage={error?.message} />;
@@ -30,14 +57,29 @@ const StoreContainer = () => {
       <Wrapper className={"w-full"}>
         <section className="w-full">
           <div className="w-full min-h-screen flex flex-col gap-2 ">
-            {isLoading ? (
+            {isLoading && firstTime ? (
               <StoreSkelton />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-2">
-                {data?.data.map((store) => (
-                  <SingleStoreCard storeData={store} />
+                {allStores.map((store, index) => (
+                  <SingleStoreCard key={index} storeData={store} />
                 ))}
               </div>
+            )}
+
+            {isFetching && !firstTime && (
+              <div className="text-center text-gray-600 mt-2">
+                Loading more...
+              </div>
+            )}
+            {data?.data?.pagination?.hasMore && (
+              <button
+                onClick={handleLoadMore}
+                disabled={isFetching}
+                className="text-center text-gray-600 mt-2"
+              >
+                {isFetching && !firstTime ? "Loading..." : "Load More"}
+              </button>
             )}
           </div>
         </section>

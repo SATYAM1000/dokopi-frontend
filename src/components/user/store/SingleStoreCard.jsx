@@ -31,19 +31,19 @@ const SingleStoreCard = ({ storeData }) => {
                 alt="slide1"
                 width={350}
                 height={250}
-                sizes="(max-width: 350px) 100vw, (max-width: 350px) 50vw, 33vw"
                 placeholder="blur"
                 blurDataURL="/test/blur.jpeg"
                 className="object-cover"
               />
             </div>
-            
           </Carousel>
         </div>
 
         <div className="w-full flex items-center justify-between">
           <h5 className="text-[17px] font-medium mt-3 ">
-            {storeData?.storeName}
+            {storeData?.storeName.length > 25
+              ? storeData?.storeName.slice(0, 25) + " ..."
+              : storeData?.storeName}
           </h5>
 
           <Link
