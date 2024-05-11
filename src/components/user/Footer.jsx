@@ -21,7 +21,7 @@ const Footer = () => {
           <p className="text-center text-xs leading-5 text-gray-500">
             &copy; {new Date().getFullYear()} DoKopi. All rights reserved.
           </p>
-          <div className="flex space-x-4">
+          {/* <div className="flex space-x-4">
             <div className="flex gap-4">
               <Link
                 href="/privacy-policy"
@@ -36,7 +36,7 @@ const Footer = () => {
                 Terms and Conditions
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
