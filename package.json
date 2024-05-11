@@ -36,7 +36,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-spinners": "^0.13.8",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "eslint": "^8",

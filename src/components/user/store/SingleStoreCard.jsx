@@ -45,11 +45,11 @@ const SingleStoreCard = ({ storeData }) => {
               ? storeData?.storeName.slice(0, 25) + " ..."
               : storeData?.storeName}
           </h5>
-
+              
           <Link
             target="_blank"
             href={`https://www.google.com/maps/dir/?api=1&destination=${storeData?.storeLocationCoordinates?.coordinates[0]},${storeData?.storeLocationCoordinates?.coordinates[1]}`}
-            className="flex items-center justify-center font-medium gap-1 text-[14px] border-2 cursor-pointer border-black/[0.2] px-2 py-1 rounded-md mt-2"
+            className="flex items-center justify-center font-medium gap-1 text-[14px] border-2 cursor-pointer border-black/[0.5] bg-black/[0.05] text-black px-2 py-1 rounded-md mt-2"
           >
             Direction
             <ArrowUpRight size={17} />

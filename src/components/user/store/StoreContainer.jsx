@@ -37,7 +37,6 @@ const StoreContainer = () => {
       setFirstTime(false);
     }
     if (data?.data?.pagination?.hasMore) {
-      // Check for 'hasMore' before incrementing
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
