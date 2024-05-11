@@ -8,7 +8,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import UserAvatar from "./UserAvatar";
 import LocationAccess from "./LocationAccess";
 import { IoCartOutline } from "react-icons/io5";
-
+import SearchComponent from "./store/Search";
 const Navbar = ({ apiKey }) => {
   const currentUser = useCurrentUser();
   const [show, setShow] = useState("translate-y-0 ");
@@ -46,6 +46,7 @@ const Navbar = ({ apiKey }) => {
         <div className={`flex items-center justify-center gap-4 text-white`}>
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
+              <SearchComponent />
               <Link
                 href={"/cart"}
                 className="p-1 hover:bg-gray-100 rounded-md hover:border transition-all"

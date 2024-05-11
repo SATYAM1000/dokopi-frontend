@@ -1,11 +1,14 @@
 import Footer from "@/components/user/Footer";
+import Wrapper from "@/components/user/Wrapper";
+import SearchMobileComponent from "@/components/user/store/SearchMobileComponent";
 import StoreContainer from "@/components/user/store/StoreContainer";
-import StoreHeader from "@/components/user/store/StoreHeader";
 
 export default async function StoresPage() {
   return (
     <section className="w-full h-auto">
-      <StoreHeader />
+      <Wrapper className={"w-full h-auto mt-3"}>
+        <SearchMobileComponent />
+      </Wrapper>
       <StoreContainer />
       <Footer />
     </section>
