@@ -88,7 +88,7 @@ const SingleStoreCard = ({ storeData }) => {
             </div>
           </div>
           <Link
-            href={`/stores/${storeData?.storeId}/upload-files`}
+            href={`/stores/${storeData?.storeId}`}
             className="flex-1 flex items-center justify-center "
           >
             <Button

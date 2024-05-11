@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const DoKopiStoreProducts = () => {
+const DoKopiStoreShop = () => {
   return (
     <section className="w-full mt-4">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-5 lg:gap-8">
@@ -161,4 +161,4 @@ const DoKopiStoreProducts = () => {
   );
 };
 
-export default DoKopiStoreProducts;
+export default DoKopiStoreShop;

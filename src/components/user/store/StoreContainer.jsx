@@ -55,6 +55,8 @@ const StoreContainer = () => {
     <section className="w-full">
       <Wrapper className={"w-full"}>
         <section className="w-full">
+          <h1 className="mt-2 md:mt-0 text-[20px] md:text-2xl font-semibold">Nearest Stores</h1>
+          {/* ------------stores container---------- */}
           <div className="w-full min-h-screen flex flex-col gap-2 ">
             {isLoading && firstTime ? (
               <StoreSkelton />
