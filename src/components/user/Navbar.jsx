@@ -49,7 +49,7 @@ const Navbar = ({ apiKey }) => {
               <SearchComponent />
               <Link
                 href={"/cart"}
-                className="p-1 hover:bg-gray-100 rounded-md hover:border transition-all"
+                className="p-1 hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
               >
                 <IoCartOutline size={30} className="text-primary" />
               </Link>
