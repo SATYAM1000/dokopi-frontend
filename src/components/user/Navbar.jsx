@@ -9,10 +9,25 @@ import UserAvatar from "./UserAvatar";
 import LocationAccess from "./LocationAccess";
 import { IoCartOutline } from "react-icons/io5";
 import SearchComponent from "./store/Search";
+import { useSelector } from "react-redux";
+
 const Navbar = ({ apiKey }) => {
   const currentUser = useCurrentUser();
   const [show, setShow] = useState("translate-y-0 ");
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  const cartItemsFromLocalStorage =
+    JSON.parse(localStorage.getItem("file")) || [];
+  const cartItemsFromRedux = useSelector((state) => state.cart.items);
+  const cartItems =
+    cartItemsFromLocalStorage.length > 0
+      ? cartItemsFromLocalStorage
+      : cartItemsFromRedux;
+
+  useEffect(() => {
+    setCartItemCount(cartItems.length);
+  }, [cartItems]);
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
@@ -49,9 +64,14 @@ const Navbar = ({ apiKey }) => {
               <SearchComponent />
               <Link
                 href={"/cart"}
-                className="p-1 hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
+                className="p-1 relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
               >
                 <IoCartOutline size={30} className="text-black/[0.6]" />
+                {cartItemCount > 0 ? (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
+                    {cartItemCount}
+                  </span>
+                ) : null}
               </Link>
 
               {currentUser ? (

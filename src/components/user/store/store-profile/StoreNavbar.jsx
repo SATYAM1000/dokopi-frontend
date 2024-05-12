@@ -10,7 +10,7 @@ import ErrorComponent from "../../Error";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
-const StoreNavbar = ({ token, slug }) => {
+const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const { error, data, isError, isLoading } = useQuery({
     queryKey: ["storeDetails"],
     queryFn: () =>
@@ -42,7 +42,7 @@ const StoreNavbar = ({ token, slug }) => {
               <DoKopiStoreOverview storeDetails={data?.data?.data} />
             </TabsContent>
             <TabsContent value="upload-files">
-              <DoKopiFileUpload token={token} />
+              <DoKopiFileUpload token={token} encryptionKey={encryptionKey} />
             </TabsContent>
             <TabsContent value="shop">
               <DoKopiStoreShop />

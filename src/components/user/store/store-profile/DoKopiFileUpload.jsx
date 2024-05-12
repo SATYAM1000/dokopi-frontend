@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertTriangle, Trash } from "lucide-react";
+import { AlertTriangle, FileWarning, Trash } from "lucide-react";
 import { API_DOMAIN } from "@/lib/constants";
 import axios from "axios";
 
@@ -15,7 +15,12 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const DoKopiFileUpload = ({ token }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "@/providers/redux/reducers/cart-slice";
+import Link from "next/link";
+import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
+
+const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const currentUser = useCurrentUser();
   const router = useRouter();
   const fileUploadRef = useRef(null);
@@ -28,15 +33,17 @@ const DoKopiFileUpload = ({ token }) => {
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
 
+  const dispatch = useDispatch();
+
   const [fileInfo, setFileInfo] = useState({
     fileURL: null,
     fileOriginalName: null,
     fileSize: null,
     fileExtension: null,
     filePageCount: null,
-    fileIconPath: null,
+    fileIconPath: "/file-icons/pdf.svg",
     fileCopiesCount: 1,
-    messageForXeroxStore: null,
+    messageForXeroxStore: "",
     additionalServices: null,
     filePaperType: "A4",
     fileColorType: "black and white",
@@ -167,9 +174,85 @@ const DoKopiFileUpload = ({ token }) => {
     }
   };
 
-  const onFinalSubmit = async (e) => {
+
+  const onFinalSubmit = (e) => {
     e.preventDefault();
-    console.log("final submit called", fileInfo);
+    if (!currentUser) {
+      toast({
+        title: alertToast({
+          title: "Please login to proceed!",
+        }),
+        variant: "destructive",
+      })
+      return;
+    }
+    if (
+      // Check if all required fields are filled
+      !fileInfo?.fileURL ||
+      !fileInfo?.filePageCount ||
+      !fileInfo?.fileOriginalName ||
+      !fileInfo?.fileExtension ||
+      !fileInfo?.filePageCount ||
+      !fileInfo?.fileCopiesCount ||
+      !fileInfo?.filePaperType ||
+      !fileInfo?.fileColorType ||
+      !fileInfo?.filePrintMode
+    ) {
+      toast({
+        title: alertToast({
+          title: "Please fill all the required fields!",
+        }),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Encrypt file URL
+    const encryptedFileURL = encryptSensitiveData(
+      fileInfo.fileURL,
+      encryptionKey
+    );
+    console.log(encryptedFileURL);
+
+    // Update state with encrypted file URL
+    setFileInfo((prev) => ({
+      ...prev,
+      fileURL: encryptedFileURL,
+    }));
+
+    // Update cart with the updated fileInfo
+    dispatch(addToCart({ ...fileInfo, fileURL: encryptedFileURL }));
+
+    // Save file info to local storage
+    const file = JSON.parse(localStorage.getItem("file")) || [];
+    file.push({ ...fileInfo, fileURL: encryptedFileURL });
+    localStorage.setItem("file", JSON.stringify(file));
+
+    // Reset fileInfo state
+    setFileInfo({
+      fileURL: null,
+      fileOriginalName: null,
+      fileSize: null,
+      fileExtension: null,
+      filePageCount: null,
+      fileIconPath: "/file-icons/pdf.svg",
+      fileCopiesCount: 1,
+      messageForXeroxStore: "",
+      additionalServices: null,
+      filePaperType: "A4",
+      fileColorType: "black and white",
+      filePrintMode: "simplex",
+      fileColorPagesToPrint: [""],
+    });
+
+    // Notify user
+    toast({
+      title: alertToast({
+        title: "File added successfully",
+      }),
+    });
+
+    setIsFileUploadedSuccessfully(false);
   };
 
   const handleColorPagesToPrintChange = (e) => {
@@ -215,6 +298,7 @@ const DoKopiFileUpload = ({ token }) => {
                           alt="loader"
                           width={300}
                           height={300}
+                          priority
                         />
                         <p className="text-gray-600 rounded-md  my-2 font-medium ">
                           {fileInfo?.fileOriginalName}
@@ -253,6 +337,7 @@ const DoKopiFileUpload = ({ token }) => {
                           alt="loader"
                           width={300}
                           height={300}
+                          priority
                         />
                         <p className="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
                           <span>Drag and drop your</span>&nbsp;
@@ -416,7 +501,6 @@ const DoKopiFileUpload = ({ token }) => {
                                           .join(","),
                                       },
                                     });
-                                    
                                   }
                                 }}
                                 className={`w-10 h-10 shrink-0 rounded-sm text-sm font-medium  shadow-md   transition-all duration-100 ${
@@ -566,7 +650,16 @@ const DoKopiFileUpload = ({ token }) => {
                         />
                       </div>
 
-                      <Button type="submit">Upload File</Button>
+                      <div
+                        className="w-full grid grid-cols-2 
+                      items-center gap-4
+                      "
+                      >
+                        <Button type="submit">Upload more</Button>
+                        <Link href={"/cart"}>
+                          <Button className="w-full">Checkout</Button>
+                        </Link>
+                      </div>
                     </form>
                   </div>
                 </div>

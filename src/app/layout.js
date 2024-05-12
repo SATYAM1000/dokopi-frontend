@@ -2,7 +2,7 @@ import { Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/user/Navbar";
 import { Toaster } from "@/components/ui/toaster";
-
+import ReduxProvider from "@/providers/redux/redux-provider";
 const archivo = Archivo({ subsets: ["latin"] });
 
 export const metadata = {
@@ -24,10 +24,12 @@ export default async function RootLayout({ children }) {
       <body className={archivo.className}>
         <SessionProvider session={session}>
           <ReactQueryProvider>
-            <Navbar apiKey={apiKey} />
-            {children}
-            <Footer />
-            <Toaster />
+            <ReduxProvider>
+              <Navbar apiKey={apiKey} />
+              {children}
+              <Footer />
+              <Toaster />
+            </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>
       </body>
