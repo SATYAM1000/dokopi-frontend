@@ -119,16 +119,16 @@ const DoKopiStoreOverview = ({ storeDetails }) => {
           <h1 className="text-4xl font-medium text-gray-700">
             {storeDetails?.storeDetails?.storeName}
           </h1>{" "}
-          <p className="font-light text-gray-600 mt-3">
+          <p className=" text-gray-600 mt-3 font-medium">
             {storeDetails?.storeDetails?.storeLocation?.storeLandmark}
           </p>{" "}
-          <p className="mt-8 text-red-400">
+          <p className="mt-8 text-red-400 font-medium">
             Phone :{" "}
-            <span className="text-red-400">
+            <span className="text-red-400 font-medium">
               {storeDetails?.storeDetails?.storePhoneNumber}
             </span>
           </p>{" "}
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-gray-500 font-medium">
             <span>Open</span>, Monday - Friday, 9AM - 5PM
           </p>{" "}
         </div>{" "}
@@ -139,9 +139,11 @@ const DoKopiStoreOverview = ({ storeDetails }) => {
               <div className="overflow-x-auto mt-4">
                 <table className="w-full table-auto text-gray-600">
                   <thead>
-                    <tr className="bg-gray-100">
-                      <th className="px-4 py-3 text-left">Service</th>
-                      <th className=" hidden md:table-cell px-4 py-3 text-right">
+                    <tr className="bg-gray-200 text-primary">
+                      <th className="px-4 py-3 text-left font-medium">
+                        Service
+                      </th>
+                      <th className=" hidden md:table-cell px-4 py-3 text-right font-medium">
                         Price
                       </th>
                       <th className=" md:hidden px-4 py-3 text-right">
@@ -238,53 +240,27 @@ const DoKopiStoreOverview = ({ storeDetails }) => {
 
           {/* --------reviews---------- */}
           <div className="mt-6">
-            <h1 className="text-xl font-medium text-gray-700">About us</h1>
-            <p className="mt-3 text-gray-600">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Voluptatibus eius dolore perspiciatis tempora velit sapiente sit
-              modi, iste repudiandae nesciunt dignissimos ducimus doloribus quas
-              delectus. Inventore ad aut illo vitae labore in, aperiam, quidem
-              rem aliquid, provident autem molestias excepturi molestiae! Sint
-              recusandae quo magnam, veniam laudantium explicabo incidunt eos!
-            </p>
+            <h1 className="text-xl font-medium text-gray-700">Description</h1>
+            {storeDetails?.storeDetails?.storeDescription ? (
+              <p className="mt-3 text-gray-600">
+                {storeDetails?.storeDetails?.storeDescription}
+              </p>
+            ) : (
+              <p className="mt-3 text-gray-600">No description</p>
+            )}
           </div>
 
           {/* --------reviews---------- */}
           <div className="mt-6">
             <h1 className="text-xl font-medium text-gray-700">Reviews</h1>
 
-            {storeDetails?.storeReviews?.map((review) => (
-              <div className="mt-3 flex items-center" key={review._id}>
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={review?.user?.profilePicURL}
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-900">
-                    {review?.user?.firstName} {review?.user?.lastName}
-                  </p>
-                  <div className="flex items-center">
-                    <div className="flex items-center">
-                      <svg
-                        className="h-5 w-5 text-yellow-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {storeDetails?.storeReviews?.length > 0 ? (
+              <></>
+            ) : (
+              <>
+                <p className="mt-3 text-gray-600">No reviews</p>
+              </>
+            )}
           </div>
         </div>
       </div>
