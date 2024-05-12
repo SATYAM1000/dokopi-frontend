@@ -51,7 +51,7 @@ const Navbar = ({ apiKey }) => {
                 href={"/cart"}
                 className="p-1 hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
               >
-                <IoCartOutline size={30} className="text-primary" />
+                <IoCartOutline size={30} className="text-black/[0.6]" />
               </Link>
 
               {currentUser ? (
