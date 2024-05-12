@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Search, Store } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ChevronDown } from "lucide-react";
 
@@ -12,18 +12,17 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectSeparator,
 } from "@/components/ui/select";
 
 const SearchComponent = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  const [searchQueryParameter, setSearchQueryParameter] = useState("");
 
   const [outerSearchHoverColor, setOuterSearchHoverColor] = React.useState(
     "bg-white border-2 border-black/[0.5]"
   );
-
   const [searchType, setSearchType] = useState("bg-white");
 
   const onSearch = useDebouncedCallback((e) => {
@@ -37,8 +36,9 @@ const SearchComponent = () => {
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  const handleSelectItemClick = () => {
+  const handleSelectItemClick = (e) => {
     setOuterSearchHoverColor("bg-white border-2 border-black/[0.5]");
+    setSearchQueryParameter(e);
   };
 
   return (
@@ -85,15 +85,12 @@ const SearchComponent = () => {
             {" "}
             Name
           </SelectItem>
-          <SelectSeparator />
-          <SelectItem value="storeLocation" className="text-black">
+          <SelectItem value="storeLandmark" className="text-black">
             Location
           </SelectItem>
-          <SelectSeparator />
-          <SelectItem value="StorePhone" className="text-black">
+          <SelectItem value="storePhoneNumber" className="text-black">
             Phone
           </SelectItem>
-          <SelectSeparator />
         </SelectContent>
       </Select>
     </div>

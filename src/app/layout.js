@@ -1,6 +1,7 @@
 import { Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/user/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 const archivo = Archivo({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }) {
           <ReactQueryProvider>
             <Navbar apiKey={apiKey} />
             {children}
+            <Toaster />
           </ReactQueryProvider>
         </SessionProvider>
       </body>
