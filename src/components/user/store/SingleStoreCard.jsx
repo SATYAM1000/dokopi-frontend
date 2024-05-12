@@ -38,13 +38,13 @@ const SingleStoreCard = ({ storeData }) => {
           >
             <div className="w-full h-full">
               <Image
-                src={"/test/store3.avif"}
+                src={"/test/store.jpg"}
                 alt="slide1"
-                width={350}
-                height={250}
+                width={400}
+                height={350}
                 placeholder="blur"
                 blurDataURL="/test/blur.jpeg"
-                className="object-cover"
+                className="h-[245px] object-cover"
               />
             </div>
           </Carousel>

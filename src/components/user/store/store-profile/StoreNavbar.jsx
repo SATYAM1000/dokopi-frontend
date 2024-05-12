@@ -11,17 +11,19 @@ import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
 const StoreNavbar = ({ token, slug }) => {
-  const {  error, data, isError, isLoading } = useQuery({
+  const { error, data, isError, isLoading } = useQuery({
     queryKey: ["storeDetails"],
     queryFn: () =>
       axios.get(`${API_DOMAIN}/api/v1/user/stores/get-store-info/${slug}`),
   });
 
   if (isError) {
-    return <ErrorComponent errorMessage={error?.response?.data?.msg || error?.message } />;
+    return (
+      <ErrorComponent
+        errorMessage={error?.response?.data?.msg || error?.message}
+      />
+    );
   }
-
-
 
   return (
     <section className="w-full">

@@ -10,7 +10,7 @@ export default async function StoresPage() {
         <SearchMobileComponent />
       </Wrapper>
       <StoreContainer />
-      <Footer />
+      
     </section>
   );
 }

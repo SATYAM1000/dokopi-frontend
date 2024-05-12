@@ -311,7 +311,7 @@ const TermsAndConditionPage = () => {
           are provided free of charge, we will not be liable for any loss or
           damage of any nature.
         </p>
-        <Footer />
+        
       </Wrapper>
     </section>
   );
