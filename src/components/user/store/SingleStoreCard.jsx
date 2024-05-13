@@ -51,7 +51,7 @@ const SingleStoreCard = ({ storeData }) => {
         </div>
 
         <div className="w-full flex items-center justify-between">
-          <h5 className="text-[17px] font-medium mt-3 ">
+          <h5 className="text-[17px] font-medium mt-3 text-gray-800 ">
             {storeData?.storeName.length > 25
               ? storeData?.storeName.slice(0, 25) + " ..."
               : storeData?.storeName}
@@ -59,17 +59,17 @@ const SingleStoreCard = ({ storeData }) => {
           <Link
             target="_blank"
             href={`https://www.google.com/maps/dir/?api=1&destination=<span class="math-inline">\{storeData?\.storeLocationCoordinates?\.coordinates\[0\]\},</span>{storeData?.storeLocationCoordinates?.coordinates[1]}`}
-            className="flex items-center justify-center font-medium gap-1 text-[14px] border-2 cursor-pointer border-black/[0.5] bg-black/[0.05] text-black px-2 py-1 rounded-md mt-2"
+            className="flex items-center justify-center font-medium gap-1 text-[13px] border cursor-pointer border-blue-500 bg-blue-100 text-blue-600 px-2 py-1 rounded-md mt-2"
           >
             Direction
             <ArrowUpRight size={17} />
           </Link>
         </div>
-        <p className="text-black font-medium text-[15px] mt-1">
+        <p className="text-gray-800 font-medium text-[15px] mt-1">
           {storeData?.storeLandmark}
         </p>
         <div className="w-full flex items-center justify-between">
-          <p className="text-slate-500 text-[14px]">
+          <p className="text-gray-500 text-medium text-[14px]">
             {storeData?.storeServices?.join(", ").length > 40
               ? storeData?.storeServices?.join(", ").slice(0, 40) + " ..."
               : storeData?.storeServices?.join(", ")}
@@ -93,11 +93,11 @@ const SingleStoreCard = ({ storeData }) => {
         >
           <div className="flex-1 ">
             <div className="flex items-center">
-              <IoMdStar className="text-yellow-500" size={17} />
-              <IoMdStar className="text-yellow-500" size={17} />
-              <IoMdStar className="text-yellow-500" size={17} />
-              <IoMdStar className="text-yellow-500" size={17} />
-              <IoMdStar className="text-yellow-500" size={17} />
+              <IoMdStar className="text-yellow-400" size={17} />
+              <IoMdStar className="text-yellow-400" size={17} />
+              <IoMdStar className="text-yellow-400" size={17} />
+              <IoMdStar className="text-yellow-400" size={17} />
+              <IoMdStar className="text-yellow-400" size={17} />
               <p className="text-gray-500 ml-1 text-[14px] font-medium">(28)</p>
             </div>
 

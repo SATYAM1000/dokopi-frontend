@@ -23,10 +23,10 @@ const CallToAction = () => {
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-6">
-                <button className="bg-blue-600 text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm">
+                <button className="bg-blue-600 font-medium text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm">
                   Get Started
                 </button>
-                <button className="flex items-center justify-center whitespace-nowrap rounded-md border border-zinc-700 bg-zinc-900 text-center text-white backdrop-blur transition-all hover:bg-zinc-800 px-8 py-3 text-xs sm:text-sm">
+                <button className="flex items-center font-medium justify-center whitespace-nowrap rounded-md border border-zinc-700 bg-zinc-900 text-center text-white backdrop-blur transition-all hover:bg-zinc-800 px-8 py-3 text-xs sm:text-sm">
                   Learn More
                 </button>
               </div>

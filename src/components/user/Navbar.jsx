@@ -66,7 +66,7 @@ const Navbar = ({ apiKey }) => {
                 href={"/cart"}
                 className="p-1 relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
               >
-                <IoCartOutline size={30} className="text-black/[0.6]" />
+                <IoCartOutline size={30} className="text-gray-700" />
                 {cartItemCount > 0 ? (
                   <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
                     {cartItemCount}

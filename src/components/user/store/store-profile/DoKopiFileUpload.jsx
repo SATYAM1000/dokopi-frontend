@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertTriangle, FileWarning, Trash } from "lucide-react";
+import { AlertTriangle, FileWarning, Trash, Upload } from "lucide-react";
 import { API_DOMAIN } from "@/lib/constants";
 import axios from "axios";
 
@@ -15,10 +15,12 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "@/providers/redux/reducers/cart-slice";
 import Link from "next/link";
 import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
+import { Progress } from "@/components/ui/progress";
+import { BarLoader } from "react-spinners";
 
 const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const currentUser = useCurrentUser();
@@ -142,7 +144,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       );
 
       const { data } = response;
-      console.log("data is ", data);
       setFileInfo((prev) => ({
         ...prev,
         fileURL: data?.url,
@@ -174,7 +175,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     }
   };
 
-
   const onFinalSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
@@ -183,7 +183,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
           title: "Please login to proceed!",
         }),
         variant: "destructive",
-      })
+      });
       return;
     }
     if (
@@ -315,14 +315,16 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                       </header>
                     ) : showFileUploadProgress ? (
                       <>
-                        <header className="border-dashed border-2 border-gray-600 py-12 flex flex-col justify-center items-center rounded-md h-full">
+                        <header className="border-dashed border border-gray-700 py-12 flex flex-col justify-center items-center rounded-md h-full">
                           <Image
-                            src={"/main/loader.gif"}
+                            src={"/main/new-upload.svg"}
                             alt="loader"
-                            width={70}
-                            height={70}
+                            width={300}
+                            height={300}
+                            priority
                           />
-                          <p className="text-gray-600 px-4 py-2 rounded-md  mt-4 font-medium">
+                          <BarLoader color="#ff788f" />
+                          <p className="text-gray-600 rounded-md  my-2 font-medium ">
                             Uploading...
                           </p>
                         </header>
@@ -332,14 +334,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                         className={`border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full cursor-pointer`}
                         onClick={handleFileInputClick}
                       >
-                        <Image
-                          src={"/main/upload.jpg"}
-                          alt="loader"
-                          width={300}
-                          height={300}
-                          priority
-                        />
-                        <p className="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
+                        <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
                           <span>Drag and drop your</span>&nbsp;
                           <span>files anywhere or</span>
                         </p>
@@ -363,11 +358,11 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                   </div>
                   {/* ----------- printing prefrences------------ */}
                   <div className="min-h-32 rounded-lg bg-white border border-gray-400  p-4">
-                    <p className="font-semibold text-gray-900 ">
+                    <p className="font-semibold text-gray-700 ">
                       Printing Preferences
                     </p>
                     <form
-                      className="mt-4 flex flex-col gap-4 w-full "
+                      className="mt-4 flex flex-col gap-4 w-full text-gray-700 "
                       onSubmit={onFinalSubmit}
                     >
                       {/* -------------- COPIES COUNT------------------- */}

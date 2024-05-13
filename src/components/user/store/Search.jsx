@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import { Handshake, Phone, Search, Store } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ChevronDown } from "lucide-react";
 
@@ -14,6 +14,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 const SearchComponent = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -21,7 +30,7 @@ const SearchComponent = () => {
   const [searchQueryParameter, setSearchQueryParameter] = useState("");
 
   const [outerSearchHoverColor, setOuterSearchHoverColor] = React.useState(
-    "bg-white border-2 border-black/[0.5]"
+    "bg-white border-2 border-gray-700/[0.4]"
   );
   const [searchType, setSearchType] = useState("bg-white");
 
@@ -37,7 +46,7 @@ const SearchComponent = () => {
   }, 300);
 
   const handleSelectItemClick = (e) => {
-    setOuterSearchHoverColor("bg-white border-2 border-black/[0.5]");
+    setOuterSearchHoverColor("bg-white border-2 border-gray-700/[0.4]");
     setSearchQueryParameter(e);
   };
 
@@ -48,7 +57,7 @@ const SearchComponent = () => {
         setOuterSearchHoverColor("bg-gray-200 border-2 border-white ")
       }
       onMouseLeave={() =>
-        setOuterSearchHoverColor("bg-white border-2 border-black/[0.5]")
+        setOuterSearchHoverColor("bg-white border-2 border-gray-700/[0.4]")
       }
     >
       <form
@@ -63,36 +72,45 @@ const SearchComponent = () => {
         <Input
           type="text"
           placeholder="Search store by"
-          className=" h-[40px] text-black  text-[14px] border-none outline-none bg-transparent placeholder:text-gray-700"
+          className=" h-[40px] text-black  text-[14px] border-none outline-none bg-transparent placeholder:text-gray-700 placeholder:font-medium"
           onChange={onSearch}
         />
       </form>
 
-      <Select className="text-gray-700" onValueChange={handleSelectItemClick}>
-        <SelectTrigger
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          asChild
           className={`w-[180px] flex items-center gap-2 px-4 
           rounded-full  cursor-pointer text-gray-700 hover:bg-white h-[100%] border-none transition duration-500 ${searchType}`}
         >
-          <SelectValue
-            className=" text-gray-700 text-[14px] placeholder:text-black"
-            placeholder="Services"
-          />
-
-          <ChevronDown size={20} className="text-gray-700" />
-        </SelectTrigger>
-        <SelectContent className="text-black">
-          <SelectItem value="storeName" className="text-black ">
-            {" "}
-            Name
-          </SelectItem>
-          <SelectItem value="storeLandmark" className="text-black">
-            Location
-          </SelectItem>
-          <SelectItem value="storePhoneNumber" className="text-black">
-            Phone
-          </SelectItem>
-        </SelectContent>
-      </Select>
+          <div className="flex items-center gap-2">
+            <p className="text-gray-700 text-[14px] font-medium">Services</p>
+            <ChevronDown size={20} className="text-gray-700" />
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Search by</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleSelectItemClick}>
+            <div className="flex items-center gap-2 text-gray-700">
+              <Store size={17} className="text-gray-700" />
+              <p>Name</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSelectItemClick} >
+            <div className="flex items-center gap-2 text-gray-700">
+              <Handshake size={17} className="text-gray-700" />
+              <p>Services</p>
+            </div>
+          </DropdownMenuItem >
+          <DropdownMenuItem onClick={handleSelectItemClick}>
+            <div className="flex items-center gap-2 text-gray-700">
+              <Phone size={17} className="text-gray-700" />
+              <p>Phone</p>
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
