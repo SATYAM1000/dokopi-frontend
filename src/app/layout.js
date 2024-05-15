@@ -1,7 +1,7 @@
 import { Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/user/Navbar";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from 'sonner'
 import ReduxProvider from "@/providers/redux/redux-provider";
 const archivo = Archivo({ subsets: ["latin"] });
 
@@ -13,7 +13,6 @@ export const metadata = {
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import Footer from "@/components/user/Footer";
 
 export default async function RootLayout({ children }) {
   const session = await auth();
@@ -27,7 +26,7 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <Navbar apiKey={apiKey} />
               {children}
-              <Toaster />
+              <Toaster richColors  />
             </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>

@@ -59,7 +59,7 @@ const SingleStoreCard = ({ storeData }) => {
           <Link
             target="_blank"
             href={`https://www.google.com/maps/dir/?api=1&destination=<span class="math-inline">\{storeData?\.storeLocationCoordinates?\.coordinates\[0\]\},</span>{storeData?.storeLocationCoordinates?.coordinates[1]}`}
-            className="flex items-center justify-center font-medium gap-1 text-[13px] border cursor-pointer border-blue-500 bg-blue-100 text-blue-600 px-2 py-1 rounded-md mt-2"
+            className="flex items-center justify-center font-medium gap-1 text-[13px] border cursor-pointer border-gray-300 bg-gray-100 text-gray-700 px-2 py-1 rounded-md mt-2"
           >
             Direction
             <ArrowUpRight size={17} />

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import StoreSkelton from "./StoreSkelton";
 import ErrorComponent from "../Error";
+import Footer from "../Footer";
 
 const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,9 +56,11 @@ const StoreContainer = () => {
     <section className="w-full">
       <Wrapper className={"w-full"}>
         <section className="w-full">
-          <h1 className="mt-2 md:mt-0 text-[20px] md:text-2xl font-semibold">Nearest Stores</h1>
+          <h1 className="mt-2 md:mt-0 text-[20px] md:text-2xl font-semibold">
+            Nearest Stores
+          </h1>
           {/* ------------stores container---------- */}
-          <div className="w-full min-h-screen flex flex-col gap-2 ">
+          <div className="w-full min-h-screen flex flex-col gap-2 mt-2 ">
             {isLoading && firstTime ? (
               <StoreSkelton />
             ) : (
@@ -85,6 +88,7 @@ const StoreContainer = () => {
           </div>
         </section>
       </Wrapper>
+      <Footer />
     </section>
   );
 };

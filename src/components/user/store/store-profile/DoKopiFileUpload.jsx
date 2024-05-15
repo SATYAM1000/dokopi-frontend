@@ -5,28 +5,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertTriangle, FileWarning, Trash, Upload } from "lucide-react";
+import {
+  AlertTriangle,
+  File,
+  FileWarning,
+  Trash,
+  Trash2,
+  Upload,
+  X,
+} from "lucide-react";
 import { API_DOMAIN } from "@/lib/constants";
 import axios from "axios";
 
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { extractColorPages } from "@/lib/colorPagesExtractor";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/providers/redux/reducers/cart-slice";
 import Link from "next/link";
 import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
 import { Progress } from "@/components/ui/progress";
-import { BarLoader } from "react-spinners";
 
 const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const currentUser = useCurrentUser();
   const router = useRouter();
   const fileUploadRef = useRef(null);
-  const { toast } = useToast();
   const [pagesInput, setPagesInput] = useState(null);
   const [error, setError] = useState(null);
 
@@ -55,12 +60,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
   const handleFileInputClick = () => {
     if (fileInfo?.fileURL) {
-      toast({
-        title: alertToast({
-          title: "File already uploaded!",
-        }),
-        variant: "destructive",
-      });
+      toast.error("File already uploaded");
       return;
     }
     fileUploadRef.current.value = null;
@@ -69,11 +69,8 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
   const onFileUpload = async (e) => {
     if (!currentUser || !token) {
-      toast({
-        title: alertToast({
-          title: "Please login to proceed!",
-        }),
-        variant: "destructive",
+      toast.error("Login required", {
+        description: "Please login to proceed",
       });
       router.replace("/auth/sign-in");
       return;
@@ -81,12 +78,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
     const file = e.target.files[0];
     if (!file) {
-      toast({
-        title: alertToast({
-          title: "Please select a file!",
-        }),
-        variant: "destructive",
-      });
+      toast.error("File is required");
       return;
     }
 
@@ -94,11 +86,8 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     const allowedExtensions = ["pdf", "jpg", "jpeg", "png", "docx", "odt"];
 
     if (!allowedExtensions.includes(uploadedFileExtension)) {
-      toast({
-        title: alertToast({
-          title: "Only PDF, JPG, JPEG, PNG, DOCX, ODT are allowed!",
-        }),
-        variant: "destructive",
+      toast.error("Invalid file type", {
+        description: "Only PDF, JPG, JPEG, PNG, DOCX are allowed",
       });
       return;
     }
@@ -112,84 +101,79 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     formData.append("file", file);
     setFiles((prev) => [...prev, { name: fileOriginalName, loading: 0 }]);
     setShowFileUploadProgress(true);
-    try {
-      const response = await axios.post(
-        `${API_DOMAIN}/api/v1/user/files/upload`,
-        formData,
-        {
+
+    const uploadPromise = new Promise((resolve, reject) => {
+      axios
+        .post(`${API_DOMAIN}/api/v1/user/files/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setFiles((prev) => [
-              ...prev,
-              { name: fileOriginalName, loading: percentCompleted },
-            ]);
-            const fileSize =
-              progressEvent.total < 1024
-                ? `${progressEvent.total}B`
-                : progressEvent.total < 1024 * 1024
-                ? `${(progressEvent.total / 1024).toFixed(2)}KB`
-                : `${(progressEvent.total / (1024 * 1024)).toFixed(2)}MB`;
+          onUploadProgress: ({ loaded, total }) => {
+            setFiles((prev) => {
+              const newFiles = [...prev];
+              newFiles[newFiles.length - 1].loading = Math.floor(
+                (loaded / total) * 100
+              );
+              return newFiles;
+            });
 
-            setFileInfo((prev) => ({
-              ...prev,
-              fileSize: fileSize,
-            }));
+            if (loaded == total) {
+              const fileSize =
+                total < 1024
+                  ? `${total} KB`
+                  : `${(loaded / (1024 * 1024)).toFixed(2)} MB`;
+
+              setFileInfo((prev) => ({
+                ...prev,
+                fileSize: fileSize,
+              }));
+            }
           },
-        }
-      );
+        })
+        .then((response) => {
+          const { data } = response;
+          setFileInfo((prev) => ({
+            ...prev,
+            fileURL: data?.url,
+            fileOriginalName: fileOriginalName,
+            fileExtension: uploadedFileExtension,
+            filePageCount: data?.pageCount,
+          }));
 
-      const { data } = response;
-      setFileInfo((prev) => ({
-        ...prev,
-        fileURL: data?.url,
-        fileOriginalName: fileOriginalName,
-        fileExtension: uploadedFileExtension,
-        filePageCount: data?.pageCount,
-      }));
-      toast({
-        title: alertToast({
-          title: "File uploaded successfully",
-        }),
-      });
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
 
-      setIsFileUploadedSuccessfully(true);
-      setShowFileUploadProgress(false);
-      return;
-    } catch (error) {
-      setShowFileUploadProgress(false);
-      toast({
-        title: alertToast({
-          title:
-            error?.message ||
-            error?.response?.data?.msg ||
-            "Something went wrong!",
-        }),
-        variant: "destructive",
-      });
-      console.log("error is ", error);
-      return;
-    }
+    toast.promise(uploadPromise, {
+      loading: "Uploading...",
+      success: () => {
+        setShowFileUploadProgress(false);
+        setIsFileUploadedSuccessfully(true);
+        return "File uploaded successfully!";
+      },
+      error: (error) => {
+        setShowFileUploadProgress(false);
+        return (
+          error?.response?.data?.msg || error?.message || "Something went wrong"
+        );
+      },
+    });
   };
 
   const onFinalSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
-      toast({
-        title: alertToast({
-          title: "Please login to proceed!",
-        }),
-        variant: "destructive",
+      toast.error("Login required", {
+        description: "Please login to proceed",
       });
+
       return;
     }
     if (
-      // Check if all required fields are filled
       !fileInfo?.fileURL ||
       !fileInfo?.filePageCount ||
       !fileInfo?.fileOriginalName ||
@@ -200,12 +184,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       !fileInfo?.fileColorType ||
       !fileInfo?.filePrintMode
     ) {
-      toast({
-        title: alertToast({
-          title: "Please fill all the required fields!",
-        }),
-        variant: "destructive",
-      });
+      toast.error("Please fill all the required fields!");
       return;
     }
 
@@ -214,7 +193,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       fileInfo.fileURL,
       encryptionKey
     );
-    console.log(encryptedFileURL);
 
     // Update state with encrypted file URL
     setFileInfo((prev) => ({
@@ -248,11 +226,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     });
 
     // Notify user
-    toast({
-      title: alertToast({
-        title: "File added successfully",
-      }),
-    });
+    toast.success("File added successfully");
 
     setIsFileUploadedSuccessfully(false);
   };
@@ -293,39 +267,43 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                   <div className="min-h-32 rounded-lg bg-white">
                     {isFileUploadedSuccessfully ? (
                       <header
-                        className={`border-dashed border border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full `}
+                        className={`border-dashed border border-gray-400 flex rounded-md h-full px-4 py-4`}
                       >
-                        <Image
-                          src={"/main/file.jpg"}
-                          alt="loader"
-                          width={300}
-                          height={300}
-                          priority
-                        />
-                        <p className="text-gray-600 rounded-md  my-2 font-medium ">
-                          {fileInfo?.fileOriginalName}
-                        </p>
-                        <div className="flex items-center gap-4">
-                          <button className="text-emerald-500 h-[40px] bg-emerald-100 px-4 py-2 rounded-md text-[14px]">
-                            File Uploaded Successfully
-                          </button>
-
-                          <div className="px-3 py-3 h-[40px] bg-red-100 text-red-600 flex items-center justify-center rounded-md cursor-pointer">
-                            <Trash size={17} />
+                        {/* ----------uploaded file info----------- */}
+                        <div className="w-full max-h-[70px] p-2 border-2 border-gray-700 rounded-md flex items-center ">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center justify-center px-2 py-2 border border-gray-300 rounded-md">
+                                <File size={22} className="text-black" />
+                              </div>
+                              <div className="flex flex-col">
+                                <p className="text-gray-700 text-[16px]">
+                                  {fileInfo?.fileOriginalName?.length > 20
+                                    ? fileInfo?.fileOriginalName.slice(0, 20) +
+                                      "..."
+                                    : fileInfo?.fileOriginalName}
+                                </p>
+                                <div className="flex items-center gap-4">
+                                  <p className="text-gray-500 text-[13px]">
+                                    {fileInfo?.fileSize}
+                                  </p>
+                                  <p className="text-gray-500 text-[13px]">
+                                    {fileInfo?.filePageCount} pages
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center">
+                              <Trash2 size={20} className="text-red-500" />
+                            </div>
                           </div>
                         </div>
                       </header>
                     ) : showFileUploadProgress ? (
                       <>
                         <header className="border-dashed border border-gray-700 py-12 flex flex-col justify-center items-center rounded-md h-full">
-                          <Image
-                            src={"/main/new-upload.svg"}
-                            alt="loader"
-                            width={300}
-                            height={300}
-                            priority
-                          />
-                          <BarLoader color="#ff788f" />
+                          <Progress value={files[0]?.loading} />
+                          {files[0]?.loading}
                           <p className="text-gray-600 rounded-md  my-2 font-medium ">
                             Uploading...
                           </p>
@@ -337,7 +315,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                         onClick={handleFileInputClick}
                       >
                         <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
-                          <span>Drag and drop your</span>&nbsp;
+                          <span>Drag and drop or</span>&nbsp;
                           <span>files anywhere or</span>
                         </p>
                         <input
@@ -678,7 +656,10 @@ const alertToast = ({ title, description = "" }) => {
   return (
     <div className="flex items-center gap-2">
       <AlertTriangle className=" h-4 w-4" />
-      <p>{title}</p>
+      <div className="flex flex-col">
+        <p className="font-medium">{title}</p>
+        <p>{description}</p>
+      </div>
     </div>
   );
 };
