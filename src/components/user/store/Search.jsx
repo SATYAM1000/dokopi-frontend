@@ -99,7 +99,7 @@ const SearchComponent = () => {
           >
             <div className="flex flex-col text-gray-700 cursor-pointer">
               <p className="text-[13px]">Name </p>
-              <p className="text-[11px] text-gray-600">Find stores by name</p>
+              <p className="text-[12px] text-gray-600">Find stores by name</p>
             </div>
           </DropdownMenuItem>
 
@@ -110,7 +110,7 @@ const SearchComponent = () => {
           >
             <div className="flex flex-col text-gray-700 cursor-pointer">
               <p className="text-[13px]">Phone</p>
-              <p className="text-[11px] text-gray-600">
+              <p className="text-[12px] text-gray-600">
                 Find stores by phone number
               </p>
             </div>
@@ -122,7 +122,7 @@ const SearchComponent = () => {
           >
             <div className="flex flex-col text-gray-700 cursor-pointer">
               <p className="text-[13px]">Location </p>
-              <p className="text-[11px] text-gray-600">Find stores by location</p>
+              <p className="text-[12px] text-gray-600">Find stores by location</p>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
