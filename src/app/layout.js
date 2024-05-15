@@ -27,7 +27,6 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <Navbar apiKey={apiKey} />
               {children}
-              <Footer />
               <Toaster />
             </ReduxProvider>
           </ReactQueryProvider>

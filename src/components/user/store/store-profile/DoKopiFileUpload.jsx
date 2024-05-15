@@ -76,6 +76,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
         variant: "destructive",
       });
       router.replace("/auth/sign-in");
+      return;
     }
 
     const file = e.target.files[0];
@@ -172,6 +173,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
         variant: "destructive",
       });
       console.log("error is ", error);
+      return;
     }
   };
 
