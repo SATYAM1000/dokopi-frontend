@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { Check, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
 const UploadedFile = ({
   fileInfo,
@@ -34,10 +35,10 @@ const UploadedFile = ({
 
   return (
     <section
-      className="border border-primary/[0.3] shadow-sm rounded-md px-4 py-2 w-full flex items-center justify-between gap-4 overflow-hidden
-     hover:border-black/[0.4] hover:bg-gray-100 "
+      className="border relative  border-blue-500/[0.3] rounded-md px-4 py-2 w-full flex items-center justify-between gap-4 overflow-hidden
+     hover:border-blue-500/[0.5] bg-blue-50 "
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 relative ">
         <div className="h-[60px] w-[40px] overflow-hidden shrink-0 flex items-center justify-center">
           <Image
             src={"/file-icons/pdf.svg"}
@@ -48,28 +49,29 @@ const UploadedFile = ({
         </div>
         <div className="flex flex-col">
           <p className=" text-[13px] md:text-[15px] font-medium text-gray-700">
-            {fileInfo?.fileOriginalName}
+            {fileInfo?.fileOriginalName
+              ? fileInfo?.fileOriginalName
+              : "No name available"}
           </p>
           <div className="flex items-center gap-4">
             <p className="text-[11px] md:text-[13px] text-gray-500">
-              {fileInfo?.fileSize}
+              {fileInfo?.fileSize ? fileInfo?.fileSize : "No size available"}
             </p>
             <p className="text-[11px] md:text-[13px] text-gray-500 ">
-              {fileInfo?.filePageCount} pages
+              {fileInfo?.filePageCount ? fileInfo?.filePageCount : 0} pages
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <div
-          className="p-2 flex items-center justify-center rounded-md 
-          cursor-pointer
-          border  border-green-500/[0.5]
-          bg-green-50 text-green-500 hover:bg-green-100 hover:text-green-500"
+
+        <Badge
+          className={
+            "mt-1 hidden md:flex max-w-fit text-[10px] bg-blue-500 hover:bg-blue-500"
+          }
         >
-          {" "}
-          <Check className="text-green-500 " size={20} />
-        </div>
+          Uploaded
+        </Badge>
 
         <div
           onClick={onFileRemove}

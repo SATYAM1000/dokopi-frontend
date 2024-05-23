@@ -34,7 +34,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const [shake, setShake] = useState(false);
   const [showFileUploadProgress, setShowFileUploadProgress] = useState(false);
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
-    useState(false);
+    useState(true);
 
   const dispatch = useDispatch();
 
@@ -277,10 +277,10 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                           : "Upload File"}
                       </h1>
                     </div>
-                    <div className=" rounded-lg bg-white mt-4">
+                    <div className=" rounded-lg bg-white mt-4 p-2">
                       {isFileUploadedSuccessfully ? (
                         <header
-                          className={`overflow-hidden  rounded-md w-full max-h-fit`}
+                          className={`overflow-hidden  rounded-md w-full max-h-fit `}
                         >
                           <UploadedFile fileInfo={fileInfo} 
                           setFileInfo={setFileInfo}

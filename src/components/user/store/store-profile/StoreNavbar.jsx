@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DoKopiStoreOverview from "./DoKopiStoreOverview";
 import DoKopiFileUpload from "./DoKopiFileUpload";
@@ -11,6 +11,20 @@ import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
 const StoreNavbar = ({ token, slug, encryptionKey }) => {
+  const [activeTab, setActiveTab] = useState("upload-files");
+
+  useEffect(() => {
+    const savedTab = localStorage.getItem("activeTab");
+    if (savedTab) {
+      setActiveTab(savedTab);
+    }
+  }, []);
+
+  const handleTabChange = (value) => {
+    setActiveTab(value);
+    localStorage.setItem("activeTab", value);
+  };
+
   const { error, data, isError, isLoading } = useQuery({
     queryKey: ["storeDetails"],
     queryFn: () =>
@@ -31,7 +45,12 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
         {isLoading ? (
           <SingleStoreSkelton />
         ) : (
-          <Tabs defaultValue="upload-files" className="w-full mt-4">
+          <Tabs
+            defaultValue={activeTab}
+            value={activeTab}
+            className="w-full mt-4"
+            onValueChange={handleTabChange}
+          >
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="upload-files">Upload files</TabsTrigger>
