@@ -5,15 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  AlertTriangle,
-  File,
-  FileWarning,
-  Trash,
-  Trash2,
-  Upload,
-  X,
-} from "lucide-react";
+
 import { API_DOMAIN } from "@/lib/constants";
 import axios from "axios";
 
@@ -26,7 +18,10 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/providers/redux/reducers/cart-slice";
 import Link from "next/link";
 import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
-import { Progress } from "@/components/ui/progress";
+import { ClipLoader } from "react-spinners";
+import UploadedFile from "./UploadedFile";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const currentUser = useCurrentUser();
@@ -36,6 +31,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const [error, setError] = useState(null);
 
   const [files, setFiles] = useState([]);
+  const [shake, setShake] = useState(false);
   const [showFileUploadProgress, setShowFileUploadProgress] = useState(false);
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
@@ -43,6 +39,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const dispatch = useDispatch();
 
   const [fileInfo, setFileInfo] = useState({
+    id: null,
     fileURL: null,
     fileOriginalName: null,
     fileSize: null,
@@ -135,6 +132,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
           const { data } = response;
           setFileInfo((prev) => ({
             ...prev,
+            id: uuidv4(),
             fileURL: data?.url,
             fileOriginalName: fileOriginalName,
             fileExtension: uploadedFileExtension,
@@ -185,6 +183,9 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       !fileInfo?.filePrintMode
     ) {
       toast.error("Please fill all the required fields!");
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+
       return;
     }
 
@@ -204,12 +205,13 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     dispatch(addToCart({ ...fileInfo, fileURL: encryptedFileURL }));
 
     // Save file info to local storage
-    const file = JSON.parse(localStorage.getItem("file")) || [];
-    file.push({ ...fileInfo, fileURL: encryptedFileURL });
-    localStorage.setItem("file", JSON.stringify(file));
+    const uploadedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+    uploadedFiles.push({ ...fileInfo, fileURL: encryptedFileURL });
+    localStorage.setItem("uploadedFiles", JSON.stringify(uploadedFiles));
 
     // Reset fileInfo state
     setFileInfo({
+      id: null,
       fileURL: null,
       fileOriginalName: null,
       fileSize: null,
@@ -250,7 +252,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   };
 
   return (
-    <section className="w-full pb-8">
+    <section className="w-full">
       <section className="w-full">
         <div className=" h-auto">
           <main className="h-full">
@@ -264,80 +266,75 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
               {/* <!-- scroll area --> */}
               <section className="h-full overflow-auto p-0 py-4 md:p-4 w-full flex flex-col">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-                  <div className="min-h-32 rounded-lg bg-white">
-                    {isFileUploadedSuccessfully ? (
-                      <header
-                        className={`border-dashed border border-gray-400 flex rounded-md h-full px-4 py-4`}
-                      >
-                        {/* ----------uploaded file info----------- */}
-                        <div className="w-full max-h-[70px] p-2 border-2 border-gray-700 rounded-md flex items-center ">
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center justify-center px-2 py-2 border border-gray-300 rounded-md">
-                                <File size={22} className="text-black" />
-                              </div>
-                              <div className="flex flex-col">
-                                <p className="text-gray-700 text-[16px]">
-                                  {fileInfo?.fileOriginalName?.length > 20
-                                    ? fileInfo?.fileOriginalName.slice(0, 20) +
-                                      "..."
-                                    : fileInfo?.fileOriginalName}
-                                </p>
-                                <div className="flex items-center gap-4">
-                                  <p className="text-gray-500 text-[13px]">
-                                    {fileInfo?.fileSize}
-                                  </p>
-                                  <p className="text-gray-500 text-[13px]">
-                                    {fileInfo?.filePageCount} pages
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex items-center">
-                              <Trash2 size={20} className="text-red-500" />
-                            </div>
-                          </div>
-                        </div>
-                      </header>
-                    ) : showFileUploadProgress ? (
-                      <>
-                        <header className="border-dashed border border-gray-700 py-12 flex flex-col justify-center items-center rounded-md h-full">
-                          <Progress value={files[0]?.loading} />
-                          {files[0]?.loading}
-                          <p className="text-gray-600 rounded-md  my-2 font-medium ">
-                            Uploading...
-                          </p>
-                        </header>
-                      </>
-                    ) : (
-                      <header
-                        className={`border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full cursor-pointer`}
-                        onClick={handleFileInputClick}
-                      >
-                        <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
-                          <span>Drag and drop or</span>&nbsp;
-                          <span>files anywhere or</span>
-                        </p>
-                        <input
-                          id="hidden-input"
-                          type="file"
-                          name="file"
-                          className="hidden"
-                          ref={fileUploadRef}
-                          onChange={onFileUpload}
-                        />
-                        <Button
-                          id="button"
-                          size="sm"
-                          className="mt-2 rounded-sm px-3 py-1  "
+                  {/* --------file upload area---------------- */}
+                  <div
+                    className={`w-full flex flex-col h-auto rounded-lg  border border-gray-400  p-4`}
+                  >
+                    <div className="w-full flex flex-col">
+                      <h1 className="font-semibold text-gray-700">
+                        {isFileUploadedSuccessfully
+                          ? "Uploaded File"
+                          : "Upload File"}
+                      </h1>
+                    </div>
+                    <div className=" rounded-lg bg-white mt-4">
+                      {isFileUploadedSuccessfully ? (
+                        <header
+                          className={`overflow-hidden  rounded-md w-full max-h-fit`}
                         >
-                          Select a file
-                        </Button>
-                      </header>
-                    )}
+                          <UploadedFile fileInfo={fileInfo} 
+                          setFileInfo={setFileInfo}
+                          setIsFileUploadedSuccessfully={setIsFileUploadedSuccessfully} />
+                        </header>
+                      ) : (
+                        <header
+                          className={`border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full cursor-pointer`}
+                          onClick={handleFileInputClick}
+                        >
+                          {showFileUploadProgress ? (
+                            <>
+                              <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
+                                Processing your upload, just a moment...
+                              </p>
+                            </>
+                          ) : (
+                            <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
+                              <span>Drag and drop or</span>&nbsp;
+                              <span>files anywhere or</span>
+                            </p>
+                          )}
+                          <input
+                            id="hidden-input"
+                            type="file"
+                            name="file"
+                            className="hidden"
+                            ref={fileUploadRef}
+                            onChange={onFileUpload}
+                          />
+                          <Button
+                            id="button"
+                            size="sm"
+                            className="mt-2 rounded-sm px-3 py-1 flex items-center justify-center gap-2 "
+                          >
+                            {showFileUploadProgress ? (
+                              <>
+                                <ClipLoader color="#fff" size={20} />
+                                <p>Uploading...</p>
+                              </>
+                            ) : (
+                              "Upload File"
+                            )}
+                          </Button>
+                        </header>
+                      )}
+                    </div>
                   </div>
                   {/* ----------- printing prefrences------------ */}
-                  <div className="min-h-32 rounded-lg bg-white border border-gray-400  p-4">
+                  <div
+                    className={`min-h-32 rounded-lg  border border-gray-400  p-4 ${
+                      shake && "animate-shake"
+                    }`}
+                  >
                     <p className="font-semibold text-gray-700 ">
                       Printing Preferences
                     </p>
@@ -632,7 +629,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                       >
                         <Button type="submit">Upload more</Button>
                         <Link href={"/cart"}>
-                          <Button className="w-full">Checkout</Button>
+                          <Button className="w-full ">Checkout</Button>
                         </Link>
                       </div>
                     </form>
@@ -648,18 +645,3 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 };
 
 export default DoKopiFileUpload;
-
-const alertToast = ({ title, description = "" }) => {
-  if (!title) {
-    return;
-  }
-  return (
-    <div className="flex items-center gap-2">
-      <AlertTriangle className=" h-4 w-4" />
-      <div className="flex flex-col">
-        <p className="font-medium">{title}</p>
-        <p>{description}</p>
-      </div>
-    </div>
-  );
-};

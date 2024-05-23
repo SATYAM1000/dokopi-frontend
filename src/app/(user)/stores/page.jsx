@@ -1,4 +1,3 @@
-import Footer from "@/components/user/Footer";
 import Wrapper from "@/components/user/Wrapper";
 import SearchMobileComponent from "@/components/user/store/SearchMobileComponent";
 import StoreContainer from "@/components/user/store/StoreContainer";
@@ -10,7 +9,6 @@ export default async function StoresPage() {
         <SearchMobileComponent />
       </Wrapper>
       <StoreContainer />
-      
     </section>
   );
 }

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const svgToDataUri = require("mini-svg-data-uri");
-import animations from '@midudev/tailwind-animations'
+import animations from "@midudev/tailwind-animations";
 
 const colors = require("tailwindcss/colors");
 const {
@@ -79,6 +79,7 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shake: "shake 1s cubic-bezier(.36, .07, .19, .97) both",
       },
     },
   },

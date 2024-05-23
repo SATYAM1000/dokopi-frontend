@@ -14,7 +14,7 @@ const SingleStoreCard = ({ storeData }) => {
 
   return (
     <motion.section
-      className="rounded-xl shadow-md border"
+      className="rounded-xl shadow-md border hover:border-black/[0.4]"
       initial="hidden"
       animate="visible"
       variants={{

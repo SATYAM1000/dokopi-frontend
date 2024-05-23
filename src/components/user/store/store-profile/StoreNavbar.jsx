@@ -31,7 +31,7 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
         {isLoading ? (
           <SingleStoreSkelton />
         ) : (
-          <Tabs defaultValue="upload-files" className="w-full mt-2">
+          <Tabs defaultValue="upload-files" className="w-full mt-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="upload-files">Upload files</TabsTrigger>
