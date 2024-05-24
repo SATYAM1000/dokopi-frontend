@@ -57,7 +57,7 @@ const DoKopiStoreShop = () => {
                           </span>
                         </p>
                         <button
-                          className={` font-medium py-0 px-3 rounded-sm bg-gray-100 text-black/[0.9] hover:bg-gray-200 border border-gray-500/[0.4]`}
+                          className={` font-medium py-0 px-3 rounded-sm bg-gray-200 text-black/[0.9] hover:bg-gray-200 border border-gray-700/[0.4]`}
                         >
                           Add
                         </button>

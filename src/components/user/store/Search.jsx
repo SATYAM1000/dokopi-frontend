@@ -97,9 +97,9 @@ const SearchComponent = () => {
             onClick={onClickName}
             className={searchQueryParameter === "Name" ? "bg-gray-200" : ""}
           >
-            <div className="flex flex-col text-gray-700 cursor-pointer">
-              <p className="text-[13px]">Name </p>
-              <p className="text-[12px] text-gray-600">Find stores by name</p>
+            <div className="flex flex-col text-black cursor-pointer">
+              <p className="text-[13px] font-medium">Name </p>
+              <p className="text-[12px] text-gray-800">Find stores by name</p>
             </div>
           </DropdownMenuItem>
 
@@ -109,8 +109,8 @@ const SearchComponent = () => {
             className={searchQueryParameter === "Phone" ? "bg-gray-200" : ""}
           >
             <div className="flex flex-col text-gray-700 cursor-pointer">
-              <p className="text-[13px]">Phone</p>
-              <p className="text-[12px] text-gray-600">
+              <p className="text-[13px] text-black font-medium">Phone</p>
+              <p className="text-[12px] text-gray-800">
                 Find stores by phone number
               </p>
             </div>
@@ -121,8 +121,8 @@ const SearchComponent = () => {
             className={searchQueryParameter === "Location" ? "bg-gray-200" : ""}
           >
             <div className="flex flex-col text-gray-700 cursor-pointer">
-              <p className="text-[13px]">Location </p>
-              <p className="text-[12px] text-gray-600">Find stores by location</p>
+              <p className="text-[13px] text-black font-medium">Location </p>
+              <p className="text-[12px] text-gray-800">Find stores by location</p>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>

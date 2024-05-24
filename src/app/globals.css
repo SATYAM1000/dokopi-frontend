@@ -112,3 +112,8 @@
     transform: translateX(4px);
   }
 }
+
+.scrollable {
+  max-height: calc(100vh - 80px); /* Viewport height minus navbar height */
+  overflow-y: auto;
+}
