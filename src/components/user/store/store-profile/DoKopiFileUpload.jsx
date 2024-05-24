@@ -34,7 +34,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const [shake, setShake] = useState(false);
   const [showFileUploadProgress, setShowFileUploadProgress] = useState(false);
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
-    useState(true);
+    useState(false);
 
   const dispatch = useDispatch();
 
