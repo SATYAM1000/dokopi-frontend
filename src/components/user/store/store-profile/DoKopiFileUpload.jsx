@@ -314,7 +314,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                           <Button
                             id="button"
                             size="sm"
-                            className="mt-2 rounded-sm px-3 py-1 flex items-center justify-center gap-2 "
+                            className="mt-2 bg-blue-600 hover:bg-blue-800 rounded-sm px-3 py-1 flex items-center justify-center gap-2 "
                           >
                             {showFileUploadProgress ? (
                               <>
@@ -627,9 +627,9 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                       items-center gap-4
                       "
                       >
-                        <Button type="submit">Upload more</Button>
+                        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-800">Upload more</Button>
                         <Link href={"/cart"}>
-                          <Button className="w-full ">Checkout</Button>
+                          <Button className="w-full bg-blue-600 hover:bg-blue-800 ">Checkout</Button>
                         </Link>
                       </div>
                     </form>

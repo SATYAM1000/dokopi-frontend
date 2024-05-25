@@ -28,15 +28,15 @@ const DoKopiStoreShop = () => {
             : Array(7)
                 .fill(0)
                 .map((_, index) => (
-                  <section className="rounded-xl shadow-sm hover:scale-105   border border-black/[0.2]  transition-all duration-100">
+                  <section className="rounded-xl shadow border border-blue-600/[0.2]  transition-all duration-100">
                     <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
-                      <div className="overflow-hidden  border-b border-black/[0.2]">
+                      <div className="overflow-hidden  border-b border-blue-600/[0.4]">
                         <Image
                           src="/test/product.webp"
                           alt="store"
                           width={350}
                           height={350}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
                           loading="lazy"
                         />
                       </div>
@@ -49,7 +49,7 @@ const DoKopiStoreShop = () => {
 
                       <div className="w-full flex items-center justify-between">
                         <p className="text-[13px] font-medium">
-                          <del className="text-[13px] font-medium text-gray-400">
+                          <del className="text-[13px] font-medium text-gray-500">
                             ₹ 1,000
                           </del>
                           <span className="text-[13px] font-medium ml-2 text-gray-700">
@@ -57,7 +57,7 @@ const DoKopiStoreShop = () => {
                           </span>
                         </p>
                         <button
-                          className={` font-medium py-0 px-3 rounded-sm bg-gray-200 text-black/[0.9] hover:bg-gray-200 border border-gray-700/[0.4]`}
+                          className={` font-medium py-0.5 px-3 rounded-sm bg-blue-100 text-blue-600 hover:bg-blue-200 border border-blue-700/[0.4]`}
                         >
                           Add
                         </button>

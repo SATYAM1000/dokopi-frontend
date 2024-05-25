@@ -21,16 +21,7 @@ const DoKopiStoreOverview = () => {
           </h2>
           <div className="flex flex-col gap-3 mt-2">
             <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
+
             <Review />
           </div>
         </div>

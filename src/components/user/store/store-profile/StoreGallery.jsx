@@ -8,6 +8,7 @@ const StoreGallery = () => {
         <>
             <div className="w-full h-60 md:hidden">
                 <img
+                    loading="lazy"
                     src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
                     alt="restaurant"
                     className="w-full h-full object-cover object-center rounded-lg"
@@ -16,6 +17,7 @@ const StoreGallery = () => {
             <div className="hidden w-full h-96 md:flex gap-1">
                 <div className="w-full h-full overflow-hidden rounded-lg">
                     <img
+                        loading="lazy"
                         src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
                         alt="restaurant"
                         className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
@@ -24,6 +26,7 @@ const StoreGallery = () => {
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                     <div className="w-full h-2/4 overflow-hidden rounded-lg">
                         <img
+                            loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
                             alt="restaurant"
                             className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
@@ -31,6 +34,7 @@ const StoreGallery = () => {
                     </div>
                     <div className="w-full h-2/4 overflow-hidden rounded-lg">
                         <img
+                            loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
                             alt="restaurant"
                             className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
@@ -40,6 +44,7 @@ const StoreGallery = () => {
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                     <div className="w-full h-2/4 relative">
                         <img
+                            loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
                             alt="restaurant"
                             className="w-full h-full object-cover object-center rounded-lg"
