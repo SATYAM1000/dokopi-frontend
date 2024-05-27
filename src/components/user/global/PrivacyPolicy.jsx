@@ -1,7 +1,6 @@
 import React from "react";
 import Wrapper from "./Wrapper";
-import Footer from "./global/Footer";
-
+import Footer from "./Footer";
 const PrivacyPolicy = () => {
   return (
     <section className="w-full">
