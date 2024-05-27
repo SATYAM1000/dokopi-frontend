@@ -1,4 +1,4 @@
-import DoKopiUserOrderHistory from "@/components/user/UserOrderHistory";
+import DoKopiUserOrderHistory from "@/components/user/global/UserOrderHistory";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { useAccessToken } from "@/hooks/use-access-token";

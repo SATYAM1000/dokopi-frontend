@@ -1,4 +1,3 @@
-import Footer from "@/components/user/global/Footer";
 import Wrapper from "@/components/user/global/Wrapper";
 import React from "react";
 
