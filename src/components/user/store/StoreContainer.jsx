@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Wrapper from "../Wrapper";
+import Wrapper from "../global/Wrapper";
 import SingleStoreCard from "./SingleStoreCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import StoreSkelton from "./StoreSkelton";
-import ErrorComponent from "../Error";
-import Footer from "../Footer";
+import ErrorComponent from "../global/Error";
+import Footer from "../global/Footer";
 
 const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,4 +1,4 @@
-import Wrapper from "@/components/user/Wrapper";
+import Wrapper from "@/components/user/global/Wrapper";
 import SearchMobileComponent from "@/components/user/store/SearchMobileComponent";
 import StoreContainer from "@/components/user/store/StoreContainer";
 

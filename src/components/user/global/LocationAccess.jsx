@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { getUserCoordinates } from "@/lib/getlocation";
 
 import { ChevronDown } from "lucide-react";
@@ -23,7 +23,6 @@ const LocationAccess = ({ apiKey }) => {
   const [success, setSuccess] = useState(null);
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
 
   useEffect(() => {
     const address = localStorage.getItem("userAddress");

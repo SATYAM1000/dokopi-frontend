@@ -1,5 +1,5 @@
 import React from "react";
-import Wrapper from "../../Wrapper";
+import Wrapper from "../../global/Wrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Wrapper from "../Wrapper";
+import Wrapper from "../global/Wrapper";
 
 const CallToAction = () => {
   return (
@@ -16,10 +16,12 @@ const CallToAction = () => {
             <div className="flex w-full flex-wrap items-center justify-between gap-4 px-8 py-10 sm:px-16 lg:flex-nowrap">
               <div className="lg:max-w-xl">
                 <h2 className="block w-full pb-2 bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl">
-                List Your Xerox Store
+                  List Your Xerox Store
                 </h2>
                 <p className="my-4 bg-transparent font-medium leading-relaxed tracking-wide text-gray-400">
-                Easily add your xerox store to our platform by providing your phone number. Reach more customers and grow your business with our user-friendly listing process.
+                  Easily add your xerox store to our platform by providing your
+                  phone number. Reach more customers and grow your business with
+                  our user-friendly listing process.
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-6">

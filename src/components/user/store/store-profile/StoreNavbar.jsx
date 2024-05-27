@@ -4,9 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DoKopiStoreOverview from "./DoKopiStoreOverview";
 import DoKopiFileUpload from "./DoKopiFileUpload";
 import DoKopiStoreShop from "./DoKopiStoreShop";
-import Wrapper from "../../Wrapper";
+import Wrapper from "../../global/Wrapper";
 import { useQuery } from "@tanstack/react-query";
-import ErrorComponent from "../../Error";
+import ErrorComponent from "../../global/Error";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
@@ -52,8 +52,8 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
             onValueChange={handleTabChange}
           >
             <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="upload-files">Upload files</TabsTrigger>
+              <TabsTrigger value="overview">Store Overview</TabsTrigger>
+              <TabsTrigger value="upload-files">Upload Files</TabsTrigger>
               <TabsTrigger value="shop">Shop</TabsTrigger>
             </TabsList>
 

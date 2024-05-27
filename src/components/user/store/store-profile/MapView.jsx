@@ -43,28 +43,30 @@ const MapView = () => {
       </div>
       <div>
         <h4 className="text-xl font-normal">Direction</h4>
-        <div className="w-full h-48 mt-2">
-          <MapContainer
-            center={mapLocation}
-            zoom={13}
-            scrollWheelZoom={false}
-            className="h-full -z-20"
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={mapLocation}>
-              <Popup>{title}</Popup>
-            </Marker>
-          </MapContainer>
-        </div>
+        {typeof window !== "undefined" && (
+          <div className="w-full h-48 mt-2">
+            <MapContainer
+              center={mapLocation}
+              zoom={13}
+              scrollWheelZoom={false}
+              className="h-full -z-20"
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={mapLocation}>
+                <Popup>{title}</Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+        )}
       </div>
       <div className="flex items-center gap-3">
         <p className="text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer text-sm flex items-center gap-2">
           Jadav Nagar, Lane No. 1 , New Delhi, India
           <span>
-            <ExternalLink size={18} />
+            {typeof window !== "undefined" && <ExternalLink size={18} />}
           </span>
         </p>
       </div>

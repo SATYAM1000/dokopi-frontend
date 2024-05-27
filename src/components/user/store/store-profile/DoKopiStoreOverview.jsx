@@ -4,7 +4,6 @@ import StoreGallery from "./StoreGallery";
 import StoreInfo from "./StoreInfo";
 import Review from "./Review";
 import MapView from "./MapView";
-import ErrorComponent from "../../Error";
 
 const DoKopiStoreOverview = () => {
   return (

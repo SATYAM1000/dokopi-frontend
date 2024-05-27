@@ -1,7 +1,7 @@
 import { Archivo } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/user/Navbar";
-import { Toaster } from 'sonner'
+import Navbar from "@/components/user/global/Navbar";
+import { Toaster } from "sonner";
 import ReduxProvider from "@/providers/redux/redux-provider";
 const archivo = Archivo({ subsets: ["latin"] });
 
@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <Navbar apiKey={apiKey} />
               {children}
-              <Toaster richColors  />
+              <Toaster richColors />
             </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>

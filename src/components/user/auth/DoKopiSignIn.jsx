@@ -3,7 +3,7 @@ import React, { useState, startTransition } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
-import Wrapper from "../Wrapper";
+import Wrapper from "../global/Wrapper";
 import { Button } from "@/components/ui/button";
 import {
   Card,

@@ -1,6 +1,6 @@
-import Footer from "@/components/user/Footer";
+import Footer from "@/components/user/global/Footer";
 import PrivacyPolicy from "@/components/user/PrivacyPolicy";
-import Wrapper from "@/components/user/Wrapper";
+import Wrapper from "@/components/user/global/Wrapper";
 import React from "react";
 
 export default async function PrivacyPolicyPage() {

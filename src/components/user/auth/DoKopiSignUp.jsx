@@ -3,7 +3,7 @@ import React, { useState, useEffect, startTransition } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
-import Wrapper from "../Wrapper";
+import Wrapper from "../global/Wrapper";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -40,7 +40,7 @@ const DoKopiSignUp = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-          <form>
+            <form>
               <div className="grid w-full items-center gap-2">
                 <Button
                   asChild

@@ -3,13 +3,26 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import Wrapper from "./Wrapper";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import UserAvatar from "./UserAvatar";
 import LocationAccess from "./LocationAccess";
 import { IoCartOutline } from "react-icons/io5";
-import SearchComponent from "./store/Search";
-import { useSelector } from "react-redux";
+import SearchComponent from "../store/Search";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setInitialCartItems } from "@/providers/redux/reducers/cart-slice";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import DokopiCartComponent from "../cart/DokopiCartComponent";
 
 const Navbar = ({ apiKey }) => {
   const currentUser = useCurrentUser();
@@ -17,17 +30,20 @@ const Navbar = ({ apiKey }) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
 
-  const cartItemsFromLocalStorage =
-    JSON.parse(localStorage.getItem("file")) || [];
-  const cartItemsFromRedux = useSelector((state) => state.cart.items);
-  const cartItems =
-    cartItemsFromLocalStorage.length > 0
-      ? cartItemsFromLocalStorage
-      : cartItemsFromRedux;
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
     setCartItemCount(cartItems.length);
   }, [cartItems]);
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      dispatch(setInitialCartItems(JSON.parse(savedCartItems)));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
@@ -62,17 +78,29 @@ const Navbar = ({ apiKey }) => {
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
               <SearchComponent />
-              <Link
-                href={"/cart"}
-                className="p-1 relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
-              >
-                <IoCartOutline size={30} className="text-gray-700" />
-                {cartItemCount > 0 ? (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
-                    {cartItemCount}
-                  </span>
-                ) : null}
-              </Link>
+
+              <Sheet>
+                <SheetTrigger asChild>
+                  <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
+                    <IoCartOutline size={30} className="text-gray-700" />
+                    {cartItemCount > 0 ? (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
+                        {cartItemCount}
+                      </span>
+                    ) : null}
+                  </div>
+                </SheetTrigger>
+                <SheetContent className="w-[400px] sm:w-[540px]">
+                  <SheetHeader>
+                    <SheetTitle className="text-xl">Your Cart</SheetTitle>
+                    <SheetDescription>
+                      You have {cartItemCount} items in your cart
+                    </SheetDescription>
+                  </SheetHeader>
+                  <DokopiCartComponent />
+                  <SheetFooter></SheetFooter>
+                </SheetContent>
+              </Sheet>
 
               {currentUser ? (
                 <UserAvatar />

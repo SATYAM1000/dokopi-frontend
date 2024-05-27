@@ -1,5 +1,5 @@
-import Footer from "@/components/user/Footer";
-import Wrapper from "@/components/user/Wrapper";
+import Footer from "@/components/user/global/Footer";
+import Wrapper from "@/components/user/global/Wrapper";
 import React from "react";
 
 const TermsAndConditionPage = () => {
@@ -311,7 +311,6 @@ const TermsAndConditionPage = () => {
           are provided free of charge, we will not be liable for any loss or
           damage of any nature.
         </p>
-        
       </Wrapper>
     </section>
   );

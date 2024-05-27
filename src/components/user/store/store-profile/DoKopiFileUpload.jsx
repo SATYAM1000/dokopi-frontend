@@ -203,12 +203,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
     // Update cart with the updated fileInfo
     dispatch(addToCart({ ...fileInfo, fileURL: encryptedFileURL }));
-
-    // Save file info to local storage
-    const uploadedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
-    uploadedFiles.push({ ...fileInfo, fileURL: encryptedFileURL });
-    localStorage.setItem("uploadedFiles", JSON.stringify(uploadedFiles));
-
     // Reset fileInfo state
     setFileInfo({
       id: null,

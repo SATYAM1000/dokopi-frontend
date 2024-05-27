@@ -28,9 +28,9 @@ const DoKopiStoreShop = () => {
             : Array(7)
                 .fill(0)
                 .map((_, index) => (
-                  <section className="rounded-xl shadow border border-blue-600/[0.2]  transition-all duration-100">
+                  <section key={index} className="rounded-xl border shadow border-blue-600/[0.2] hover:border-blue-600/[0.4]  transition-all duration-100">
                     <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
-                      <div className="overflow-hidden  border-b border-blue-600/[0.4]">
+                      <div className="overflow-hidden  border-b border-blue-600/[0.2] hover:border-blue-600/[0.4]">
                         <Image
                           src="/test/product.webp"
                           alt="store"
@@ -66,14 +66,6 @@ const DoKopiStoreShop = () => {
                   </section>
                 ))
         }
-
-        {/* --------product-2-------- */}
-
-        {/* --------product-------3 */}
-
-        {/* -------------product------4 */}
-
-        {/* ---------------product----5 */}
       </div>
     </section>
   );
