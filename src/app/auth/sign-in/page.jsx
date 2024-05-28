@@ -8,5 +8,5 @@ export default async function SignInPage() {
     redirect("/");
   }
 
-  return <DoKopiSignIn />;
+  return <DoKopiSignIn  />;
 }

@@ -1,42 +1,29 @@
-"use client";
-import { Button } from "@/components/ui/button";
+"use client"
 import React, { useState, useRef } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-
-import { API_DOMAIN } from "@/lib/constants";
-import axios from "axios";
-
-import { toast } from "sonner";
-import { extractColorPages } from "@/lib/colorPagesExtractor";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
-
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/providers/redux/reducers/cart-slice";
-import Link from "next/link";
-import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
-import { ClipLoader } from "react-spinners";
+import { toast } from "sonner";
 import UploadedFile from "./UploadedFile";
-import { v4 as uuidv4 } from 'uuid';
-
+import PrintConfig from "./PrintConfig";
+import FileUploader from "./FileUploader";
+import FileUploadProgress from "./FileUploadProgress";
+import { encryptSensitiveData } from "@/lib/encrypt-decrypt";
+import { extractColorPages } from "@/lib/colorPagesExtractor";
 
 const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const currentUser = useCurrentUser();
   const router = useRouter();
+  const dispatch = useDispatch();
   const fileUploadRef = useRef(null);
-  const [pagesInput, setPagesInput] = useState(null);
-  const [error, setError] = useState(null);
 
   const [files, setFiles] = useState([]);
   const [shake, setShake] = useState(false);
   const [showFileUploadProgress, setShowFileUploadProgress] = useState(false);
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
-
-  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const [fileInfo, setFileInfo] = useState({
     id: null,
@@ -55,155 +42,34 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     fileColorPagesToPrint: [""],
   });
 
-  const handleFileInputClick = () => {
-    if (fileInfo?.fileURL) {
-      toast.error("File already uploaded");
-      return;
-    }
-    fileUploadRef.current.value = null;
-    fileUploadRef.current.click();
-  };
-
-  const onFileUpload = async (e) => {
-    if (!currentUser || !token) {
-      toast.error("Login required", {
-        description: "Please login to proceed",
-      });
-      router.replace("/auth/sign-in");
-      return;
-    }
-
-    const file = e.target.files[0];
-    if (!file) {
-      toast.error("File is required");
-      return;
-    }
-
-    const uploadedFileExtension = file.name.split(".").pop();
-    const allowedExtensions = ["pdf", "jpg", "jpeg", "png", "docx", "odt"];
-
-    if (!allowedExtensions.includes(uploadedFileExtension)) {
-      toast.error("Invalid file type", {
-        description: "Only PDF, JPG, JPEG, PNG, DOCX are allowed",
-      });
-      return;
-    }
-
-    const fileOriginalName =
-      file.name.length > 12
-        ? `${file.name.substring(0, 13)}... ${file.name.split(".")[1]}`
-        : file.name;
-
-    const formData = new FormData();
-    formData.append("file", file);
-    setFiles((prev) => [...prev, { name: fileOriginalName, loading: 0 }]);
-    setShowFileUploadProgress(true);
-
-    const uploadPromise = new Promise((resolve, reject) => {
-      axios
-        .post(`${API_DOMAIN}/api/v1/user/files/upload`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-          onUploadProgress: ({ loaded, total }) => {
-            setFiles((prev) => {
-              const newFiles = [...prev];
-              newFiles[newFiles.length - 1].loading = Math.floor(
-                (loaded / total) * 100
-              );
-              return newFiles;
-            });
-
-            if (loaded == total) {
-              const fileSize =
-                total < 1024
-                  ? `${total} KB`
-                  : `${(loaded / (1024 * 1024)).toFixed(2)} MB`;
-
-              setFileInfo((prev) => ({
-                ...prev,
-                fileSize: fileSize,
-              }));
-            }
-          },
-        })
-        .then((response) => {
-          const { data } = response;
-          setFileInfo((prev) => ({
-            ...prev,
-            id: uuidv4(),
-            fileURL: data?.url,
-            fileOriginalName: fileOriginalName,
-            fileExtension: uploadedFileExtension,
-            filePageCount: data?.pageCount,
-          }));
-
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-
-    toast.promise(uploadPromise, {
-      loading: "Uploading...",
-      success: () => {
-        setShowFileUploadProgress(false);
-        setIsFileUploadedSuccessfully(true);
-        return "File uploaded successfully!";
-      },
-      error: (error) => {
-        setShowFileUploadProgress(false);
-        return (
-          error?.response?.data?.msg || error?.message || "Something went wrong"
-        );
-      },
-    });
-  };
-
   const onFinalSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
-      toast.error("Login required", {
-        description: "Please login to proceed",
-      });
-
+      toast.error("Login required", { description: "Please login to proceed" });
       return;
     }
     if (
-      !fileInfo?.fileURL ||
-      !fileInfo?.filePageCount ||
-      !fileInfo?.fileOriginalName ||
-      !fileInfo?.fileExtension ||
-      !fileInfo?.filePageCount ||
-      !fileInfo?.fileCopiesCount ||
-      !fileInfo?.filePaperType ||
-      !fileInfo?.fileColorType ||
-      !fileInfo?.filePrintMode
+      !fileInfo.fileURL ||
+      !fileInfo.filePageCount ||
+      !fileInfo.fileOriginalName ||
+      !fileInfo.fileExtension ||
+      !fileInfo.fileCopiesCount ||
+      !fileInfo.filePaperType ||
+      !fileInfo.fileColorType ||
+      !fileInfo.filePrintMode
     ) {
       toast.error("Please fill all the required fields!");
       setShake(true);
       setTimeout(() => setShake(false), 500);
-
       return;
     }
 
-    // Encrypt file URL
     const encryptedFileURL = encryptSensitiveData(
       fileInfo.fileURL,
       encryptionKey
     );
-
-    // Update state with encrypted file URL
-    setFileInfo((prev) => ({
-      ...prev,
-      fileURL: encryptedFileURL,
-    }));
-
-    // Update cart with the updated fileInfo
+    setFileInfo((prev) => ({ ...prev, fileURL: encryptedFileURL }));
     dispatch(addToCart({ ...fileInfo, fileURL: encryptedFileURL }));
-    // Reset fileInfo state
     setFileInfo({
       id: null,
       fileURL: null,
@@ -220,49 +86,36 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       filePrintMode: "simplex",
       fileColorPagesToPrint: [""],
     });
-
-    // Notify user
     toast.success("File added successfully");
-
     setIsFileUploadedSuccessfully(false);
   };
 
   const handleColorPagesToPrintChange = (e) => {
     setError(null);
-    console.log("fileinfo page count", fileInfo?.filePageCount);
-    if (e.target.value.length < 0 || !fileInfo?.filePageCount) {
+    if (e.target.value.length < 0 || !fileInfo.filePageCount) {
       return;
     }
-    const res = extractColorPages(e.target.value, fileInfo?.filePageCount);
-    if (!res?.success) {
-      setError(res?.msg);
+    const res = extractColorPages(e.target.value, fileInfo.filePageCount);
+    if (!res.success) {
+      setError(res.msg);
       return;
     }
-    setPagesInput(res?.data);
-    setFileInfo((prev) => ({
-      ...prev,
-      fileColorPagesToPrint: res?.data,
-    }));
+    setFileInfo((prev) => ({ ...prev, fileColorPagesToPrint: res.data }));
   };
 
   return (
     <section className="w-full">
       <section className="w-full">
-        <div className=" h-auto">
+        <div className="h-auto">
           <main className="h-full">
-            {/* <!-- file upload modal --> */}
             <article
               aria-label="File Upload Modal"
-              className="relative h-full flex flex-col bg-white shadow-xl rounded-md "
+              className="relative h-full flex flex-col bg-white shadow-xl rounded-md"
             >
-              {/* <!-- overlay --> */}
-
-              {/* <!-- scroll area --> */}
               <section className="h-full overflow-auto p-0 py-4 md:p-4 w-full flex flex-col">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-                  {/* --------file upload area---------------- */}
                   <div
-                    className={`w-full flex flex-col h-auto rounded-lg  border border-gray-400  p-4`}
+                    className={`w-full flex flex-col h-auto rounded-lg border border-gray-400 p-4`}
                   >
                     <div className="w-full flex flex-col">
                       <h1 className="font-semibold text-gray-700">
@@ -271,363 +124,52 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                           : "Upload File"}
                       </h1>
                     </div>
-                    <div className=" rounded-lg bg-white mt-4 p-2">
+                    <div className="rounded-lg bg-white mt-4 p-2">
                       {isFileUploadedSuccessfully ? (
                         <header
-                          className={`overflow-hidden  rounded-md w-full max-h-fit `}
+                          className={`overflow-hidden rounded-md w-full max-h-fit`}
                         >
-                          <UploadedFile fileInfo={fileInfo} 
-                          setFileInfo={setFileInfo}
-                          setIsFileUploadedSuccessfully={setIsFileUploadedSuccessfully} />
+                          <UploadedFile
+                            fileInfo={fileInfo}
+                            setFileInfo={setFileInfo}
+                            setIsFileUploadedSuccessfully={
+                              setIsFileUploadedSuccessfully
+                            }
+                          />
                         </header>
                       ) : (
-                        <header
-                          className={`border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full cursor-pointer`}
-                          onClick={handleFileInputClick}
-                        >
+                        <>
                           {showFileUploadProgress ? (
-                            <>
-                              <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
-                                Processing your upload, just a moment...
-                              </p>
-                            </>
+                            <FileUploadProgress />
                           ) : (
-                            <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
-                              <span>Drag and drop or</span>&nbsp;
-                              <span>files anywhere or</span>
-                            </p>
+                            <FileUploader
+                              token={token}
+                              currentUser={currentUser}
+                              setFileInfo={setFileInfo}
+                              setFiles={setFiles}
+                              setShowFileUploadProgress={
+                                setShowFileUploadProgress
+                              }
+                              setIsFileUploadedSuccessfully={
+                                setIsFileUploadedSuccessfully
+                              }
+                              fileUploadRef={fileUploadRef}
+                            />
                           )}
-                          <input
-                            id="hidden-input"
-                            type="file"
-                            name="file"
-                            className="hidden"
-                            ref={fileUploadRef}
-                            onChange={onFileUpload}
-                          />
-                          <Button
-                            id="button"
-                            size="sm"
-                            className="mt-2 bg-blue-600 hover:bg-blue-800 rounded-sm px-3 py-1 flex items-center justify-center gap-2 "
-                          >
-                            {showFileUploadProgress ? (
-                              <>
-                                <ClipLoader color="#fff" size={20} />
-                                <p>Uploading...</p>
-                              </>
-                            ) : (
-                              "Upload File"
-                            )}
-                          </Button>
-                        </header>
+                        </>
                       )}
                     </div>
                   </div>
-                  {/* ----------- printing prefrences------------ */}
-                  <div
-                    className={`min-h-32 rounded-lg  border border-gray-400  p-4 ${
-                      shake && "animate-shake"
-                    }`}
-                  >
-                    <p className="font-semibold text-gray-700 ">
-                      Printing Preferences
-                    </p>
-                    <form
-                      className="mt-4 flex flex-col gap-4 w-full text-gray-700 "
-                      onSubmit={onFinalSubmit}
-                    >
-                      {/* -------------- COPIES COUNT------------------- */}
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="fileCopiesCount">
-                          Number of Copies
-                        </Label>
-                        <Input
-                          id="fileCopiesCount"
-                          type="number"
-                          placeholder="Enter number of copies"
-                          min="1"
-                          defaultValue="1"
-                          required={true}
-                          className="w-full"
-                          onChange={(e) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              fileCopiesCount: e.target.value,
-                            }))
-                          }
-                        />
-                      </div>
-                      {/* --------------------fileColorType----------------------      */}
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="fileColorType">Printing Type</Label>
-                        <RadioGroup
-                          id="fileColorType"
-                          defaultValue="black and white"
-                          value={fileInfo?.fileColorType}
-                          onValueChange={(value) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              fileColorType: value,
-                            }))
-                          }
-                        >
-                          <div className="grid md:grid-cols-3 gap-4">
-                            <div
-                              type="button"
-                              className="flex items-center space-x-2 bg-white border h-[40px] rounded-md pl-2 cursor-pointer"
-                            >
-                              <RadioGroupItem
-                                value="black and white"
-                                id="black_and_white"
-                              />
-                              <Label
-                                htmlFor="black_and_white"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Black & White
-                              </Label>
-                            </div>
-
-                            <div
-                              type="button"
-                              className="flex items-center space-x-2 h-[40px] bg-white border rounded-md pl-2 cursor-pointer"
-                            >
-                              <RadioGroupItem value="color" id="color" />
-                              <Label
-                                htmlFor="color"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Color
-                              </Label>
-                            </div>
-
-                            <div
-                              type="button"
-                              className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 cursor-pointer"
-                            >
-                              <RadioGroupItem value="mixed" id="mixed" />
-                              <Label
-                                htmlFor="mixed"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Mixed
-                              </Label>
-                            </div>
-                          </div>
-                        </RadioGroup>
-                      </div>
-
-                      {fileInfo?.fileColorType === "mixed" && (
-                        <div className="grid w-full items-center gap-1.5">
-                          <Label htmlFor="fileColorPagesToPrint">
-                            Color Pages Selection
-                          </Label>
-                          <div className="flex flex-col gap-2">
-                            <Input
-                              id="fileColorPagesToPrint"
-                              type="text"
-                              placeholder="Example: 1,2,3-10"
-                              className="w-full"
-                              onChange={handleColorPagesToPrintChange}
-                            />
-                            {error && (
-                              <p className="text-red-500 text-[12px]">
-                                {error}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      {fileInfo?.fileColorType === "mixed" && (
-                        <section className="w-full flex items-center justify-start gap-4 mt-2 overflow-x-scroll pb-2 ">
-                          {[...Array(fileInfo?.filePageCount).keys()].map(
-                            (pageNumber) => (
-                              <button
-                                key={pageNumber}
-                                onClick={() => {
-                                  if (
-                                    fileInfo?.fileColorPagesToPrint.includes(
-                                      pageNumber + 1
-                                    )
-                                  ) {
-                                    handleColorPagesToPrintChange({
-                                      target: {
-                                        value: fileInfo?.fileColorPagesToPrint
-                                          .filter(
-                                            (page) => page != pageNumber + 1
-                                          )
-                                          .join(","),
-                                      },
-                                    });
-                                  } else {
-                                    handleColorPagesToPrintChange({
-                                      target: {
-                                        value: fileInfo?.fileColorPagesToPrint
-                                          .concat(pageNumber + 1)
-                                          .join(","),
-                                      },
-                                    });
-                                  }
-                                }}
-                                className={`w-10 h-10 shrink-0 rounded-sm text-sm font-medium  shadow-md   transition-all duration-100 ${
-                                  fileInfo?.fileColorPagesToPrint.includes(
-                                    pageNumber + 1
-                                  )
-                                    ? "border bg-blue-200 border-blue-400 text-blue-500"
-                                    : "bg-gray-200 border border-black/[0.1] text-black "
-                                } `}
-                              >
-                                {pageNumber + 1}
-                              </button>
-                            )
-                          )}
-                        </section>
-                      )}
-
-                      {/* ------------------filePrintMode--------------------- */}
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="copies_count">Print Sides</Label>
-                        <RadioGroup
-                          defaultValue="duplex"
-                          value={fileInfo?.filePrintMode}
-                          onValueChange={(value) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              filePrintMode: value,
-                            }))
-                          }
-                        >
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
-                              <RadioGroupItem value="simplex" id="simplex" />
-                              <Label
-                                htmlFor="simplex"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Single Sided
-                              </Label>
-                            </div>
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
-                              <RadioGroupItem value="duplex" id="duplex" />
-                              <Label
-                                htmlFor="duplex"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Double Sided
-                              </Label>
-                            </div>
-                          </div>
-                        </RadioGroup>
-                      </div>
-                      {/* ----------------filePaperType--------------------- */}
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="filePaperType">Paper Type</Label>
-                        <RadioGroup
-                          defaultValue="A4"
-                          value={fileInfo?.filePaperType}
-                          onValueChange={(value) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              filePaperType: value,
-                            }))
-                          }
-                        >
-                          <div className="grid grid-cols-3 gap-4">
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2">
-                              <RadioGroupItem value="A4" id="A4" />
-                              <Label
-                                htmlFor="A4"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                A4
-                              </Label>
-                            </div>
-
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2">
-                              <RadioGroupItem value="A3" id="A3" />
-                              <Label
-                                htmlFor="A3"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                A3
-                              </Label>
-                            </div>
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
-                              <RadioGroupItem value="Letter" id="Letter" />
-                              <Label
-                                htmlFor="Letter"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Letter
-                              </Label>
-                            </div>
-                          </div>
-                        </RadioGroup>
-                      </div>
-
-                      {/* -------------------additionalServices--------------------- */}
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="additionalServices">
-                          Additional Services
-                        </Label>
-                        <RadioGroup
-                          value={fileInfo?.additionalServices}
-                          onValueChange={(value) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              additionalServices: value,
-                            }))
-                          }
-                        >
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2">
-                              <RadioGroupItem value="binding" id="binding" />
-                              <Label
-                                htmlFor="binding"
-                                className="w-full flex items-center justify-start  h-full"
-                              >
-                                Binding
-                              </Label>
-                            </div>
-                            <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2">
-                              <RadioGroupItem value="taping" id="taping" />
-                              <Label
-                                htmlFor="taping"
-                                className=" w-full flex items-center justify-start  h-full"
-                              >
-                                Taping
-                              </Label>
-                            </div>
-                          </div>
-                        </RadioGroup>
-                      </div>
-
-                      <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="messageForXeroxStore">Message</Label>
-                        <Textarea
-                          placeholder="Type your message here."
-                          value={fileInfo?.messageForXeroxStore}
-                          onChange={(e) =>
-                            setFileInfo((prev) => ({
-                              ...prev,
-                              messageForXeroxStore: e.target.value,
-                            }))
-                          }
-                        />
-                      </div>
-
-                      <div
-                        className="w-full grid grid-cols-2 
-                      items-center gap-4
-                      "
-                      >
-                        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-800">Upload more</Button>
-                        <Link href={"/cart"}>
-                          <Button className="w-full bg-blue-600 hover:bg-blue-800 ">Checkout</Button>
-                        </Link>
-                      </div>
-                    </form>
-                  </div>
+                  <PrintConfig
+                    fileInfo={fileInfo}
+                    setFileInfo={setFileInfo}
+                    shake={shake}
+                    onFinalSubmit={onFinalSubmit}
+                    handleColorPagesToPrintChange={
+                      handleColorPagesToPrintChange
+                    }
+                    error={error}
+                  />
                 </div>
               </section>
             </article>
