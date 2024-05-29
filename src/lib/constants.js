@@ -1,3 +1,10 @@
 import { getCurrentServerURL } from "@/hooks/get-server-url";
+export let API_DOMAIN;
 
-export const API_DOMAIN = getCurrentServerURL();
+getCurrentServerURL()
+  .then((url) => {
+    API_DOMAIN = url;
+  })
+  .catch((error) => {
+    console.error("Error getting the server URL:", error);
+  });
