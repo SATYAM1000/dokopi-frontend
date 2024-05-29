@@ -80,7 +80,7 @@ const DokopiCartComponent = () => {
     <Wrapper>
       {cartItems.length > 0 ? (
         <div className="mt-6 space-y-6">
-          <ul className="space-y-4">
+          <ul className="space-y-4 ">
             {cartItems.map((product) => (
               <li
                 key={product.id}

@@ -1,1 +1,1 @@
-export const API_DOMAIN="https://api.dokopi.com";
+export const API_DOMAIN=process.env.ENVIRONMENT==="production"?"https://api.dokopi.com":"http://localhost:4000";

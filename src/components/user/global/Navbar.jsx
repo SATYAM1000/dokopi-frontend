@@ -89,7 +89,7 @@ const Navbar = ({ apiKey }) => {
                     ) : null}
                   </div>
                 </SheetTrigger>
-                <SheetContent className="w-[400px] sm:w-[w-full] flex flex-col items-center">
+                <SheetContent className="w-[400px] w-[w-full]">
                   <SheetHeader>
                     <SheetTitle className="text-xl">Your Cart</SheetTitle>
                     <SheetDescription>
