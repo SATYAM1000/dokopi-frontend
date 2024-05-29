@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, {useEffect} from "react";
+import React from "react";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
@@ -10,9 +10,9 @@ import { X } from "lucide-react";
 import {
   deleteFromCart,
   clearCart,
-  setInitialCartItems,
 } from "@/providers/redux/reducers/cart-slice";
 import Script from "next/script";
+import Wrapper from "../global/Wrapper";
 
 const DokopiCartComponent = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -77,7 +77,7 @@ const DokopiCartComponent = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       {cartItems.length > 0 ? (
         <div className="mt-6 space-y-6">
           <ul className="space-y-4">
@@ -150,7 +150,7 @@ const DokopiCartComponent = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-    </>
+    </Wrapper>
   );
 };
 
