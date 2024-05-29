@@ -15,7 +15,7 @@ const FileUploader = ({
   fileUploadRef,
 }) => {
 
-
+console.log("your token is ", token);
   const handleFileInputClick = () => {
     fileUploadRef.current.value = null;
     fileUploadRef.current.click();
