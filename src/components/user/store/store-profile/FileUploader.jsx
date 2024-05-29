@@ -2,7 +2,6 @@
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
-import { ClipLoader } from "react-spinners";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 
@@ -99,6 +98,9 @@ const FileUploader = ({
       },
       error: (error) => {
         setShowFileUploadProgress(false);
+        setIsFileUploadedSuccessfully(false);
+        setFiles((prev) => prev.slice(0, -1));
+        console.error("your error is ", error);
         return (
           error?.response?.data?.msg || error?.message || "Something went wrong"
         );
