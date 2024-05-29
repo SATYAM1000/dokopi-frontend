@@ -15,7 +15,6 @@ const FileUploader = ({
   fileUploadRef,
 }) => {
 
-console.log("your token is ", token);
   const handleFileInputClick = () => {
     fileUploadRef.current.value = null;
     fileUploadRef.current.click();
@@ -102,7 +101,6 @@ console.log("your token is ", token);
         setShowFileUploadProgress(false);
         setIsFileUploadedSuccessfully(false);
         setFiles((prev) => prev.slice(0, -1));
-        console.error("your error is ", error);
         return (
           error?.response?.data?.msg || error?.message || "Something went wrong"
         );
