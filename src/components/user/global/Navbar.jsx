@@ -90,7 +90,7 @@ const Navbar = ({ apiKey }) => {
                     ) : null}
                   </div>
                 </SheetTrigger>
-                <SheetContent className="w-[400px] sm:w-[w-full]">
+                <SheetContent className="w-[400px] sm:w-[w-full] flex flex-col items-center">
                   <SheetHeader>
                     <SheetTitle className="text-xl">Your Cart</SheetTitle>
                     <SheetDescription>
@@ -98,7 +98,7 @@ const Navbar = ({ apiKey }) => {
                     </SheetDescription>
                   </SheetHeader>
                   <DokopiCartComponent />
-                  <SheetFooter></SheetFooter>
+                  
                 </SheetContent>
               </Sheet>
 
