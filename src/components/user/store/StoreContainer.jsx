@@ -7,6 +7,7 @@ import axios from "axios";
 import StoreSkelton from "./StoreSkelton";
 import ErrorComponent from "../global/Error";
 import Footer from "../global/Footer";
+import { API_DOMAIN } from "@/lib/constants";
 
 const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,7 @@ const StoreContainer = () => {
     queryFn: ({ pageParam = currentPage }) =>
       axios
         .get(
-          `http://localhost:4000/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${
+          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${
             (pageParam - 1) * 6
           }`
         )
