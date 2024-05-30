@@ -1,6 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
 import React from "react";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
@@ -23,72 +22,6 @@ const DokopiCartComponent = () => {
 
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));
-  };
-
-  const checkoutHandler = async () => {
-    try {
-      const amount = 10;
-      const razorpayKey = await axios.get(
-        `${API_DOMAIN}/api/v1/user/payment/razorpay-key`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!razorpayKey.data.success) {
-        toast.error(razorpayKey.data.message);
-        return;
-      }
-      const {
-        data: { order },
-      } = await axios.post(
-        `${API_DOMAIN}/api/v1/user/payment/user-checkout`,
-        {
-          cartItems,
-          amount: amount,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const options = {
-        key: razorpayKey.data.key,
-        amount: order.amount,
-        currency: "INR",
-        name: "Dokopi",
-        description: "Print with ease. Anywhere. Anytime.",
-        image: "https://avatars.githubusercontent.com/u/104556262?v=4",
-        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: `${API_DOMAIN}/api/v1/user/payment/verify`,
-        prefill: {
-          name: currentUser?.name,
-          email: currentUser?.email,
-        },
-
-        theme: {
-          color: "#3399cc",
-        },
-        handler: function (response) {
-          dispatch(clearCart());
-          toast.success("Payment successful!");
-          redirect(
-            "/payment/success?reference=" + response.razorpay_payment_id
-          );
-        },
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (error) {
-      toast.error(error?.response?.data?.msg || error.message);
-      return;
-    }
   };
 
   return (
