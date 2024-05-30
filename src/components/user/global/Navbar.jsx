@@ -89,10 +89,10 @@ const Navbar = ({ apiKey }) => {
                     ) : null}
                   </div>
                 </SheetTrigger>
-                <SheetContent className="w-[400px]">
+                <SheetContent className="">
                   <SheetHeader>
                     <SheetTitle className="text-xl">Your Cart</SheetTitle>
-                    <SheetDescription>
+                    <SheetDescription className="text-gray-600">
                       You have {cartItemCount} items in your cart
                     </SheetDescription>
                   </SheetHeader>

@@ -2,7 +2,7 @@ import React from "react";
 
 const BillDetails = () => {
   return (
-    <div className="w-full rounded-md bg-gray-200 px-6 py-4 flex flex-col gap-1 ">
+    <div className="w-full rounded-md bg-gray-100 px-6 py-4 flex flex-col gap-1 ">
       <h1 className="text-left text-[15px] font-bold text-gray-900">
         Bill Details
       </h1>

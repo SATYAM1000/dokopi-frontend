@@ -92,14 +92,14 @@ const DokopiCartComponent = () => {
   };
 
   return (
-    <div className="w-[100%] relative flexi flex-col items-center justify-center">
+    <div className="w-[100%] relative flex flex-col items-center justify-center">
       {cartItems.length > 0 ? (
         <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
-          <ul className="space-y-4 bg-gray-200 p-2 rounded-md    ">
+          <ul className="space-y-4 bg-gray-100 rounded-md    ">
             {cartItems.map((product) => (
               <li
                 key={product.id}
-                className="flex p-2 rounded-md items-center gap-4 pb-4 min-w-full"
+                className="flex p-2 rounded-md items-center gap-4 pb-4 min-w-full border-b border-gray-300"
               >
                 <img
                   src={product?.fileIconPath}
