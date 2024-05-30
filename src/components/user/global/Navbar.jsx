@@ -11,7 +11,7 @@ import { IoCartOutline } from "react-icons/io5";
 import SearchComponent from "../store/Search";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setInitialCartItems } from "@/providers/redux/reducers/cart-slice";
+import { setInitialCartItems } from "@/providers/redux/slices/cart-slice";
 
 import {
   Sheet,
@@ -89,15 +89,14 @@ const Navbar = ({ apiKey }) => {
                     ) : null}
                   </div>
                 </SheetTrigger>
-                <SheetContent className="w-[400px] w-[w-full]">
+                <SheetContent className="w-[400px]">
                   <SheetHeader>
                     <SheetTitle className="text-xl">Your Cart</SheetTitle>
                     <SheetDescription>
                       You have {cartItemCount} items in your cart
                     </SheetDescription>
                   </SheetHeader>
-                  <DokopiCartComponent />
-                  
+                  <DokopiCartComponent  />
                 </SheetContent>
               </Sheet>
 

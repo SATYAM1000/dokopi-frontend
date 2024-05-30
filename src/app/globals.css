@@ -117,3 +117,14 @@
   max-height: calc(100vh - 80px); /* Viewport height minus navbar height */
   overflow-y: auto;
 }
+
+/* styles.css */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+

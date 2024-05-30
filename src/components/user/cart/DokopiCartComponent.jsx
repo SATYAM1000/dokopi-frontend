@@ -7,17 +7,19 @@ import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import { X } from "lucide-react";
-import {
-  deleteFromCart,
-  clearCart,
-} from "@/providers/redux/reducers/cart-slice";
+import { deleteFromCart, clearCart } from "@/providers/redux/slices/cart-slice";
 import Script from "next/script";
-import Wrapper from "../global/Wrapper";
+import { redirect } from "next/navigation";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import CancellationPolicy from "./CancellationPolicy";
+import PaymentButton from "./PaymentButton";
+import BillDetails from "./BillDetails";
 
 const DokopiCartComponent = () => {
+  const currentUser = useCurrentUser();
+  if (!currentUser) redirect("/auth/sign-in");
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-
 
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));
@@ -26,6 +28,19 @@ const DokopiCartComponent = () => {
   const checkoutHandler = async () => {
     try {
       const amount = 10;
+      const razorpayKey = await axios.get(
+        `${API_DOMAIN}/api/v1/user/payment/razorpay-key`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!razorpayKey.data.success) {
+        toast.error(razorpayKey.data.message);
+        return;
+      }
       const {
         data: { order },
       } = await axios.post(
@@ -43,28 +58,28 @@ const DokopiCartComponent = () => {
       );
 
       const options = {
-        key: "rzp_live_jC0xOVYrH8QSZA", // Enter the Key ID generated from the Dashboard
-        amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        key: razorpayKey.data.key,
+        amount: order.amount,
         currency: "INR",
-        name: "Acme Corp",
-        description: "Test Transaction",
+        name: "Dokopi",
+        description: "Print with ease. Anywhere. Anytime.",
         image: "https://avatars.githubusercontent.com/u/104556262?v=4",
         order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         callback_url: `${API_DOMAIN}/api/v1/user/payment/verify`,
         prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000",
+          name: currentUser?.name,
+          email: currentUser?.email,
         },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
+
         theme: {
           color: "#3399cc",
         },
         handler: function (response) {
           dispatch(clearCart());
           toast.success("Payment successful!");
+          redirect(
+            "/payment/success?reference=" + response.razorpay_payment_id
+          );
         },
       };
 
@@ -77,14 +92,14 @@ const DokopiCartComponent = () => {
   };
 
   return (
-    <Wrapper>
+    <div className="w-[100%] relative flexi flex-col items-center justify-center">
       {cartItems.length > 0 ? (
-        <div className="mt-6 space-y-6">
-          <ul className="space-y-4 ">
+        <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
+          <ul className="space-y-4 bg-gray-200 p-2 rounded-md    ">
             {cartItems.map((product) => (
               <li
                 key={product.id}
-                className="flex items-center gap-4 border-b-2 pb-4"
+                className="flex p-2 rounded-md items-center gap-4 pb-4 min-w-full"
               >
                 <img
                   src={product?.fileIconPath}
@@ -95,7 +110,7 @@ const DokopiCartComponent = () => {
                   <h3 className="text-[15px] font-medium text-gray-900">
                     {product?.fileOriginalName}
                   </h3>
-                  <dl className="mt-0.5 w-full space-y-px text-[10px] text-gray-600">
+                  <dl className="mt-0.5 w-full space-y-px text-[11px] text-gray-700">
                     <div className="flex items-center justify-between w-full ">
                       <div className="flex items-center gap-4">
                         <dd className="inline font-medium">
@@ -112,31 +127,23 @@ const DokopiCartComponent = () => {
                         <X className="h-4 w-4" />
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <dd className="inline ">{product?.filePrintMode}</dd>
+                    <div className="flex items-center gap-4 text-gray-700 text-[11px] ">
+                      <dd className="inline capitalize ">
+                        {product?.filePrintMode}
+                      </dd>
 
-                      <dd className="inline">{product?.fileColorType}</dd>
+                      <dd className="inline capitalize">
+                        {product?.fileColorType}
+                      </dd>
                     </div>
                   </dl>
                 </div>
               </li>
             ))}
           </ul>
-          <div className="space-y-4 text-center">
-            <Button
-              onClick={checkoutHandler}
-              type="button"
-              className="w-full rounded-md bg-blue-600 hover:bg-blue-800 px-3 py-2 text-sm font-semibold text-white shadow-sm "
-            >
-              Proceed to Payment
-            </Button>
-            <Link
-              href="#"
-              className="inline-block text-sm text-gray-600 transition hover:text-gray-700 hover:underline hover:underline-offset-4"
-            >
-              Continue uploading documents &rarr;
-            </Link>
-          </div>
+          <BillDetails />
+          <CancellationPolicy />
+          <PaymentButton />
         </div>
       ) : (
         <div className="mt-6 space-y-6">
@@ -150,7 +157,7 @@ const DokopiCartComponent = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-    </Wrapper>
+    </div>
   );
 };
 

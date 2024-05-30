@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { useState, useRef } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/providers/redux/reducers/cart-slice";
+import { addToCart } from "@/providers/redux/slices/cart-slice";
 import { toast } from "sonner";
 import UploadedFile from "./UploadedFile";
 import PrintConfig from "./PrintConfig";
