@@ -10,7 +10,6 @@ import { ClipLoader } from "react-spinners";
 import { useSelector, useDispatch } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { clearCart } from "@/providers/redux/slices/cart-slice";
-import { redirect } from "next/navigation";
 
 const PaymentButton = () => {
   const currentUser = useCurrentUser();
@@ -75,9 +74,7 @@ const PaymentButton = () => {
         handler: function (response) {
           dispatch(clearCart());
           toast.success("Payment successful!");
-          redirect(
-            "/payment/success?reference=" + response.razorpay_payment_id
-          );
+          
         },
       };
 
