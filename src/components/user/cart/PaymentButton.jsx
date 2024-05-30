@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { clearCart } from "@/providers/redux/slices/cart-slice";
 
-const PaymentButton = () => {
+const PaymentButton = ({ setOpen }) => {
   const currentUser = useCurrentUser();
   const dispatch = useDispatch();
 
@@ -20,6 +20,11 @@ const PaymentButton = () => {
   const handleClick = async () => {
     try {
       setLoading(true);
+      setOpen(false);
+      if (!currentUser) {
+        toast.error("Please login to continue");
+        return;
+      }
       const token = await fetchAccessToken();
       if (cartItems.length < 1) {
         toast.error("Cart is empty!");
@@ -74,7 +79,6 @@ const PaymentButton = () => {
         handler: function (response) {
           dispatch(clearCart());
           toast.success("Payment successful!");
-          
         },
       };
 

@@ -11,7 +11,7 @@ import CancellationPolicy from "./CancellationPolicy";
 import PaymentButton from "./PaymentButton";
 import BillDetails from "./BillDetails";
 
-const DokopiCartComponent = () => {
+const DokopiCartComponent = ({setOpen}) => {
   const currentUser = useCurrentUser();
   if (!currentUser) redirect("/auth/sign-in");
   const cartItems = useSelector((state) => state.cart.items);
@@ -73,7 +73,7 @@ const DokopiCartComponent = () => {
           </ul>
           <BillDetails />
           <CancellationPolicy />
-          <PaymentButton />
+          <PaymentButton setOpen={setOpen} />
         </div>
       ) : (
         <div className="mt-6 space-y-6">

@@ -28,6 +28,7 @@ const Navbar = ({ apiKey }) => {
   const [show, setShow] = useState("translate-y-0 ");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -78,7 +79,7 @@ const Navbar = ({ apiKey }) => {
             <div className="flex items-center gap-4 md:gap-6">
               <SearchComponent />
 
-              <Sheet>
+              <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
                     <IoCartOutline size={30} className="text-gray-700" />
@@ -89,14 +90,14 @@ const Navbar = ({ apiKey }) => {
                     ) : null}
                   </div>
                 </SheetTrigger>
-                <SheetContent className="">
+                <SheetContent>
                   <SheetHeader>
                     <SheetTitle className="text-xl">Your Cart</SheetTitle>
                     <SheetDescription className="text-gray-600">
                       You have {cartItemCount} items in your cart
                     </SheetDescription>
                   </SheetHeader>
-                  <DokopiCartComponent  />
+                  <DokopiCartComponent  setOpen={setOpen} />
                 </SheetContent>
               </Sheet>
 
