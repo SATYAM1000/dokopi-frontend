@@ -16,10 +16,11 @@ import {
 import {
   History,
   Headphones,
-  LayoutDashboard,
   LogOut,
   FileClock,
   Lock,
+  Bell,
+  Dot,
 } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ClipLoader } from "react-spinners";
@@ -32,7 +33,6 @@ const UserAvatar = () => {
   const handleSignOut = () => {
     startTransition(() => {
       setShowLoader(true);
-      localStorage.removeItem("userAddress");
       signOut({
         callbackUrl: "/",
       }).finally(() => {
@@ -83,11 +83,19 @@ const UserAvatar = () => {
           </DropdownMenuItem>
         )}
         {currentUser?.role === "USER" && (
-          <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={"/dashboard"} className="flex items-center">
-              <LayoutDashboard size={17} />
-              <p className="pl-3">Dashbaord</p>
-            </Link>
+          <DropdownMenuItem
+            asChild
+            className={`cursor-pointer`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Bell size={17} />
+                <p className="pl-3">
+                  Notifications
+                </p>
+              </div>
+              <Dot size={20} className="text-red-500" />
+            </div>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem asChild className="cursor-pointer">

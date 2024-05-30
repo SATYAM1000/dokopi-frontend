@@ -28,48 +28,45 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-
-const orderHistory=[{
-  id: 1,
-  orderDate: "2022-01-01",
-  date: "2022-01-01",
-  status: "pending",
-  total: 1000,
-  status: "pending",
-  date: "2022-01-01",
-
-}]
+const orderHistory = [
+  {
+    id: 1,
+    orderDate: "2022-01-01",
+    date: "2022-01-01",
+    status: "pending",
+    total: 1000,
+    status: "pending",
+    date: "2022-01-01",
+  },
+];
 const UserHistory = () => {
-
-//   const [orderHistory, setOrderHistory] = useState([]);
+  //   const [orderHistory, setOrderHistory] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage]=useState(1);
-  const [totalPages, setTotalPages]=useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  
+  //   useEffect(() => {
+  //     const getUserOrderHistory = async () => {
+  //       setLoading(true);
+  //       try {
+  //         const response = await axios.get(
+  //           `http://localhost:4002/api/v1/order/history/${currentUser.id}?page=${currentPage}&limit=5`
+  //         );
+  //         if (response.data.data.ordersCount === 0) {
+  //           setLoading(false);
+  //           return;
+  //         }
+  //         setLoading(false);
+  //         setOrderHistory(response.data.data.orders);
+  //         setTotalPages(response.data.data.totalPages);
+  //       } catch (error) {
+  //         setLoading(false);
+  //         console.log("error is ", error);
+  //       }
+  //     };
 
-//   useEffect(() => {
-//     const getUserOrderHistory = async () => {
-//       setLoading(true);
-//       try {
-//         const response = await axios.get(
-//           `http://localhost:4002/api/v1/order/history/${currentUser.id}?page=${currentPage}&limit=5`
-//         );
-//         if (response.data.data.ordersCount === 0) {
-//           setLoading(false);
-//           return;
-//         }
-//         setLoading(false);
-//         setOrderHistory(response.data.data.orders);
-//         setTotalPages(response.data.data.totalPages);
-//       } catch (error) {
-//         setLoading(false);
-//         console.log("error is ", error);
-//       }
-//     };
-
-//     getUserOrderHistory();
-//   }, [ currentPage]);
+  //     getUserOrderHistory();
+  //   }, [ currentPage]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -97,16 +94,15 @@ const UserHistory = () => {
             {/* ----container---------- */}
             <div className="w-full max-h-[100vh] min-h-[calc(100vh-250px)] overflow-hidden">
               <Table className="w-full max-h-[60vh] overflow-y-scroll  rounded-md ">
-                <TableCaption>A list of your recent transactions.</TableCaption>
+                <TableCaption>A list of your recent orders.</TableCaption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">Date</TableHead>
-                    <TableHead>Time</TableHead>
+                    <TableHead className="w-[100px]">Order ID</TableHead>
+                    <TableHead>Date</TableHead>
                     <TableHead>Status</TableHead>
 
-                    <TableHead>Order ID</TableHead>
-                    <TableHead className="w-[100px]">Transaction ID</TableHead>
-                    <TableHead>Documents Count</TableHead>
+                    <TableHead className="w-[150px]">Transaction ID</TableHead>
+                    <TableHead className="w-[150px]">Documents Count</TableHead>
                     <TableHead className="text-right">Amount</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -114,7 +110,8 @@ const UserHistory = () => {
                   {orderHistory?.map((order) => (
                     <TableRow>
                       <TableCell className="w-[100px]">
-                        {new Date(order?.orderDate).toLocaleDateString() || "N/A"}
+                        {new Date(order?.orderDate).toLocaleDateString() ||
+                          "N/A"}
                       </TableCell>
                       <TableCell>
                         {order?.paymentTime ? order?.paymentTime : "N/A"}
@@ -127,17 +124,10 @@ const UserHistory = () => {
                         )} */}
                       </TableCell>
 
-                      <TableCell>{order?._id || "N/A"}</TableCell>
-                      <TableCell className="w-[100px]">
-                        
-                      </TableCell>
-                      <TableCell className="text-center">
-                        
-                      </TableCell>
+                      <TableCell className="w-[100px]"></TableCell>
+                      <TableCell className="text-center"></TableCell>
 
-                      <TableCell className="text-right">
-                        ₹ 300
-                      </TableCell>
+                      <TableCell className="text-right">₹ 300</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -146,16 +136,32 @@ const UserHistory = () => {
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious onClick={handlePrevPage} className={`${currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}  />
+                  <PaginationPrevious
+                    onClick={handlePrevPage}
+                    className={`${
+                      currentPage === 1
+                        ? "cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink onClick={() => setCurrentPage(1)}>1</PaginationLink>
+                  <PaginationLink onClick={() => setCurrentPage(1)}>
+                    1
+                  </PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationEllipsis />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationNext onClick={handleNextPage} className={`${currentPage === totalPages ? "cursor-not-allowed" : "cursor-pointer"}`} />
+                  <PaginationNext
+                    onClick={handleNextPage}
+                    className={`${
+                      currentPage === totalPages
+                        ? "cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  />
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
@@ -168,4 +174,4 @@ const UserHistory = () => {
   );
 };
 
-export default UserHistory
+export default UserHistory;
