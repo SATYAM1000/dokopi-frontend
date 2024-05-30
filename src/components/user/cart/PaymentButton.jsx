@@ -43,7 +43,7 @@ const PaymentButton = () => {
       } = await axios.post(
         `${API_DOMAIN}/api/v1/user/payment/user-checkout`,
         {
-          amount: 10,
+          amount: 1,
           cartItems,
         },
         {
