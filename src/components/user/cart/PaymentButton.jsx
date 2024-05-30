@@ -71,31 +71,16 @@ const PaymentButton = () => {
         theme: {
           color: "#3399cc",
         },
+        handler: function (response) {
+          dispatch(clearCart());
+          toast.success("Payment successful!");
+          redirect(
+            "/payment/success?reference=" + response.razorpay_payment_id
+          );
+        },
       };
 
       const paymentObject = new window.Razorpay(options);
-
-      paymentObject.on("payment.success", async function (response) {
-        try {
-          await axios.put(
-            `${API_DOMAIN}/api/v1/update-order-status/${order.id}`,
-            { paymentStatus: "successful" },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-        } catch (error) {
-          console.error("Error updating order status:", error);
-        }
-
-        dispatch(clearCart());
-        toast.success("Payment successful");
-        redirect("/payment/success?reference=" + response.razorpay_payment_id);
-      });
-
       paymentObject.open();
     } catch (error) {
       console.log("Error while processing payment ", error);

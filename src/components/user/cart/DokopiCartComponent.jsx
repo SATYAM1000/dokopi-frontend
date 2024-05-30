@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import axios from "axios";
-import { API_DOMAIN } from "@/lib/constants";
-import { toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import { X } from "lucide-react";
 import { deleteFromCart, clearCart } from "@/providers/redux/slices/cart-slice";
