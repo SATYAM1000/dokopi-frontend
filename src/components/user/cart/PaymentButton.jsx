@@ -9,11 +9,9 @@ import { fetchAccessToken } from "@/actions/access-token";
 import { ClipLoader } from "react-spinners";
 import { useSelector, useDispatch } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { clearCart } from "@/providers/redux/slices/cart-slice";
 
 const PaymentButton = ({ setOpen }) => {
   const currentUser = useCurrentUser();
-  const dispatch = useDispatch();
 
   const [loading, setLoading] = React.useState(false);
   const cartItems = useSelector((state) => state.cart.items);
@@ -28,7 +26,7 @@ const PaymentButton = ({ setOpen }) => {
       const token = await fetchAccessToken();
       const storeId = localStorage.getItem("storeId");
       if (!storeId) {
-        toast.error("Something went wrong");
+        toast.error("Invalid store");
         return;
       }
       if (cartItems.length < 1) {
@@ -45,7 +43,7 @@ const PaymentButton = ({ setOpen }) => {
         }
       );
       if (!res.data.success) {
-        toast.error(res.data?.message || "Something went wrong");
+        toast.error(res.data?.msg || "Something went wrong");
         return;
       }
       const {
@@ -65,7 +63,7 @@ const PaymentButton = ({ setOpen }) => {
       );
 
       if (!order) {
-        toast.error(data?.error?.message || "Something went wrong");
+        toast.error("Failed to create order");
         return;
       }
 
@@ -91,8 +89,7 @@ const PaymentButton = ({ setOpen }) => {
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      console.log("Error while processing payment ", error);
-      toast.error(error?.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.msg || "Something went wrong");
     } finally {
       setLoading(false);
     }
