@@ -42,7 +42,7 @@ const UserHistory = () => {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `${API_DOMAIN}/api/v1/user/orders/history?page=${currentPage}&limit=6`,
+          `${API_DOMAIN}/api/v1/user/orders/history?page=${currentPage}&limit=10`,
           {
             headers: {
               Authorization: `Bearer ${await fetchAccessToken()}`,
