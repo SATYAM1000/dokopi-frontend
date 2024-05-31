@@ -78,10 +78,10 @@ const UserHistory = () => {
     }
   };
   return (
-    <section className="min-h-[60vh] w-full ">
+    <section className="min-h-[50vh] w-full ">
       <Wrapper className={"w-full h-full "}>
         {loading ? (
-          <div className="w-full h-[calc(100vh-250px)] flex items-center justify-center">
+          <div className="w-full h-[calc(100vh-350px)] flex items-center justify-center">
             <ClipLoader color="#000000" loading={loading} size={50} />
           </div>
         ) : orderHistory?.length > 0 ? (
@@ -135,7 +135,7 @@ const UserHistory = () => {
                       </TableCell>
 
                       <TableCell className="text-right">
-                        ₹{order?.totalPrice || "N/A"}
+                        ₹&nbsp;{order?.totalPrice || "N/A"}
                       </TableCell>
                     </TableRow>
                   ))}
