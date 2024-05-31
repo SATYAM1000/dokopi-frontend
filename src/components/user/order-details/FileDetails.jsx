@@ -2,7 +2,8 @@ import React from "react";
 
 const FileDetails = ({ fileInfo, index }) => {
   if (!fileInfo) return null;
-  
+  console.log("file info is ", fileInfo);
+
   return (
     <div className="w-full rounded-md bg-gray-100 px-4 py-2 flex flex-col gap-1 ">
       <h1 className="text-left text-[16px] font-bold text-gray-900">
@@ -28,6 +29,14 @@ const FileDetails = ({ fileInfo, index }) => {
           <p>Print Type:</p>
           <span className="capitalize">{fileInfo?.fileColorType} </span>
         </div>
+
+        {fileInfo?.fileColorType === "mixed" && (
+          <div className="flex items-center justify-between">
+            <p>Selected Color Pages:</p>
+            <span className="capitalize">{fileInfo?.fileColorPagesToPrint.sort().join(',')} </span>
+          </div>
+        )}
+
         {fileInfo?.messageForXeroxStore && (
           <div className="flex items-center justify-between">
             <p>Message: </p>
