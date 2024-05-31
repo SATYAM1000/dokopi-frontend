@@ -1,9 +1,4 @@
-import React from 'react'
-
-const ActiveOrdersPage = () => {
-  return (
-    <div>ActiveOrdersPage</div>
-  )
+import React from "react";
+export default async function ActiveOrdersPage() {
+  return <div>ActiveOrdersPage</div>;
 }
-
-export default ActiveOrdersPage

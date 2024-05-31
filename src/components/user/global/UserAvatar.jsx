@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, startTransition } from "react";
+import React, { useState, startTransition, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import axios from "axios";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -20,15 +21,45 @@ import {
   FileClock,
   Lock,
   Bell,
-  Dot,
 } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ClipLoader } from "react-spinners";
+import { API_DOMAIN } from "@/lib/constants";
+import { fetchAccessToken } from "@/actions/access-token";
 
 const UserAvatar = () => {
   const [showLoader, setShowLoader] = useState(false);
+  const [hasActiveOrders, setHasActiveOrders] = useState(false);
   const currentUser = useCurrentUser();
   if (!currentUser) return null;
+
+  const fetchUserActiveOrders = async () => {
+    try {
+      const accessToken = await fetchAccessToken();
+      const response = await axios.get(
+        `${API_DOMAIN}/api/v1/user/orders/active`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const { data } = response;
+      if (data?.success) {
+        setHasActiveOrders(true);
+      } else {
+        setHasActiveOrders(false);
+      }
+    } catch (error) {
+      setHasActiveOrders(false);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchUserActiveOrders();
+    }
+  }, []);
 
   const handleSignOut = () => {
     startTransition(() => {
@@ -62,14 +93,24 @@ const UserAvatar = () => {
         {currentUser?.role === "USER" && (
           <DropdownMenuItem
             asChild
-            className={`cursor-not-allowed text-gray-500`}
+            className={`${
+              !hasActiveOrders
+                ? "cursor-not-allowed text-gray-500"
+                : "cursor-pointer  "
+            }`}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <FileClock size={17} />
                 <p className="pl-3">Active Order</p>
               </div>
-              <Lock size={17} />
+              {hasActiveOrders ? (
+                <>
+                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse "></div>
+                </>
+              ) : (
+                <Lock size={17} />
+              )}
             </div>
           </DropdownMenuItem>
         )}
@@ -83,18 +124,12 @@ const UserAvatar = () => {
           </DropdownMenuItem>
         )}
         {currentUser?.role === "USER" && (
-          <DropdownMenuItem
-            asChild
-            className={`cursor-pointer`}
-          >
+          <DropdownMenuItem asChild className={`cursor-pointer`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Bell size={17} />
-                <p className="pl-3">
-                  Notifications
-                </p>
+                <p className="pl-3">Notifications</p>
               </div>
-              <Dot size={20} className="text-red-500" />
             </div>
           </DropdownMenuItem>
         )}

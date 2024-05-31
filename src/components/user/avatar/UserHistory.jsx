@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/table";
 
 import ErrorComponent from "../global/Error";
+import { API_DOMAIN } from "@/lib/constants";
+import { fetchAccessToken } from "@/actions/access-token";
 
 import {
   Pagination,
@@ -27,46 +29,44 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { ClipLoader } from "react-spinners";
 
-const orderHistory = [
-  {
-    id: 1,
-    orderDate: "2022-01-01",
-    date: "2022-01-01",
-    status: "pending",
-    total: 1000,
-    status: "pending",
-    date: "2022-01-01",
-  },
-];
 const UserHistory = () => {
-  //   const [orderHistory, setOrderHistory] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  //   useEffect(() => {
-  //     const getUserOrderHistory = async () => {
-  //       setLoading(true);
-  //       try {
-  //         const response = await axios.get(
-  //           `http://localhost:4002/api/v1/order/history/${currentUser.id}?page=${currentPage}&limit=5`
-  //         );
-  //         if (response.data.data.ordersCount === 0) {
-  //           setLoading(false);
-  //           return;
-  //         }
-  //         setLoading(false);
-  //         setOrderHistory(response.data.data.orders);
-  //         setTotalPages(response.data.data.totalPages);
-  //       } catch (error) {
-  //         setLoading(false);
-  //         console.log("error is ", error);
-  //       }
-  //     };
+  useEffect(() => {
+    const getUserOrderHistory = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `${API_DOMAIN}/api/v1/user/orders/history?page=${currentPage}&limit=6`,
+          {
+            headers: {
+              Authorization: `Bearer ${await fetchAccessToken()}`,
+            },
+          }
+        );
 
-  //     getUserOrderHistory();
-  //   }, [ currentPage]);
+        console.log("data is ", data);
+        if (data.totalOrders === 0) {
+          setLoading(false);
+          return;
+        }
+
+        setOrderHistory(data?.data);
+        setTotalPages(data?.totalPages);
+      } catch (error) {
+        console.log("error is ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getUserOrderHistory();
+  }, [currentPage]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -83,7 +83,9 @@ const UserHistory = () => {
     <section className="min-h-[60vh] w-full ">
       <Wrapper className={"w-full h-full "}>
         {loading ? (
-          <h1>loading...</h1>
+          <div className="w-full h-[calc(100vh-250px)] flex items-center justify-center">
+            <ClipLoader color="#000000" loading={loading} size={50} />
+          </div>
         ) : orderHistory?.length > 0 ? (
           <div className="w-full h-auto flex flex-col gap-6 mt-4">
             <div className="w-full flex items-center py-2 border-b border-black/[0.2]">
@@ -97,9 +99,9 @@ const UserHistory = () => {
                 <TableCaption>A list of your recent orders.</TableCaption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">Order ID</TableHead>
+                    <TableHead className="w-[200px]">Order ID</TableHead>
                     <TableHead>Date</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>Pay. Status</TableHead>
 
                     <TableHead className="w-[150px]">Transaction ID</TableHead>
                     <TableHead className="w-[150px]">Documents Count</TableHead>
@@ -110,24 +112,34 @@ const UserHistory = () => {
                   {orderHistory?.map((order) => (
                     <TableRow>
                       <TableCell className="w-[100px]">
-                        {new Date(order?.orderDate).toLocaleDateString() ||
+                        #{order?._id || "N/A"}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(order?.createdAt).toLocaleDateString() ||
                           "N/A"}
                       </TableCell>
                       <TableCell>
-                        {order?.paymentTime ? order?.paymentTime : "N/A"}
-                      </TableCell>
-                      <TableCell>
-                        {/* {order?.orderStatus === "completed" ? (
-                          <Badge className={"bg-green-500"}>Completed</Badge>
-                        ) : (
-                          <Badge className={"bg-red-500"}>Pending</Badge>
-                        )} */}
+                        <Badge
+                          className={
+                            order?.paymentStatus === "paid"
+                              ? "bg-green-500 hover:bg-green-600"
+                              : "bg-red-500 hover:bg-red-600"
+                          }
+                        >
+                          {order?.paymentStatus || "N/A"}
+                        </Badge>
                       </TableCell>
 
-                      <TableCell className="w-[100px]"></TableCell>
-                      <TableCell className="text-center"></TableCell>
+                      <TableCell className="w-[100px]">
+                        {order?.razorpayPaymentId || "N/A"}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {order?.cartItems.length}
+                      </TableCell>
 
-                      <TableCell className="text-right">₹ 300</TableCell>
+                      <TableCell className="text-right">
+                        ₹{order?.totalPrice || "N/A"}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
