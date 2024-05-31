@@ -46,6 +46,7 @@ const PaymentButton = ({ setOpen }) => {
         toast.error(res.data?.msg || "Something went wrong");
         return;
       }
+      
       const {
         data: { order },
       } = await axios.post(

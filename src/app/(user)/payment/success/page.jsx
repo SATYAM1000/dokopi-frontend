@@ -82,7 +82,7 @@ const PaymentSuccessPage = () => {
         </div>
       </Wrapper>
       <div
-        className={`hidden md:flex flex-col rounded-3xl p-6  md:mx-auto max-w-[400px] min-w-[350px] border-2 border-r-8 border-b-8 border-primary ${
+        className={`flex flex-col rounded-3xl p-6  mx-auto max-w-[400px] min-w-[350px] border-2 border-r-8 border-b-8 border-primary ${
           loading
             ? "bg-white"
             : isPaymentSuccess
