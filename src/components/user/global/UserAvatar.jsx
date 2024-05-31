@@ -26,11 +26,13 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { ClipLoader } from "react-spinners";
 import { API_DOMAIN } from "@/lib/constants";
 import { fetchAccessToken } from "@/actions/access-token";
+import { useRouter } from "next/navigation";
 
 const UserAvatar = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [hasActiveOrders, setHasActiveOrders] = useState(false);
   const currentUser = useCurrentUser();
+  const router = useRouter();
   if (!currentUser) return null;
 
   const fetchUserActiveOrders = async () => {
@@ -60,6 +62,10 @@ const UserAvatar = () => {
       fetchUserActiveOrders();
     }
   }, []);
+
+  const onActiveTabClick = () => {
+    router.replace("/active-orders");
+  };
 
   const handleSignOut = () => {
     startTransition(() => {
@@ -99,7 +105,10 @@ const UserAvatar = () => {
                 : "cursor-pointer  "
             }`}
           >
-            <div className="flex items-center justify-between">
+            <div
+              className="flex items-center justify-between"
+              onClick={onActiveTabClick}
+            >
               <div className="flex items-center">
                 <FileClock size={17} />
                 <p className="pl-3">Active Order</p>
