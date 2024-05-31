@@ -26,6 +26,11 @@ const PaymentButton = ({ setOpen }) => {
         return;
       }
       const token = await fetchAccessToken();
+      const storeId = localStorage.getItem("storeId");
+      if (!storeId) {
+        toast.error("Something went wrong");
+        return;
+      }
       if (cartItems.length < 1) {
         toast.error("Cart is empty!");
         return;
@@ -46,7 +51,7 @@ const PaymentButton = ({ setOpen }) => {
       const {
         data: { order },
       } = await axios.post(
-        `${API_DOMAIN}/api/v1/user/payment/user-checkout`,
+        `${API_DOMAIN}/api/v1/user/payment/user-checkout?userId=${currentUser.id}&storeId=${storeId}`,
         {
           amount: 1,
           cartItems,
@@ -58,6 +63,11 @@ const PaymentButton = ({ setOpen }) => {
           },
         }
       );
+
+      if (!order) {
+        toast.error(data?.error?.message || "Something went wrong");
+        return;
+      }
 
       const options = {
         key: res.data.key,
@@ -75,10 +85,6 @@ const PaymentButton = ({ setOpen }) => {
         },
         theme: {
           color: "#3399cc",
-        },
-        handler: function (response) {
-          dispatch(clearCart());
-          toast.success("Payment successful!");
         },
       };
 

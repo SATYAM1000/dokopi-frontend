@@ -13,6 +13,15 @@ import SingleStoreSkelton from "./SingleStoreSkelton";
 const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const [activeTab, setActiveTab] = useState("upload-files");
 
+  if (slug) {
+    if (localStorage.getItem("storeId") !== slug) {
+      localStorage.removeItem("storeId");
+      localStorage.setItem("storeId", slug);
+    } else {
+      localStorage.setItem("storeId", slug);
+    }
+  }
+
   useEffect(() => {
     const savedTab = localStorage.getItem("activeTab");
     if (savedTab) {
