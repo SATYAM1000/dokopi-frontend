@@ -7,8 +7,10 @@ import { PuffLoader } from "react-spinners";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PaymentSuccessPage = () => {
+  const currentUser=useCurrentUser();
   const [loading, setLoading] = React.useState(true);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   useEffect(() => {
@@ -19,7 +21,7 @@ const PaymentSuccessPage = () => {
         );
         const token = await fetchAccessToken();
         const res = await axios.get(
-          `${API_DOMAIN}/api/v1/user/payment/verify-payment-id?paymentRefrenceId=${reference}`,
+          `${API_DOMAIN}/api/v1/user/payment/verify-payment-id?paymentRefrenceId=${reference}&userId=${currentUser?.id}`,
           {
             headers: {
               "Content-Type": "application/json",
