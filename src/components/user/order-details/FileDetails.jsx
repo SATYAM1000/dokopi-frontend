@@ -31,22 +31,35 @@ const FileDetails = ({ fileInfo, index }) => {
         </div>
 
         {fileInfo?.fileColorType === "mixed" && (
+          <div
+            className={`flex  ${
+              fileInfo?.fileColorPagesToPrint.length > 8
+                ? "flex-col"
+                : "items-center justify-between"
+            }`}
+          >
+            <p>Color Pages:</p>
+            <span className="text-wrap">
+              {fileInfo?.fileColorPagesToPrint
+                ?.sort((a, b) => parseInt(a) - parseInt(b))
+                .join(",")}{" "}
+            </span>
+          </div>
+        )}
+
+        {fileInfo?.additionalServices && (
           <div className="flex items-center justify-between">
-            <p>Selected Color Pages:</p>
-            <span className="capitalize">{fileInfo?.fileColorPagesToPrint.sort().join(',')} </span>
+            <p>Additional Services: </p>
+            <span>{fileInfo?.additionalServices}</span>
           </div>
         )}
 
         {fileInfo?.messageForXeroxStore && (
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col">
             <p>Message: </p>
-            <span>{fileInfo?.messageForXeroxStore}</span>
-          </div>
-        )}
-        {fileInfo?.additionalServices && (
-          <div className="flex items-center justify-between">
-            <p>Additional Services: </p>
-            <span>{fileInfo?.additionalServices[0]}</span>
+            <span className="py-1 px-2 border bg-white font-normal mt-1 rounded-md text-wrap ">
+              {fileInfo?.messageForXeroxStore}
+            </span>
           </div>
         )}
       </div>
