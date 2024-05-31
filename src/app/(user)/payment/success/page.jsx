@@ -148,14 +148,14 @@ const PaymentSuccessPage = () => {
           </p>
           <div className="py-10 text-center">
             <Link
-              href="#"
+              href="/stores"
               className="px-12 bg-white border-2 border-r-8 border-b-8 rounded-xl text-primary hover:bg-gray-200 border-primary font-semibold py-3"
             >
               GO BACK
             </Link>
           </div>
           <Link
-            href="#"
+            href="/active-orders"
             className="inline-block text-sm  transition text-gray-900 underline underline-offset-4"
           >
             Track your order here &rarr;
