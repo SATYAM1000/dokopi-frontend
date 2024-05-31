@@ -45,7 +45,7 @@ const OrderDetailsComponent = ({ id }) => {
         <div className="w-[100%] relative flex flex-col items-center justify-center">
           <OrderStatus OrderStatus={orderDetails?.orderStatus} />
           {orderDetails?.cartItems?.length > 0 ? (
-            <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
+            <div className="mt-6 space-y-6 w-[100%]  max-h-[63vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-8 gap-2">
               <ul className="space-y-4 bg-gray-100 rounded-md    ">
                 {orderDetails?.cartItems.map((product, index) => (
                   <li
