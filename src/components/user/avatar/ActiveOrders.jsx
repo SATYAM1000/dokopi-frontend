@@ -29,6 +29,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ClipLoader } from "react-spinners";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const ActiveOrders = () => {
   const [ActiveOrders, setActiveOrders] = useState([]);
@@ -52,7 +54,6 @@ const ActiveOrders = () => {
           setLoading(false);
           return;
         }
-
         setActiveOrders(data?.data);
         setTotalPages(data?.totalPages);
       } catch (error) {
@@ -95,20 +96,21 @@ const ActiveOrders = () => {
               <Table className="w-full max-h-[55vh] overflow-y-scroll hide-scrollbar  rounded-md ">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[200px]">Order ID</TableHead>
+                    <TableHead className="w-[200px]">Order No.</TableHead>
                     <TableHead>Date</TableHead>
                     <TableHead className="w-[130px]">Pay. Status</TableHead>
 
                     <TableHead className="w-[200px]">Transaction ID</TableHead>
                     <TableHead className="w-[150px]">Files Count</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
+                    <TableHead className="">Amount</TableHead>
+                    <TableHead className="text-right">&nbsp;</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="font-medium">
                   {ActiveOrders?.map((order) => (
                     <TableRow>
                       <TableCell className="w-[100px]">
-                        #{order?._id || "N/A"}
+                        {order?.orderNumber || "N/A"}
                       </TableCell>
                       <TableCell>
                         {new Date(order?.createdAt).toLocaleDateString() ||
@@ -129,12 +131,21 @@ const ActiveOrders = () => {
                       <TableCell className="w-[100px]">
                         {order?.razorpayPaymentId || "N/A"}
                       </TableCell>
-                      <TableCell>
-                        {order?.cartItems.length}
-                      </TableCell>
+                      <TableCell>{order?.cartItems.length}</TableCell>
 
                       <TableCell className="text-right">
                         ₹&nbsp;{order?.totalPrice || "N/A"}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Link href={`/order/${order?._id}`}>
+                          <Button
+                            variant="link"
+                            size="sm"
+                            className="w-[100px] text-blue-600 "
+                          >
+                            View Details
+                          </Button>
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -175,7 +186,7 @@ const ActiveOrders = () => {
             </Pagination>
           </div>
         ) : (
-          <ErrorComponent errorMessage={"No order history found"} />
+          <ErrorComponent errorMessage={"No active orders found"} />
         )}
       </Wrapper>
     </section>
