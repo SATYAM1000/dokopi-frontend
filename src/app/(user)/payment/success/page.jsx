@@ -52,7 +52,7 @@ const PaymentSuccessPage = () => {
   return (
     <div className="h-[calc(100vh-70px)] bg-gray-100  md:h-[calc(100vh-80px)] flex items-center justify-center bg-grid-black/[0.05]">
       <div
-        className={`flex flex-col rounded-3xl p-6  mx-auto max-w-[400px] min-w-[320px] border-2 border-r-8 border-b-8 border-primary ${
+        className={`flex flex-col rounded-3xl p-6   mx-auto max-w-[300px] md:max-w-[400px] md:min-w-[320px] border-2 border-r-8 border-b-8 border-primary ${
           loading
             ? "bg-white"
             : isPaymentSuccess
