@@ -29,8 +29,17 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ClipLoader } from "react-spinners";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import OrderDetailsComponent from "../order-details/OrderDetailsComponent";
 
 const UserHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
@@ -138,53 +147,69 @@ const UserHistory = () => {
                         ₹&nbsp;{order?.totalPrice || "N/A"}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Link href={`/order/${order?._id}`}>
-                          <Button
-                            variant="link"
-                            size="sm"
-                            className="w-[100px] text-blue-600 "
-                          >
-                            View Details
-                          </Button>
-                        </Link>
+                        <Sheet>
+                          <SheetTrigger asChild>
+                            <Button
+                              variant="link"
+                              size="sm"
+                              className="w-[100px] text-blue-600 "
+                            >
+                              View Details
+                            </Button>
+                          </SheetTrigger>
+                          <SheetContent>
+                            <SheetHeader>
+                              <SheetTitle>
+                                Order Summary&nbsp;&nbsp;&nbsp;
+                                {order?.orderNumber || "N/A"}
+                              </SheetTitle>
+                              <SheetDescription>
+                                View your order details here.
+                              </SheetDescription>
+                            </SheetHeader>
+                            <OrderDetailsComponent id={order?._id} />
+                          </SheetContent>
+                        </Sheet>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </div>
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={handlePrevPage}
-                    className={`${
-                      currentPage === 1
-                        ? "cursor-not-allowed"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink onClick={() => setCurrentPage(1)}>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={handleNextPage}
-                    className={`${
-                      currentPage === totalPages
-                        ? "cursor-not-allowed"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={handlePrevPage}
+                      className={`${
+                        currentPage === 1
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink onClick={() => setCurrentPage(1)}>
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={handleNextPage}
+                      className={`${
+                        currentPage === totalPages
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
         ) : (
           <ErrorComponent errorMessage={"No order history found"} />

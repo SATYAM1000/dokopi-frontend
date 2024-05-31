@@ -29,8 +29,18 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ClipLoader } from "react-spinners";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+import OrderDetailsComponent from "../order-details/OrderDetailsComponent";
 
 const ActiveOrders = () => {
   const [ActiveOrders, setActiveOrders] = useState([]);
@@ -43,7 +53,7 @@ const ActiveOrders = () => {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `${API_DOMAIN}/api/v1/user/orders/history?page=${currentPage}&limit=10`,
+          `${API_DOMAIN}/api/v1/user/orders/active?page=${currentPage}&limit=10`,
           {
             headers: {
               Authorization: `Bearer ${await fetchAccessToken()}`,
@@ -54,11 +64,10 @@ const ActiveOrders = () => {
           setLoading(false);
           return;
         }
-        console.log("data is ", data);
         setActiveOrders(data?.data);
         setTotalPages(data?.totalPages);
       } catch (error) {
-        console.log("error is ", error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -117,7 +126,9 @@ const ActiveOrders = () => {
                         {new Date(order?.createdAt).toLocaleDateString() ||
                           "N/A"}
                       </TableCell>
-                      <TableCell className="capitalize">{order?.orderStatus || "N/A"}</TableCell>
+                      <TableCell className="capitalize">
+                        {order?.orderStatus || "N/A"}
+                      </TableCell>
                       <TableCell>
                         <Badge
                           className={
@@ -139,15 +150,30 @@ const ActiveOrders = () => {
                         ₹&nbsp;{order?.totalPrice || "N/A"}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Link href={`/order/${order?._id}`}>
-                          <Button
-                            variant="link"
-                            size="sm"
-                            className="w-[100px] text-blue-600 "
-                          >
-                            View Details
-                          </Button>
-                        </Link>
+                        <Sheet>
+                          <SheetTrigger asChild>
+                            <Button
+                              variant="link"
+                              size="sm"
+                              className="w-[100px] text-blue-600 "
+                            >
+                              View Details
+                            </Button>
+                          </SheetTrigger>
+                          <SheetContent>
+                            <SheetHeader>
+                              <SheetTitle>
+                                Order Summary&nbsp;&nbsp;&nbsp;
+                                {order?.orderNumber || "N/A"}
+                              </SheetTitle>
+                              <SheetDescription>
+                                View your order details here.
+                              </SheetDescription>
+                            </SheetHeader>
+                            <OrderDetailsComponent id={order?._id} />
+                           
+                          </SheetContent>
+                        </Sheet>
                       </TableCell>
                     </TableRow>
                   ))}
