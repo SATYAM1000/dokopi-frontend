@@ -8,9 +8,12 @@ import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/providers/redux/slices/cart-slice";
 
 const PaymentSuccessPage = () => {
   const currentUser = useCurrentUser();
+  const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(true);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   useEffect(() => {
@@ -33,6 +36,7 @@ const PaymentSuccessPage = () => {
           setIsPaymentSuccess(true);
           setLoading(false);
           toast.success("Payment Successful");
+          dispatch(clearCart());
           return;
         }
       } catch (error) {
