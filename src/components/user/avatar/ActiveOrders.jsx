@@ -54,6 +54,7 @@ const ActiveOrders = () => {
           setLoading(false);
           return;
         }
+        console.log("data is ", data);
         setActiveOrders(data?.data);
         setTotalPages(data?.totalPages);
       } catch (error) {
@@ -98,8 +99,8 @@ const ActiveOrders = () => {
                   <TableRow>
                     <TableHead className="w-[200px]">Order No.</TableHead>
                     <TableHead>Date</TableHead>
+                    <TableHead className="w-[150px]">Order Status</TableHead>
                     <TableHead className="w-[130px]">Pay. Status</TableHead>
-
                     <TableHead className="w-[200px]">Transaction ID</TableHead>
                     <TableHead className="w-[150px]">Files Count</TableHead>
                     <TableHead className="">Amount</TableHead>
@@ -116,12 +117,13 @@ const ActiveOrders = () => {
                         {new Date(order?.createdAt).toLocaleDateString() ||
                           "N/A"}
                       </TableCell>
+                      <TableCell className="capitalize">{order?.orderStatus || "N/A"}</TableCell>
                       <TableCell>
                         <Badge
                           className={
                             order?.paymentStatus === "paid"
-                              ? "bg-green-500 hover:bg-green-600"
-                              : "bg-red-500 hover:bg-red-600"
+                              ? "bg-green-500 hover:bg-green-600  "
+                              : "bg-red-500 hover:bg-red-600  "
                           }
                         >
                           {order?.paymentStatus || "N/A"}
@@ -152,38 +154,40 @@ const ActiveOrders = () => {
                 </TableBody>
               </Table>
             </div>
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={handlePrevPage}
-                    className={`${
-                      currentPage === 1
-                        ? "cursor-not-allowed"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink onClick={() => setCurrentPage(1)}>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={handleNextPage}
-                    className={`${
-                      currentPage === totalPages
-                        ? "cursor-not-allowed"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={handlePrevPage}
+                      className={`${
+                        currentPage === 1
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink onClick={() => setCurrentPage(1)}>
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={handleNextPage}
+                      className={`${
+                        currentPage === totalPages
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
         ) : (
           <ErrorComponent errorMessage={"No active orders found"} />
