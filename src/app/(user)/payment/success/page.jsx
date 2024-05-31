@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PaymentSuccessPage = () => {
-  const currentUser=useCurrentUser();
+  const currentUser = useCurrentUser();
   const [loading, setLoading] = React.useState(true);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   useEffect(() => {
@@ -29,18 +29,17 @@ const PaymentSuccessPage = () => {
             },
           }
         );
-
-        console.log(res.data);
         if (res.data.success) {
           setIsPaymentSuccess(true);
           setLoading(false);
           toast.success("Payment Successful");
-        } 
+          return;
+        }
       } catch (error) {
         setIsPaymentSuccess(false);
         setLoading(false);
-        console.log(error);
         toast.error(error.response?.data?.msg || "Something went wrong");
+        return;
       }
     };
 
@@ -78,7 +77,15 @@ const PaymentSuccessPage = () => {
           </div>
         </div>
       </Wrapper>
-      <div className=" hidden md:flex flex-col rounded-3xl p-6  md:mx-auto bg-white max-w-[400px] min-w-[350px] border-2 border-r-8 border-b-8 border-primary ">
+      <div
+        className={`hidden md:flex flex-col rounded-3xl p-6  md:mx-auto max-w-[400px] min-w-[350px] border-2 border-r-8 border-b-8 border-primary ${
+          loading
+            ? "bg-white"
+            : isPaymentSuccess
+            ? "bg-green-100"
+            : "bg-red-100"
+        }`}
+      >
         {loading ? (
           <div className="w-full h-full flex items-center justify-center p-5">
             <PuffLoader color="#2563eb" />
@@ -96,7 +103,6 @@ const PaymentSuccessPage = () => {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-           
             viewBox="0 0 48 48"
             className="text-red-600 w-16 h-16 mx-auto my-6"
           >
@@ -116,14 +122,26 @@ const PaymentSuccessPage = () => {
         )}
         <div className="text-center">
           <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
-            {loading ? "Verifying Payment" : "Payment Done!"}
+            {loading
+              ? "Verifying Payment"
+              : isPaymentSuccess
+              ? "Payment Done!"
+              : "Payment Failed"}
           </h3>
-          <p className="text-gray-600 my-2 text-[14px]">
+          <p className="text-gray-900 my-2 text-[14px] font-medium">
             {loading
               ? "Wait while we verify your payment."
-              : "Thank you for completing your secure online payment."}
+              : isPaymentSuccess
+              ? "Thank you for completing your secure online payment."
+              : "We're sorry, your payment could not be verified."}
           </p>
-          <p className="text-gray-800">{loading ? " " : "Have a great day!"}</p>
+          <p className="text-gray-900 text-[14px] font-medium">
+            {loading
+              ? " "
+              : isPaymentSuccess
+              ? "Have a great day!"
+              : "Please try again later."}
+          </p>
           <div className="py-10 text-center">
             <Link
               href="#"
@@ -132,6 +150,12 @@ const PaymentSuccessPage = () => {
               GO BACK
             </Link>
           </div>
+          <Link
+            href="#"
+            className="inline-block text-sm  transition text-gray-900 underline underline-offset-4"
+          >
+            Track your order here &rarr;
+          </Link>
         </div>
       </div>
     </div>
