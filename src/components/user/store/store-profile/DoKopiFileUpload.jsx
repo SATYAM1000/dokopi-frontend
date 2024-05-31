@@ -35,7 +35,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     filePageCount: null,
     fileIconPath: "/file-icons/pdf.svg",
     fileCopiesCount: 1,
-    messageForXeroxStore: "",
+    messageForXeroxStore: null,
     additionalServices: null,
     filePaperType: "A4",
     fileColorType: "black and white",
@@ -139,6 +139,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                             setIsFileUploadedSuccessfully={
                               setIsFileUploadedSuccessfully
                             }
+                            setPageNumberInput={setPageNumberInput}
                           />
                         </header>
                       ) : (

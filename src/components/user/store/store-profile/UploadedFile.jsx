@@ -9,6 +9,7 @@ const UploadedFile = ({
   fileInfo,
   setIsFileUploadedSuccessfully,
   setFileInfo,
+  setPageNumberInput,
 }) => {
   const onFileRemove = () => {
     setIsFileUploadedSuccessfully(false);
@@ -25,11 +26,12 @@ const UploadedFile = ({
       filePaperType: "A4",
       fileColorType: "black and white",
       filePrintMode: "simplex",
-      fileColorPagesToPrint: [""],
       messageForXeroxStore: null,
       additionalServices: null,
-      fileColorPagesToPrint: null,
+      fileColorPagesToPrint: [],
     }));
+    setPageNumberInput("");
+
     toast.success("File removed successfully");
   };
 
@@ -72,7 +74,11 @@ const UploadedFile = ({
           Uploaded
         </Badge>
 
-        <X className="text-gray-700 cursor-pointer " onClick={onFileRemove} size={20} />
+        <X
+          className="text-gray-700 cursor-pointer "
+          onClick={onFileRemove}
+          size={20}
+        />
       </div>
     </section>
   );
