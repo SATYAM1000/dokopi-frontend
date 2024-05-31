@@ -22,6 +22,16 @@ import {
   Lock,
   Bell,
 } from "lucide-react";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ClipLoader } from "react-spinners";
 import { API_DOMAIN } from "@/lib/constants";
@@ -132,16 +142,7 @@ const UserAvatar = () => {
             </Link>
           </DropdownMenuItem>
         )}
-        {currentUser?.role === "USER" && (
-          <DropdownMenuItem asChild className={`cursor-pointer`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <Bell size={17} />
-                <p className="pl-3">Notifications</p>
-              </div>
-            </div>
-          </DropdownMenuItem>
-        )}
+
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href="/contact" className="flex items-center">
             <Headphones size={17} />

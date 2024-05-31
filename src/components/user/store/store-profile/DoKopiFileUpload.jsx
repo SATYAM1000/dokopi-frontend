@@ -20,6 +20,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
   const [files, setFiles] = useState([]);
   const [shake, setShake] = useState(false);
+  const [pageNumberInput, setPageNumberInput] = React.useState(``);
   const [showFileUploadProgress, setShowFileUploadProgress] = useState(false);
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
@@ -39,7 +40,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     filePaperType: "A4",
     fileColorType: "black and white",
     filePrintMode: "simplex",
-    fileColorPagesToPrint: [""],
+    fileColorPagesToPrint: [],
   });
 
   const onFinalSubmit = (e) => {
@@ -84,8 +85,9 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       filePaperType: "A4",
       fileColorType: "black and white",
       filePrintMode: "simplex",
-      fileColorPagesToPrint: [""],
+      fileColorPagesToPrint: [],
     });
+    setPageNumberInput(``);
     toast.success("File added successfully");
     setIsFileUploadedSuccessfully(false);
   };
@@ -93,9 +95,11 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   const handleColorPagesToPrintChange = (e) => {
     setError(null);
     if (e.target.value.length < 0 || !fileInfo.filePageCount) {
+      setError("Please upload the file first");
       return;
     }
     const res = extractColorPages(e.target.value, fileInfo.filePageCount);
+    setPageNumberInput(e.target.value);
     if (!res.success) {
       setError(res.msg);
       return;
@@ -169,6 +173,8 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                       handleColorPagesToPrintChange
                     }
                     error={error}
+                    pageNumberInput={pageNumberInput}
+
                   />
                 </div>
               </section>

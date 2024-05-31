@@ -12,8 +12,10 @@ const PrintConfig = ({
   shake,
   onFinalSubmit,
   handleColorPagesToPrintChange,
-  error
+  error,
+  pageNumberInput,
 }) => {
+
   return (
     <>
       <div
@@ -117,15 +119,17 @@ const PrintConfig = ({
                   placeholder="Example: 1,2,3-10"
                   className="w-full"
                   onChange={handleColorPagesToPrintChange}
+                  value={pageNumberInput}
                 />
                 {error && <p className="text-red-500 text-[12px]">{error}</p>}
               </div>
             </div>
           )}
-          {fileInfo?.fileColorType === "mixed" && (
+          {fileInfo?.fileColorType === "mixed" && fileInfo?.filePageCount && (
             <section className="w-full flex items-center justify-start gap-4 mt-2 overflow-x-scroll pb-2 ">
               {[...Array(fileInfo?.filePageCount).keys()].map((pageNumber) => (
                 <button
+                  type="button"
                   key={pageNumber}
                   onClick={() => {
                     if (
