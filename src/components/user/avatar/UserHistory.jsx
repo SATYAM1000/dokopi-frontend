@@ -49,8 +49,6 @@ const UserHistory = () => {
             },
           }
         );
-
-        console.log("data is ", data);
         if (data.totalOrders === 0) {
           setLoading(false);
           return;
@@ -95,16 +93,15 @@ const UserHistory = () => {
             </div>
             {/* ----container---------- */}
             <div className="w-full max-h-[100vh] min-h-[calc(100vh-250px)] overflow-hidden">
-              <Table className="w-full max-h-[60vh] overflow-y-scroll  rounded-md ">
-                <TableCaption>A list of your recent orders.</TableCaption>
+              <Table className="w-full max-h-[55vh] overflow-y-scroll hide-scrollbar  rounded-md ">
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[200px]">Order ID</TableHead>
                     <TableHead>Date</TableHead>
-                    <TableHead>Pay. Status</TableHead>
+                    <TableHead className="w-[130px]">Pay. Status</TableHead>
 
-                    <TableHead className="w-[150px]">Transaction ID</TableHead>
-                    <TableHead className="w-[150px]">Documents Count</TableHead>
+                    <TableHead className="w-[200px]">Transaction ID</TableHead>
+                    <TableHead className="w-[150px]">Files Count</TableHead>
                     <TableHead className="text-right">Amount</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -133,7 +130,7 @@ const UserHistory = () => {
                       <TableCell className="w-[100px]">
                         {order?.razorpayPaymentId || "N/A"}
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell>
                         {order?.cartItems.length}
                       </TableCell>
 
