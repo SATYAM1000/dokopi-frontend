@@ -100,7 +100,7 @@ const DokopiCartComponent = ({ setOpen }) => {
           </ul>
           <BillDetails totalPrice={totalPrice} />
           <CancellationPolicy />
-          <PaymentButton setOpen={setOpen} />
+          <PaymentButton setOpen={setOpen} totalPrice={totalPrice} />
         </div>
       ) : (
         <div className="mt-6 space-y-6">

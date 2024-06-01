@@ -10,7 +10,7 @@ import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
-const PaymentButton = ({ setOpen }) => {
+const PaymentButton = ({ setOpen, totalPrice }) => {
   const currentUser = useCurrentUser();
 
   const [loading, setLoading] = React.useState(false);
@@ -46,13 +46,13 @@ const PaymentButton = ({ setOpen }) => {
         toast.error(res.data?.msg || "Something went wrong");
         return;
       }
-      
+
       const {
         data: { order },
       } = await axios.post(
         `${API_DOMAIN}/api/v1/user/payment/user-checkout?userId=${currentUser.id}&storeId=${storeId}`,
         {
-          amount: 1,
+          amount: totalPrice,
           cartItems,
         },
         {
