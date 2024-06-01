@@ -1,44 +1,49 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-const MapView = () => {
-  const mapLocation = [28.6139, 77.209]; // Replace with your desired latitude and longitude
+const MapView = ({ storeData }) => {
+  const { storeLocationCoordinates, storeDetails, storePrices } = storeData
+  const { storePhoneNumber, storeLocation } = storeDetails
+  const [mapLocation, setmapLocation] = useState(storeLocationCoordinates.coordinates) // Replace with your desired latitude and longitude
   const title = "New Delhi, India"; // Replace with your desired title
   const latAndLong = "28.6139,77.2090"; // Replace with your desired lat and long
-
+  const [priceList, SetPriceList] = useState([])
+  const getPriceList = () => {
+    const dummyData = [];
+    for (let key in storePrices) {
+      const NewObj = {
+        category: key,
+        value: storePrices[key]
+      }
+      dummyData.push(NewObj)
+    }
+    SetPriceList(dummyData)
+  }
+  useEffect(() => {
+    if (storePrices) {
+      getPriceList()
+    }
+  }, [])
   return (
     <div className="border flex flex-col gap-2 p-4 shadow rounded-md  ">
       <div className="">
         <h4 className="text-xl font-normal">Call</h4>
-        <h5 className=" text-gray-600 text-sm font-medium">+91 9572013778</h5>
+        <h5 className=" text-gray-600 text-sm font-medium">+91-{storePhoneNumber}</h5>
       </div>
       <div className="">
         <h4 className="text-xl font-normal">Pricing</h4>
-        <div className=" flex flex-col text-gray-500 ">
+        <div className=" flex flex-col text-gray-500 gap-1">
+          {
+            priceList.length > 0 && priceList.map((price) => (
+              <div className="flex items-center justify-between text-sm text-gray-600" key={price.category + price.value}>
+                <p className="capitalize">{price.category}</p>
+                <p className=" ">₹{price.value}</p>
+              </div>
+            ))
+          }
           {/* ------black and white----- */}
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <p className=" ">Black and White</p>
-            <p className=" ">₹ 1</p>
-          </div>
-          {/* ------color------ */}
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <p className=" ">Color Print</p>
-            <p className=" ">₹ 5</p>
-          </div>
-
-          {/* ----lamination--------- */}
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <p className=" ">Lamination</p>
-            <p className=" ">₹ 1</p>
-          </div>
-
-          {/* -----binding---------- */}
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <p className=" ">Binding</p>
-            <p className=" ">₹ 1</p>
-          </div>
         </div>
       </div>
       <div>
@@ -50,6 +55,7 @@ const MapView = () => {
               zoom={13}
               scrollWheelZoom={false}
               className="h-full -z-20"
+              doubleClickZoom
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -64,7 +70,11 @@ const MapView = () => {
       </div>
       <div className="flex items-center gap-3">
         <p className="text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer text-sm flex items-center gap-2">
-          Jadav Nagar, Lane No. 1 , New Delhi, India
+          {storeLocation.storeLandmark},
+          {storeLocation.storeCity},
+          {storeLocation.storeState},
+          {storeLocation.storeCountry},
+          {storeLocation.storeZipCode}
           <span>
             {typeof window !== "undefined" && <ExternalLink size={18} />}
           </span>

@@ -3,26 +3,45 @@
 import React from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 
-const StoreGallery = () => {
+const StoreGallery = ({ storeData }) => {
+    const { storeImagesURL } = storeData
+    console.log(storeImagesURL)
     return (
         <>
-            <div className="w-full h-60 md:hidden">
-                <img
-                    loading="lazy"
-                    src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                    alt="restaurant"
-                    className="w-full h-full object-cover object-center rounded-lg"
-                />
-            </div>
+            {
+                storeImagesURL.length > 0 && storeImagesURL.map((Image, index) => {
+                    if (index == 0)
+                        return <div className="w-full h-60 md:hidden" key={Image}>
+                            <span>{Image}</span>
+                            <img
+                                loading="lazy"
+                                src={Image}
+                                alt="restaurant"
+                                className="w-full h-full object-cover object-center rounded-lg"
+                            />
+                        </div>
+
+
+                })
+            }
+
             <div className="hidden w-full h-96 md:flex gap-1">
-                <div className="w-full h-full overflow-hidden rounded-lg">
-                    <img
-                        loading="lazy"
-                        src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                        alt="restaurant"
-                        className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
-                    />
-                </div>
+                {
+                    storeImagesURL.length > 0 && storeImagesURL.map((Image, index) => {
+                        if (index == 0)
+                            return (
+                                <div className="w-full h-full overflow-hidden rounded-lg">
+                                    <img
+                                        loading="lazy"
+                                        src={Image}
+                                        alt="restaurant"
+                                        className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
+                                    />
+                                </div>)
+                    })
+                }
+
+                
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                     <div className="w-full h-2/4 overflow-hidden rounded-lg">
                         <img
@@ -68,7 +87,7 @@ const StoreGallery = () => {
                             <h4>View Gallery</h4>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </>
     );
