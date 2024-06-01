@@ -10,7 +10,13 @@ import OrderStatus from "./OrderStatus";
 import FileDetails from "./FileDetails";
 import { ClipLoader } from "react-spinners";
 
+import { useRef } from "react";
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
+
+
 const OrderDetailsComponent = ({ id }) => {
+  const targetRef = useRef();
+
   const [orderDetails, setOrderDetails] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const fetchOrderDetails = async () => {
@@ -35,6 +41,10 @@ const OrderDetailsComponent = ({ id }) => {
     fetchOrderDetails();
   }, []);
 
+  const generateMyInvoice = () => {
+    generatePDF(targetRef, options);
+  };
+
   return (
     <>
       {loading ? (
@@ -45,8 +55,10 @@ const OrderDetailsComponent = ({ id }) => {
         <div className="w-[100%] relative flex flex-col items-center justify-center">
           <OrderStatus OrderStatus={orderDetails?.orderStatus} />
           {orderDetails?.cartItems?.length > 0 ? (
-            <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col pb-16 gap-2">
-              <ul className="space-y-4 bg-gray-100 rounded-md    ">
+            <div
+              className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col pb-16 gap-2"
+            >
+              <ul ref={targetRef} className="space-y-4 bg-gray-100 rounded-md    ">
                 {orderDetails?.cartItems.map((product, index) => (
                   <li
                     key={index}
@@ -60,7 +72,7 @@ const OrderDetailsComponent = ({ id }) => {
                 storeDetails={orderDetails?.storeId?.storeDetails}
               />
               <PaymentDetails PaymentDetails={orderDetails} />
-              <DownloadButton />
+              <DownloadButton generateMyInvoice={generateMyInvoice} />
             </div>
           ) : (
             <div className="mt-6 space-y-6">
