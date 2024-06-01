@@ -112,7 +112,7 @@ const ActiveOrders = () => {
                     <TableHead className="w-[130px]">Pay. Status</TableHead>
                     <TableHead className="w-[200px]">Transaction ID</TableHead>
                     <TableHead className="w-[150px]">Files Count</TableHead>
-                    <TableHead className="">Amount</TableHead>
+                    <TableHead>Amount</TableHead>
                     <TableHead className="text-right">&nbsp;</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -146,7 +146,7 @@ const ActiveOrders = () => {
                       </TableCell>
                       <TableCell>{order?.cartItems.length}</TableCell>
 
-                      <TableCell className="text-right">
+                      <TableCell>
                         ₹&nbsp;{order?.totalPrice || "N/A"}
                       </TableCell>
                       <TableCell className="text-right">

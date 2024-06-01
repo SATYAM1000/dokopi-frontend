@@ -7,7 +7,7 @@ import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import { fetchAccessToken } from "@/actions/access-token";
 import { ClipLoader } from "react-spinners";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PaymentButton = ({ setOpen }) => {

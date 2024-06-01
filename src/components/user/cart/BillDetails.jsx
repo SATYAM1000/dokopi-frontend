@@ -1,6 +1,12 @@
 import React from "react";
+import { ClipLoader } from "react-spinners";
 
-const BillDetails = () => {
+const BillDetails = ({ totalPrice }) => {
+  if (totalPrice === 0) {
+    return null;
+  }
+
+
   return (
     <div className="w-full rounded-md bg-gray-100 px-6 py-4 flex flex-col gap-1 ">
       <h1 className="text-left text-[15px] font-bold text-gray-900">
@@ -9,7 +15,10 @@ const BillDetails = () => {
       <div className="text-[13px] text-gray-700 w-full">
         <div className="flex items-center justify-between">
           <p>Subtotal: </p>
-          <span>₹&nbsp;1000</span>
+          <span>
+            ₹&nbsp;
+            {totalPrice}
+          </span>
         </div>
         <div className="flex items-center justify-between">
           <p>Discount: </p>
@@ -18,7 +27,11 @@ const BillDetails = () => {
       </div>
       <div className="w-full flex items-center justify-between mt-2">
         <p className="text-[14px] font-semibold text-gray-900">Total</p>
-        <p className="text-[14px] font-semibold text-gray-900">₹&nbsp;1000</p>
+
+        <p className="text-[14px] font-semibold text-gray-900">
+          ₹&nbsp;
+          {totalPrice}
+        </p>
       </div>
     </div>
   );

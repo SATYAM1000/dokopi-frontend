@@ -1,26 +1,53 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { X } from "lucide-react";
-import { deleteFromCart, clearCart } from "@/providers/redux/slices/cart-slice";
+import { deleteFromCart } from "@/providers/redux/slices/cart-slice";
 import Script from "next/script";
 import { redirect } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CancellationPolicy from "./CancellationPolicy";
 import PaymentButton from "./PaymentButton";
 import BillDetails from "./BillDetails";
+import { API_DOMAIN } from "@/lib/constants";
+import { calculateTotalPrice } from "@/lib/price-calculator";
+import axios from "axios";
 
-const DokopiCartComponent = ({setOpen}) => {
+const DokopiCartComponent = ({ setOpen }) => {
   const currentUser = useCurrentUser();
   if (!currentUser) redirect("/auth/sign-in");
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
+
+  const fetchStorePricing = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `${API_DOMAIN}/api/v1/merchant/store/pricing/${localStorage.getItem(
+          "storeId"
+        )}`
+      );
+
+      const price = calculateTotalPrice(cartItems, data?.data);
+      setTotalPrice(price);
+    } catch (error) {
+      console.log("Error fetching store pricing:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchStorePricing();
+  }, []);
+
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));
   };
-
   return (
     <div className="w-[100%] relative flex flex-col items-center justify-center">
       {cartItems.length > 0 ? (
@@ -71,7 +98,7 @@ const DokopiCartComponent = ({setOpen}) => {
               </li>
             ))}
           </ul>
-          <BillDetails />
+          <BillDetails totalPrice={totalPrice} />
           <CancellationPolicy />
           <PaymentButton setOpen={setOpen} />
         </div>
