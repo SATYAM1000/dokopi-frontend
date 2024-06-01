@@ -6,6 +6,8 @@ import Review from "./Review";
 import MapView from "./MapView";
 
 const DoKopiStoreOverview = ({ storeDetails }) => {
+  const { storeReviews } = storeDetails
+  console.log(storeReviews)
   return (
     <section className="w-full mt-6 min-h-screen flex flex-col gap-5">
       <StoreGallery storeData={storeDetails} />
@@ -19,9 +21,11 @@ const DoKopiStoreOverview = ({ storeDetails }) => {
             Reviews
           </h2>
           <div className="flex flex-col gap-3 mt-2">
-            <Review />
 
-            <Review />
+            {
+              storeReviews.length > 0 && storeReviews.map(OneReview => <Review OneReview={OneReview} key={OneReview._id} />) || "No Review are given"
+            }
+
           </div>
         </div>
       </div>
