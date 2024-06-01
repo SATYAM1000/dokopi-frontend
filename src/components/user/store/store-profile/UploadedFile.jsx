@@ -26,7 +26,7 @@ const UploadedFile = ({
       filePaperType: "A4",
       fileColorType: "black and white",
       filePrintMode: "simplex",
-      messageForXeroxStore: null,
+      messageForXeroxStore: '',
       additionalServices: null,
       fileColorPagesToPrint: [],
     }));

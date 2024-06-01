@@ -52,5 +52,5 @@ export const calculateTotalPrice = (cartItems, storePrices) => {
     }
   });
 
-  return totalPrice;
+  return Math.round(totalPrice);
 };
