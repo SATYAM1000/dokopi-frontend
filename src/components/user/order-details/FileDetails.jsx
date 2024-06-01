@@ -39,10 +39,10 @@ const FileDetails = ({ fileInfo, index }) => {
             }`}
           >
             <p>Color Pages:</p>
-            <span className="text-wrap">
+            <span className="text-wrap overflow-hidden">
               {fileInfo?.fileColorPagesToPrint
                 ?.sort((a, b) => parseInt(a) - parseInt(b))
-                .join(",")}{" "}
+                .join(", ")}{" "}
             </span>
           </div>
         )}
@@ -57,7 +57,7 @@ const FileDetails = ({ fileInfo, index }) => {
         {fileInfo?.messageForXeroxStore && (
           <div className="flex flex-col">
             <p>Message: </p>
-            <span className="py-1 px-2 border bg-white font-normal mt-1 rounded-md text-wrap ">
+            <span className="py-2 px-2 border bg-white font-normal mt-1 rounded-md text-wrap overflow-hidden ">
               {fileInfo?.messageForXeroxStore}
             </span>
           </div>
