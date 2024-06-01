@@ -5,7 +5,6 @@ import { AiOutlineCamera } from "react-icons/ai";
 
 const StoreGallery = ({ storeData }) => {
     const { storeImagesURL } = storeData
-    console.log(storeImagesURL)
     return (
         <>
             {
@@ -20,8 +19,6 @@ const StoreGallery = ({ storeData }) => {
                                 className="w-full h-full object-cover object-center rounded-lg"
                             />
                         </div>
-
-
                 })
             }
 
@@ -30,7 +27,7 @@ const StoreGallery = ({ storeData }) => {
                     storeImagesURL.length > 0 && storeImagesURL.map((Image, index) => {
                         if (index == 0)
                             return (
-                                <div className="w-full h-full overflow-hidden rounded-lg">
+                                <div className="w-full h-full overflow-hidden rounded-lg" key={index}>
                                     <img
                                         loading="lazy"
                                         src={Image}
@@ -41,7 +38,7 @@ const StoreGallery = ({ storeData }) => {
                     })
                 }
 
-                
+
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                     <div className="w-full h-2/4 overflow-hidden rounded-lg">
                         <img
@@ -87,7 +84,7 @@ const StoreGallery = ({ storeData }) => {
                             <h4>View Gallery</h4>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </>
     );
