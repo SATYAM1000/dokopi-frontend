@@ -13,6 +13,7 @@ export const metadata = {
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import Footer from "@/components/user/global/Footer";
 
 export default async function RootLayout({ children }) {
   const session = await auth();
@@ -26,6 +27,7 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <Navbar apiKey={apiKey} />
               {children}
+              <Footer />
               <Toaster richColors />
             </ReduxProvider>
           </ReactQueryProvider>

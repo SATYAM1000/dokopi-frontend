@@ -18,7 +18,7 @@ const CallToAction = () => {
                 <h2 className="block w-full pb-2 bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl">
                   List Your Xerox Store
                 </h2>
-                <p className="my-4 bg-transparent font-medium leading-relaxed tracking-wide text-gray-400">
+                <p className="my-4 bg-transparent font-normal leading-relaxed tracking-wide text-gray-400">
                   Easily add your xerox store to our platform by providing your
                   phone number. Reach more customers and grow your business with
                   our user-friendly listing process.

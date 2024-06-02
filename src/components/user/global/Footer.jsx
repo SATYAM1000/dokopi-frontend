@@ -1,45 +1,50 @@
 import React from "react";
 import Link from "next/link";
+import Wrapper from "./Wrapper";
 const Footer = () => {
   return (
-    <footer>
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center space-x-6 md:order-2">
-          {navigation.slice(0, 2).map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              className="text-gray-400 hover:text-gray-500"
+    <Wrapper>
+      <footer className=" mt-24 w-full py-4 flex flex-col items-center justify-center  bg-white border-t border-gray-200  md:flex md:items-center md:flex-row md:justify-between md:py-6">
+        <span className="text-sm text-gray-500 sm:text-center">
+          © 2024{" "}
+          <a href="https://dokopi.com/" className="hover:underline">
+            Dokopi
+          </a>
+          . All Rights Reserved.
+        </span>
+        <ul className="grid grid-cols-4 md:flex md:items-center mt-3 text-sm  text-gray-500 sm:mt-0">
+          <li>
+            <Link
+              href="/terms-conditions"
+              className="hover:underline underline-offset-4 me-4 md:me-6"
             >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </a>
-          ))}
-        </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; {new Date().getFullYear()} DoKopi. All rights reserved.
-          </p>
-          {/* <div className="flex space-x-4">
-            <div className="flex gap-4">
-              <Link
-                href="/privacy-policy"
-                className="text-center text-xs leading-5 text-gray-500"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-conditions"
-                className="text-center text-xs leading-5 text-gray-500"
-              >
-                Terms and Conditions
-              </Link>
-            </div>
-          </div> */}
-        </div>
-      </div>
-    </footer>
+              Terms
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/privacy-policy"
+              className="hover:underline underline-offset-4 me-4 md:me-6"
+            >
+              Privacy
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="#"
+              className="hover:underline underline-offset-4 me-4 md:me-6"
+            >
+              Shipping & Refund
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className="hover:underline underline-offset-4">
+              Contact
+            </Link>
+          </li>
+        </ul>
+      </footer>
+    </Wrapper>
   );
 };
 

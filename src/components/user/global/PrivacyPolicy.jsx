@@ -1,294 +1,602 @@
 import React from "react";
 import Wrapper from "./Wrapper";
-import Footer from "./Footer";
 import Link from "next/link";
 const PrivacyPolicy = () => {
   return (
     <section className="w-full">
       <Wrapper className="w-full my-6  flex flex-col">
-        <h2 className="md:text-4xl font-extrabold mb-4 text-2xl">Privacy Policy</h2>
+        <h2 className="md:text-4xl font-extrabold mb-4 text-2xl">
+          Privacy Policy
+        </h2>
         <p className="text-gray-600 my-2">LAST UPDATED: 09 May 2024</p>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
+            <span className="mr-2">&#9679;</span>This Privacy Policy describes
+            Our policies and procedures on the collection, use, and disclosure
+            of Your information when You use the Service and tells You about
+            Your privacy rights and how the law protects You.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We use Your Personal data to provide and improve the Service.
+            <span className="mr-2">&#9679;</span>We use Your Personal data to
+            provide and improve the Service.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.
+            <span className="mr-2">&#9679;</span>By using the Service, You agree
+            to the collection and use of information in accordance with this
+            Privacy Policy.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h2 className="md:text-3xl font-extrabold mt-4 text-xl">Interpretation and Definitions</h2>
+          <h2 className="md:text-3xl font-extrabold mt-4 text-xl">
+            Interpretation and Definitions
+          </h2>
           <h3 className="md:text-2xl font-bold mt-2 text-lg">Interpretation</h3>
           <p className="text-lg mt-2">
-            <span className="mt-2">&#9679;</span>The words of which the initial letter is capitalized have meanings defined under the following conditions.
+            <span className="mt-2">&#9679;</span>The words of which the initial
+            letter is capitalized have meanings defined under the following
+            conditions.
           </p>
           <p className="text-lg mt-2">
-            <span className="mt-2">&#9679;</span>The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+            <span className="mt-2">&#9679;</span>The following definitions shall
+            have the same meaning regardless of whether they appear in singular
+            or in plural.
           </p>
           <h3 className="md:text-2xl font-bold mt-2 text-lg">Definitions</h3>
           <p className="text-lg">For the purposes of this Privacy Policy:</p>
           <ul className="text-lg my-2 flex flex-col gap-2 text-color:4d4d4d">
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>A unique account created for You to access our Service or parts of our Service.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>DoKopi, Vadgaon Budruk Pune, Maharashtra.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Small files placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history among other uses.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Maharashtra, India.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Any information that relates to an identified or identifiable individual.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>The Website.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Any natural or legal person who processes the data on behalf of the Company.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Any website or any social network website through which a User can log in or create an account to use the Service.</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>Data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>DoKopi, accessible from <Link href={"https://www.dokopi.com/"} className="text-blue-600 underline underline-offset-2">https://www.dokopi.com/</Link> </li>
-            <li className="text-lg text-color:4d4d4d"><span className="mr-2">&#9679;</span>The individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>A unique account created for
+              You to access our Service or parts of our Service.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>DoKopi, Vadgaon Budruk Pune,
+              Maharashtra.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Small files placed on Your
+              computer, mobile device or any other device by a website,
+              containing the details of Your browsing history among other uses.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Maharashtra, India.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Any device that can access
+              the Service such as a computer, a cellphone or a digital tablet.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Any information that relates
+              to an identified or identifiable individual.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>The Website.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Any natural or legal person
+              who processes the data on behalf of the Company.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Any website or any social
+              network website through which a User can log in or create an
+              account to use the Service.
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>Data collected automatically,
+              either generated by the use of the Service or from the Service
+              infrastructure itself (for example, the duration of a page visit).
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>DoKopi, accessible from{" "}
+              <Link
+                href={"https://www.dokopi.com/"}
+                className="text-blue-600 underline underline-offset-2"
+              >
+                https://www.dokopi.com/
+              </Link>{" "}
+            </li>
+            <li className="text-lg text-color:4d4d4d">
+              <span className="mr-2">&#9679;</span>The individual accessing or
+              using the Service, or the company, or other legal entity on behalf
+              of which such individual is accessing or using the Service, as
+              applicable.
+            </li>
           </ul>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h2 className="md:text-3xl font-extrabold mt-4 text-xl">Collecting and Using Your Personal Data</h2>
-          <h3 className="md:text-2xl font-bold mt-2 text-lg">Types of Data Collected</h3>
+          <h2 className="md:text-3xl font-extrabold mt-4 text-xl">
+            Collecting and Using Your Personal Data
+          </h2>
+          <h3 className="md:text-2xl font-bold mt-2 text-lg">
+            Types of Data Collected
+          </h3>
           <h4 className="md:text-xl font-bold mt-2 text-lg">Personal Data</h4>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You.
+            <span className="mr-2">&#9679;</span>While using Our Service, We may
+            ask You to provide Us with certain personally identifiable
+            information that can be used to contact or identify You.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Personally identifiable information may include, but is not limited to:
+            <span className="mr-2">&#9679;</span>Personally identifiable
+            information may include, but is not limited to:
           </p>
           <ul className="text-lg flex flex-col list-inside gap-2 mb-2 mt-2">
-            <li className="font-medium"><span className="mr-2">&#9679;</span>Email address</li>
-            <li className="font-medium"><span className="mr-2">&#9679;</span>First name and last name</li>
-            <li className="font-medium"><span className="mr-2">&#9679;</span>Phone number</li>
-            <li className="font-medium"><span className="mr-2">&#9679;</span>Address, State, Province, ZIP/Postal code, City</li>
-            <li className="font-medium"><span className="mr-2">&#9679;</span>Usage Data</li>
+            <li className="font-medium">
+              <span className="mr-2">&#9679;</span>Email address
+            </li>
+            <li className="font-medium">
+              <span className="mr-2">&#9679;</span>First name and last name
+            </li>
+            <li className="font-medium">
+              <span className="mr-2">&#9679;</span>Phone number
+            </li>
+            <li className="font-medium">
+              <span className="mr-2">&#9679;</span>Address, State, Province,
+              ZIP/Postal code, City
+            </li>
+            <li className="font-medium">
+              <span className="mr-2">&#9679;</span>Usage Data
+            </li>
           </ul>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
           <h3 className="md:text-2xl font-bold mt-2 text-xl">Usage Data</h3>
           <p className="text-lg">
-            <span className="mr-2">&#9679;</span>Usage Data is collected automatically when using the Service.
+            <span className="mr-2">&#9679;</span>Usage Data is collected
+            automatically when using the Service.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Usage Data may include information such as Your Device’s Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+            <span className="mr-2">&#9679;</span>Usage Data may include
+            information such as Your Device’s Internet Protocol address (e.g. IP
+            address), browser type, browser version, the pages of our Service
+            that You visit, the time and date of Your visit, the time spent on
+            those pages, unique device identifiers and other diagnostic data.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.
+            <span className="mr-2">&#9679;</span>When You access the Service by
+            or through a mobile device, We may collect certain information
+            automatically, including, but not limited to, the type of mobile
+            device You use, Your mobile device unique ID, the IP address of Your
+            mobile device, Your mobile operating system, the type of mobile
+            Internet browser You use, unique device identifiers and other
+            diagnostic data.
           </p>
           <p className="text-lg my-2">
-            <span className="mt-2">&#9679;</span>We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.
+            <span className="mt-2">&#9679;</span>We may also collect information
+            that Your browser sends whenever You visit our Service or when You
+            access the Service by or through a mobile device.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold  mt-2 text-xl">Tracking Technologies and Cookies</h3>
+          <h3 className="md:text-2xl font-bold  mt-2 text-xl">
+            Tracking Technologies and Cookies
+          </h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information.
+            <span className="mr-2">&#9679;</span>We use Cookies and similar
+            tracking technologies to track the activity on Our Service and store
+            certain information.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:
+            <span className="mr-2">&#9679;</span>Tracking technologies used are
+            beacons, tags, and scripts to collect and track information and to
+            improve and analyze Our Service. The technologies We use may
+            include:
           </p>
           <ul className="text-lg flex flex-col gap-2 mb-2">
             <li>
-              <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold"></strong> A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-semibold"></strong> A cookie is a
+              small file placed on Your Device. You can instruct Your browser to
+              refuse all Cookies or to indicate when a Cookie is being sent.
+              However, if You do not accept Cookies, You may not be able to use
+              some parts of our Service. Unless you have adjusted Your browser
+              setting so that it will refuse Cookies, our Service may use
+              Cookies.
             </li>
             <li>
-              <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold"></strong> Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser settings as those used for Browser Cookies.
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-semibold"></strong> Certain
+              features of our Service may use local stored objects (or Flash
+              Cookies) to collect and store information about Your preferences
+              or Your activity on our Service. Flash Cookies are not managed by
+              the same browser settings as those used for Browser Cookies.
             </li>
             <li>
-              <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold"></strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-semibold"></strong> Certain
+              sections of our Service and our emails may contain small
+              electronic files known as web beacons (also referred to as clear
+              gifs, pixel tags, and single-pixel gifs) that permit the Company,
+              for example, to count users who have visited those pages or opened
+              an email and for other related website statistics (for example,
+              recording the popularity of a certain section and verifying system
+              and server integrity).
             </li>
           </ul>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Cookies can be ‘Persistent’ or ‘Session’ Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser.
+            <span className="mr-2">&#9679;</span>Cookies can be ‘Persistent’ or
+            ‘Session’ Cookies. Persistent Cookies remain on Your personal
+            computer or mobile device when You go offline, while Session Cookies
+            are deleted as soon as You close Your web browser.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We use both Session and Persistent Cookies for the purposes set out below:
+            <span className="mr-2">&#9679;</span>We use both Session and
+            Persistent Cookies for the purposes set out below:
           </p>
           <ul className="text-lg flex flex-col gap-2 mb-2">
             <li className="flex flex-col gap-2 border-b border-black/[0.1] pb-2">
               <p>
-                <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold">Necessary / Essential Cookies:</strong>
+                <span className="mr-2">&#9679;</span>
+                <strong className="text-lg font-semibold">
+                  Necessary / Essential Cookies:
+                </strong>
               </p>
               <p>Type: Session Cookies</p>
               <p>Administered by: Us</p>
-              <p>Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.
+              <p>
+                Purpose: These Cookies are essential to provide You with
+                services available through the Website and to enable You to use
+                some of its features. They help to authenticate users and
+                prevent fraudulent use of user accounts. Without these Cookies,
+                the services that You have asked for cannot be provided, and We
+                only use these Cookies to provide You with those services.
               </p>
             </li>
             <li className="flex flex-col gap-2 border-b border-black/[0.1] pb-2">
               <p>
-                <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold ">Cookies Policy / Notice Acceptance Cookies:</strong>
+                <span className="mr-2">&#9679;</span>
+                <strong className="text-lg font-semibold ">
+                  Cookies Policy / Notice Acceptance Cookies:
+                </strong>
               </p>
               <p>Type: Persistent Cookies</p>
               <p>Administered by: Us</p>
-              <p>Purpose: These Cookies identify if users have accepted the use of cookies on the Website.
+              <p>
+                Purpose: These Cookies identify if users have accepted the use
+                of cookies on the Website.
               </p>
             </li>
             <li className="flex flex-col gap-2 border-b border-black/[0.1] pb-2">
               <p>
-                <span className="mr-2">&#9679;</span><strong className="text-lg font-semibold">Functionality Cookies:</strong>
+                <span className="mr-2">&#9679;</span>
+                <strong className="text-lg font-semibold">
+                  Functionality Cookies:
+                </strong>
               </p>
               <p>Type: Persistent Cookies</p>
               <p>Administered by: Us</p>
-              <p>Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.
+              <p>
+                Purpose: These Cookies allow us to remember choices You make
+                when You use the Website, such as remembering your login details
+                or language preference. The purpose of these Cookies is to
+                provide You with a more personal experience and to avoid You
+                having to re-enter your preferences every time You use the
+                Website.
               </p>
             </li>
           </ul>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.
+            <span className="mr-2">&#9679;</span>For more information about the
+            cookies we use and your choices regarding cookies, please visit our
+            Cookies Policy or the Cookies section of our Privacy Policy.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Use of Your Personal Data</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Use of Your Personal Data
+          </h3>
           <p className="text-lg">
-            <span className="mr-2">&#9679;</span>The Company may use Personal Data for the following purposes:
+            <span className="mr-2">&#9679;</span>The Company may use Personal
+            Data for the following purposes:
           </p>
           <ul className="text-lg flex flex-col gap-2 my-2 pb-2">
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">To provide and maintain our Service:</strong> including to monitor the usage of our Service.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">To manage Your Account:</strong> The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">For the performance of a contract:</strong> The development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">To contact You:</strong> By email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application’s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">To provide You:</strong> With news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">To manage Your requests:</strong> To attend and manage Your requests to Us.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</li>
-            <li><span className="mr-2">&#9679;</span><strong className="text-lg font-medium ">For other purposes:</strong> We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                To provide and maintain our Service:
+              </strong>{" "}
+              including to monitor the usage of our Service.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                To manage Your Account:
+              </strong>{" "}
+              The Personal Data You provide can give You access to different
+              functionalities of the Service that are available to You as a
+              registered user.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                For the performance of a contract:
+              </strong>{" "}
+              The development, compliance and undertaking of the purchase
+              contract for the products, items or services You have purchased or
+              of any other contract with Us through the Service.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                To contact You:
+              </strong>{" "}
+              By email, telephone calls, SMS, or other equivalent forms of
+              electronic communication, such as a mobile application’s push
+              notifications regarding updates or informative communications
+              related to the functionalities, products or contracted services,
+              including the security updates, when necessary or reasonable for
+              their implementation.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                To provide You:
+              </strong>{" "}
+              With news, special offers and general information about other
+              goods, services and events which we offer that are similar to
+              those that you have already purchased or enquired about unless You
+              have opted not to receive such information.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                To manage Your requests:
+              </strong>{" "}
+              To attend and manage Your requests to Us.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                For business transfers:
+              </strong>{" "}
+              We may use Your information to evaluate or conduct a merger,
+              divestiture, restructuring, reorganization, dissolution, or other
+              sale or transfer of some or all of Our assets, whether as a going
+              concern or as part of bankruptcy, liquidation, or similar
+              proceeding, in which Personal Data held by Us about our Service
+              users is among the assets transferred.
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>
+              <strong className="text-lg font-medium ">
+                For other purposes:
+              </strong>{" "}
+              We may use Your information for other purposes, such as data
+              analysis, identifying usage trends, determining the effectiveness
+              of our promotional campaigns and to evaluate and improve our
+              Service, products, services, marketing and your experience.
+            </li>
           </ul>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Retention of Your Personal Data</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Retention of Your Personal Data
+          </h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy.
+            <span className="mr-2">&#9679;</span>The Company will retain Your
+            Personal Data only for as long as is necessary for the purposes set
+            out in this Privacy Policy.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
+            <span className="mr-2">&#9679;</span>We will retain and use Your
+            Personal Data to the extent necessary to comply with our legal
+            obligations (for example, if we are required to retain your data to
+            comply with applicable laws), resolve disputes, and enforce our
+            legal agreements and policies.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.
-          </p>
-        </div>
-
-        <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Transfer of Your Personal Data</h3>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Your information, including Personal Data, is processed at the Company’s operating offices and in any other places where the parties involved in the processing are located.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>This information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.
+            <span className="mr-2">&#9679;</span>The Company will also retain
+            Usage Data for internal analysis purposes. Usage Data is generally
+            retained for a shorter period of time, except when this data is used
+            to strengthen the security or to improve the functionality of Our
+            Service, or We are legally obligated to retain this data for longer
+            time periods.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Disclosure of Your Personal Data</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Transfer of Your Personal Data
+          </h3>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>Your information, including
+            Personal Data, is processed at the Company’s operating offices and
+            in any other places where the parties involved in the processing are
+            located.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>This information may be
+            transferred to — and maintained on — computers located outside of
+            Your state, province, country or other governmental jurisdiction
+            where the data protection laws may differ than those from Your
+            jurisdiction.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>Your consent to this Privacy
+            Policy followed by Your submission of such information represents
+            Your agreement to that transfer.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>The Company will take all steps
+            reasonably necessary to ensure that Your data is treated securely
+            and in accordance with this Privacy Policy and no transfer of Your
+            Personal Data will take place to an organization or a country unless
+            there are adequate controls in place including the security of Your
+            data and other personal information.
+          </p>
+        </div>
+
+        <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Disclosure of Your Personal Data
+          </h3>
           <h4 className="text-xl font-medium mt-2">Business Transactions</h4>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred.
+            <span className="mr-2">&#9679;</span>If the Company is involved in a
+            merger, acquisition or asset sale, Your Personal Data may be
+            transferred.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.
+            <span className="mr-2">&#9679;</span>We will provide notice before
+            Your Personal Data is transferred and becomes subject to a different
+            Privacy Policy.
           </p>
           <h4 className="text-xl font-medium mt-2">Law enforcement</h4>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).
+            <span className="mr-2">&#9679;</span>Under certain circumstances,
+            the Company may be required to disclose Your Personal Data if
+            required to do so by law or in response to valid requests by public
+            authorities (e.g. a court or a government agency).
           </p>
           <h4 className="text-xl font-medium mt-2">Other legal requirements</h4>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:
+            <span className="mr-2">&#9679;</span>The Company may disclose Your
+            Personal Data in the good faith belief that such action is necessary
+            to:
           </p>
           <ul className="text-lg flex flex-col gap-2 mb-2">
-            <li><span className="mr-2">&#9679;</span>Comply with a legal obligation</li>
-            <li><span className="mr-2">&#9679;</span>Protect and defend the rights or property of the Company</li>
-            <li><span className="mr-2">&#9679;</span>Prevent or investigate possible wrongdoing in connection with the Service</li>
-            <li><span className="mr-2">&#9679;</span>Protect the personal safety of Users of the Service or the public</li>
-            <li><span className="mr-2">&#9679;</span>Protect against legal liability</li>
+            <li>
+              <span className="mr-2">&#9679;</span>Comply with a legal
+              obligation
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>Protect and defend the rights
+              or property of the Company
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>Prevent or investigate
+              possible wrongdoing in connection with the Service
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>Protect the personal safety
+              of Users of the Service or the public
+            </li>
+            <li>
+              <span className="mr-2">&#9679;</span>Protect against legal
+              liability
+            </li>
           </ul>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Security of Your Personal Data</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Security of Your Personal Data
+          </h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure.
+            <span className="mr-2">&#9679;</span>The security of Your Personal
+            Data is important to Us, but remember that no method of transmission
+            over the Internet, or method of electronic storage is 100% secure.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.
-          </p>
-        </div>
-
-        <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Children’s Privacy</h3>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Our Service does not address anyone under the age of 13.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We do not knowingly collect personally identifiable information from anyone under the age of 13.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.
-          </p>
-          <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent’s consent before We collect and use that information.
+            <span className="mr-2">&#9679;</span>While We strive to use
+            commercially acceptable means to protect Your Personal Data, We
+            cannot guarantee its absolute security.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Links to Other Websites</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Children’s Privacy
+          </h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Our Service may contain links to other websites that are not operated by Us.
+            <span className="mr-2">&#9679;</span>Our Service does not address
+            anyone under the age of 13.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If You click on a third party link, You will be directed to that third party’s site.
+            <span className="mr-2">&#9679;</span>We do not knowingly collect
+            personally identifiable information from anyone under the age of 13.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We strongly advise You to review the Privacy Policy of every site You visit.
+            <span className="mr-2">&#9679;</span>If You are a parent or guardian
+            and You are aware that Your child has provided Us with Personal
+            Data, please contact Us.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
+            <span className="mr-2">&#9679;</span>If We become aware that We have
+            collected Personal Data from anyone under the age of 13 without
+            verification of parental consent, We take steps to remove that
+            information from Our servers.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>If We need to rely on consent
+            as a legal basis for processing Your information and Your country
+            requires consent from a parent, We may require Your parent’s consent
+            before We collect and use that information.
           </p>
         </div>
 
         <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
-          <h3 className="md:text-2xl font-bold mt-2 text-xl">Changes to this Privacy Policy</h3>
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Links to Other Websites
+          </h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We may update Our Privacy Policy from time to time.
+            <span className="mr-2">&#9679;</span>Our Service may contain links
+            to other websites that are not operated by Us.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We will notify You of any changes by posting the new Privacy Policy on this page.
+            <span className="mr-2">&#9679;</span>If You click on a third party
+            link, You will be directed to that third party’s site.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the ‘Last updated’ date at the top of this Privacy Policy.
+            <span className="mr-2">&#9679;</span>We strongly advise You to
+            review the Privacy Policy of every site You visit.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>You are advised to review this Privacy Policy periodically for any changes.
+            <span className="mr-2">&#9679;</span>We have no control over and
+            assume no responsibility for the content, privacy policies or
+            practices of any third party sites or services.
+          </p>
+        </div>
+
+        <div className="flex flex-col border-b border-black/[0.1] pb-4 mb-4">
+          <h3 className="md:text-2xl font-bold mt-2 text-xl">
+            Changes to this Privacy Policy
+          </h3>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>We may update Our Privacy
+            Policy from time to time.
           </p>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>Changes to this Privacy Policy are effective when they are posted on this page.
+            <span className="mr-2">&#9679;</span>We will notify You of any
+            changes by posting the new Privacy Policy on this page.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>We will let You know via email
+            and/or a prominent notice on Our Service, prior to the change
+            becoming effective and update the ‘Last updated’ date at the top of
+            this Privacy Policy.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>You are advised to review this
+            Privacy Policy periodically for any changes.
+          </p>
+          <p className="text-lg my-2">
+            <span className="mr-2">&#9679;</span>Changes to this Privacy Policy
+            are effective when they are posted on this page.
           </p>
         </div>
 
         <div className="flex flex-col mb-4">
           <h3 className="md:text-2xl font-bold mt-2 text-xl">Contact Us</h3>
           <p className="text-lg my-2">
-            <span className="mr-2">&#9679;</span>If you have any questions about this Privacy Policy, You can contact us:
+            <span className="mr-2">&#9679;</span>If you have any questions about
+            this Privacy Policy, You can contact us:
           </p>
           <ul className="text-lg flex flex-col gap-2">
-            <li><span className="mr-2">&#9679;</span>By email: <span className="underline underline-offset-2 text-blue-600">dokopi.business@gmail.com</span></li>
+            <li>
+              <span className="mr-2">&#9679;</span>By email:{" "}
+              <span className="underline underline-offset-2 text-blue-600">
+                dokopi.business@gmail.com
+              </span>
+            </li>
           </ul>
         </div>
-
-        <Footer />
       </Wrapper>
     </section>
   );

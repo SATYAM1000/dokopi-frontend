@@ -1,4 +1,3 @@
-import Footer from "@/components/user/global/Footer";
 import StoreNavbar from "@/components/user/store/store-profile/StoreNavbar";
 import { useAccessToken } from "@/hooks/use-access-token";
 export default async function StorePage({ params }) {
@@ -8,7 +7,7 @@ export default async function StorePage({ params }) {
   return (
     <>
       <StoreNavbar token={token} slug={slug} encryptionKey={encryptionKey} />
-      <Footer />
+      
     </>
   );
 }

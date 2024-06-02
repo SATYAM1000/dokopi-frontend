@@ -44,7 +44,7 @@ export default function ContactUsPage() {
           id="map"
           className="relative h-[300px] overflow-hidden bg-cover bg-[50%] bg-no-repeat"
         >
-          <div className="w-[100%] h-[480px] bg-black"></div>
+          <div className="w-[100%] h-[480px] bg-blue-600"></div>
         </div>
         <div className="container px-6 md:px-12">
           <div className="block rounded-lg bg-white px-6 py-12   md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px] border border-gray-300">
@@ -200,7 +200,6 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 }
