@@ -37,9 +37,9 @@ const MapView = ({ storeData }) => {
         <div className=" flex flex-col text-gray-500 gap-1">
           {
             priceList.length > 0 && priceList.map((price) => (
-              <div className="flex items-center justify-between text-sm text-gray-600" key={price.category + price.value}>
+              <div className="flex items-center justify-between text-sm text-gray-600 font-medium" key={price.category + price.value}>
                 <p className="capitalize">{price.category}</p>
-                <p className=" ">₹{price.value}</p>
+                <p className=" ">₹&nbsp;{price.value}</p>
               </div>
             ))
           }
