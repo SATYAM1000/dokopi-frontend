@@ -177,7 +177,7 @@ const UserHistory = () => {
               </Table>
             </div>
             {totalPages > 1 && (
-              <Pagination>
+              <Pagination className={"my-2"}>
                 <PaginationContent>
                   <PaginationItem>
                     <PaginationPrevious
