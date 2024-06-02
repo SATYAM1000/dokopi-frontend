@@ -28,6 +28,9 @@ const MapView = ({ storeData }) => {
       getPriceList();
     }
   }, []);
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${storeLocation.storeLandmark}, ${storeLocation.storeCity}, ${storeLocation.storeState}, ${storeLocation.storeCountry}, ${storeLocation.storeZipCode}`
+  )}`;
   return (
     <div className="border flex flex-col gap-2 p-4 shadow rounded-md  ">
       <div className="">
@@ -75,14 +78,14 @@ const MapView = ({ storeData }) => {
         )}
       </div>
       <div className="flex items-center gap-3">
-        <p className="text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer text-sm flex items-center gap-2">
+        <a href={googleMapsUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer text-sm flex items-center gap-2">
           {storeLocation.storeLandmark},{storeLocation.storeCity},
           {storeLocation.storeState},{storeLocation.storeCountry},
           {storeLocation.storeZipCode}
           <span>
             {typeof window !== "undefined" && <ExternalLink size={18} />}
           </span>
-        </p>
+          </a>
       </div>
     </div>
   );
