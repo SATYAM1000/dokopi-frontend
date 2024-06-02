@@ -1,4 +1,3 @@
-import Footer from "@/components/user/global/Footer";
 import CallToAction from "@/components/user/home/CallToAction";
 import DoKopiFeatures from "@/components/user/home/Features";
 import Hero from "@/components/user/home/Hero";
@@ -11,7 +10,6 @@ export default function Home() {
       <HowItWorks />
       <DoKopiFeatures />
       <CallToAction />
-      <Footer />
     </main>
   );
 }

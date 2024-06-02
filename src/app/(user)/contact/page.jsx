@@ -11,7 +11,6 @@ import { toast } from "sonner";
 
 export default function ContactUsPage() {
   const currentUser = useCurrentUser();
-  console.log("data ", currentUser);
 
   const [contactData, setContactData] = useState({
     name: currentUser?.name || "",

@@ -109,7 +109,7 @@ const PaymentButton = ({ setOpen, totalPrice }) => {
           Proceed to Payment
         </Button>
         <Link
-          href="#"
+          href="/stores"
           className="inline-block text-sm  transition text-white/90 underline underline-offset-4"
         >
           Continue uploading documents &rarr;

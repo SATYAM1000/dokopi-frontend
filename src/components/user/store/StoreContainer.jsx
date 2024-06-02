@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import StoreSkelton from "./StoreSkelton";
 import ErrorComponent from "../global/Error";
-import Footer from "../global/Footer";
 import { API_DOMAIN } from "@/lib/constants";
 const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,7 +87,6 @@ const StoreContainer = () => {
           </div>
         </section>
       </Wrapper>
-      <Footer />
     </section>
   );
 };

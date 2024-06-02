@@ -45,7 +45,7 @@ const DoKopiStoreOverview = ({
               "No Review are given"}
           </div>
 
-          <Pagination className={"mt-4"}>
+          <Pagination className={"my-6"}>
             <PaginationContent>
               <PaginationItem>
                 {pageNumber > 1 && (
