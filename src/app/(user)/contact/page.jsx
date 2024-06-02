@@ -3,9 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import Footer from "@/components/user/global/Footer";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { Instagram, Map, MapPin, Phone, Store } from "lucide-react";
+import { Instagram, MapPin, Phone, Store } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -39,12 +38,12 @@ export default function ContactUsPage() {
   };
   return (
     <>
-      <section className="mb-32">
+      <section className="mb-8">
         <div
           id="map"
           className="relative h-[300px] overflow-hidden bg-cover bg-[50%] bg-no-repeat"
         >
-          <div className="w-[100%] h-[480px] bg-blue-600"></div>
+          <div className="w-[100%] h-[480px] bg-gray-200 bg-dot-black/[0.2]"></div>
         </div>
         <div className="container px-6 md:px-12">
           <div className="block rounded-lg bg-white px-6 py-12   md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px] border border-gray-300">
