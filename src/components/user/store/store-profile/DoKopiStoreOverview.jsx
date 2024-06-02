@@ -5,9 +5,26 @@ import StoreInfo from "./StoreInfo";
 import Review from "./Review";
 import MapView from "./MapView";
 
-const DoKopiStoreOverview = ({ storeDetails }) => {
-  const { storeReviews } = storeDetails
-  console.log(storeReviews)
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+const DoKopiStoreOverview = ({
+  storeDetails,
+  paginationDetails,
+  pageNumber,
+  setPageNumber,
+}) => {
+  const { storeReviews } = storeDetails;
+  const [hasMoreReviews, setHasMoreReviews] = React.useState(
+    paginationDetails?.hasMoreReviews || false
+  );
   return (
     <section className="w-full mt-6 min-h-screen flex flex-col gap-5">
       <StoreGallery storeData={storeDetails} />
@@ -16,17 +33,47 @@ const DoKopiStoreOverview = ({ storeDetails }) => {
         <div className="w-full md:w-2/6">
           <MapView storeData={storeDetails} />
         </div>
-        <div className="flex flex-col gap-2 w-full md:w-4/6 scrollable">
+        <div className="flex flex-col gap-2 w-full md:w-4/6 ">
           <h2 className="text-xl flex flex-col md:block font-medium">
             Reviews
           </h2>
           <div className="flex flex-col gap-3 mt-2">
-
-            {
-              storeReviews.length > 0 && storeReviews.map(OneReview => <Review OneReview={OneReview} key={OneReview._id} />) || "No Review are given"
-            }
-
+            {(storeReviews.length > 0 &&
+              storeReviews.map((OneReview) => (
+                <Review OneReview={OneReview} key={OneReview._id} />
+              ))) ||
+              "No Review are given"}
           </div>
+
+          <Pagination className={"mt-4"}>
+            <PaginationContent>
+              <PaginationItem>
+                {pageNumber > 1 && (
+                  <PaginationPrevious
+                    className={"cursor-pointer"}
+                    onClick={() => setPageNumber(pageNumber - 1)}
+                  />
+                )}
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink onClick={() => setPageNumber(1)}>
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                {4 * pageNumber < paginationDetails?.totalReviewsCount && (
+                  <PaginationNext
+                    className={"cursor-pointer"}
+                    disabled={!paginationDetails?.hasMoreReviews}
+                    onClick={() => setPageNumber(pageNumber + 1)}
+                  />
+                )}
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </section>

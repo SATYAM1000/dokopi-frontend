@@ -12,6 +12,7 @@ import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
 const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const [activeTab, setActiveTab] = useState("upload-files");
+  const [pageNumber, setPageNumber] = useState(1);
 
   if (slug) {
     if (localStorage.getItem("storeId") !== slug) {
@@ -35,10 +36,12 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
   };
 
   const { error, data, isError, isLoading } = useQuery({
-    queryKey: ["storeDetails"],
+    queryKey: ["storeDetails", pageNumber, slug],
     queryFn: () =>
-      axios.get(`${API_DOMAIN}/api/v1/user/stores/get-store-info/${slug}`),
+      axios.get(`${API_DOMAIN}/api/v1/user/stores/get-store-info/${slug}?pageNumber=${pageNumber}`),
   });
+
+  console.log("data is ", data?.data);
 
   if (isError) {
     return (
@@ -67,7 +70,12 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
             </TabsList>
 
             <TabsContent value="overview">
-              <DoKopiStoreOverview storeDetails={data?.data?.data} />
+              <DoKopiStoreOverview
+                storeDetails={data?.data?.data}
+                paginationDetails={data?.data?.pagination}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+              />
             </TabsContent>
             <TabsContent value="upload-files">
               <DoKopiFileUpload token={token} encryptionKey={encryptionKey} />
