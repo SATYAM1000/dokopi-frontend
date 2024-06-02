@@ -2,7 +2,6 @@ import React from "react";
 
 const FileDetails = ({ fileInfo, index }) => {
   if (!fileInfo) return null;
-  console.log("file info is ", fileInfo);
 
   return (
     <div className="w-full rounded-md bg-gray-100 px-4 py-2 flex flex-col gap-1 ">

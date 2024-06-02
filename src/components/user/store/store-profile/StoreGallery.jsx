@@ -15,7 +15,7 @@ const StoreGallery = ({ storeData }) => {
                             <img
                                 loading="lazy"
                                 src={Image}
-                                alt="restaurant"
+                                alt="store"
                                 className="w-full h-full object-cover object-center rounded-lg"
                             />
                         </div>
@@ -31,7 +31,7 @@ const StoreGallery = ({ storeData }) => {
                                     <img
                                         loading="lazy"
                                         src={Image}
-                                        alt="restaurant"
+                                        alt="store"
                                         className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
                                     />
                                 </div>)
@@ -44,7 +44,7 @@ const StoreGallery = ({ storeData }) => {
                         <img
                             loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                            alt="restaurant"
+                            alt="store"
                             className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
                         />
                     </div>
@@ -52,7 +52,7 @@ const StoreGallery = ({ storeData }) => {
                         <img
                             loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                            alt="restaurant"
+                            alt="store"
                             className="w-full h-full object-cover object-center rounded-lg transition duration-700 hover:scale-110"
                         />
                     </div>
@@ -62,7 +62,7 @@ const StoreGallery = ({ storeData }) => {
                         <img
                             loading="lazy"
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                            alt="restaurant"
+                            alt="store"
                             className="w-full h-full object-cover object-center rounded-lg"
                         />
                         <div className="absolute inset-0 bg-opacity-40 bg-black h-full rounded-lg" />
@@ -73,7 +73,7 @@ const StoreGallery = ({ storeData }) => {
                     <div className="w-full h-2/4 relative">
                         <img
                             src={"https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"}
-                            alt="restaurant"
+                            alt="store"
                             className="w-full h-full object-cover object-center rounded-lg"
                         />
                         <div className="absolute inset-0 bg-opacity-40 bg-black h-full rounded-lg" />
