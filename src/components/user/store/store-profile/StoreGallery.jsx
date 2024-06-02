@@ -11,7 +11,6 @@ const StoreGallery = ({ storeData }) => {
                 storeImagesURL.length > 0 && storeImagesURL.map((Image, index) => {
                     if (index == 0)
                         return <div className="w-full h-60 md:hidden" key={Image}>
-                            <span>{Image}</span>
                             <img
                                 loading="lazy"
                                 src={Image}

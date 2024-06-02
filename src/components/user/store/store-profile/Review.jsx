@@ -4,7 +4,6 @@ import React from "react";
 import { IoMdStar } from "react-icons/io";
 
 const Review = ({ OneReview }) => {
-  console.log(OneReview)
   const { rating, createdAt, comment, userId } = OneReview
   
   const { image, name } = userId

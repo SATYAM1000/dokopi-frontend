@@ -15,7 +15,6 @@ const DownloadButton = ({ id }) => {
       const response = await axios.get(`${API_DOMAIN}/api/v1/invoice/${id}`, {
         responseType: "blob",
       });
-      console.log(response);
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
