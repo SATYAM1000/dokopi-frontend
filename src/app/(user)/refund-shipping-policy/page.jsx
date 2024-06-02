@@ -49,6 +49,18 @@ const ReturnRefundPolicy = () => {
                 within 48 hours.
               </li>
               <li>
+                If the refund amount is not received within 48 hours, then
+                contact the customer service.
+              </li>
+              <li>
+                If an order is cancelled after the documents have been printed,
+                the full amount will be non-refundable.
+              </li>
+              <li>
+                If documents are printed after a refund request is made, the
+                amount will be refundable.
+              </li>
+              <li>
                 If documents are printed before a refund request is made, the
                 amount will be non-refundable.
               </li>
