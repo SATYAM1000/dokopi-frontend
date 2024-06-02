@@ -4,45 +4,51 @@ import { ExternalLink } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 const MapView = ({ storeData }) => {
-  const { storeLocationCoordinates, storeDetails, storePrices } = storeData
-  const { storePhoneNumber, storeLocation } = storeDetails
-  const [mapLocation, setmapLocation] = useState(storeLocationCoordinates.coordinates) // Replace with your desired latitude and longitude
+  const { storeLocationCoordinates, storeDetails, storePrices } = storeData;
+  const { storePhoneNumber, storeLocation } = storeDetails;
+  const [mapLocation, setmapLocation] = useState(
+    storeLocationCoordinates.coordinates
+  ); // Replace with your desired latitude and longitude
   const title = "New Delhi, India"; // Replace with your desired title
   const latAndLong = "28.6139,77.2090"; // Replace with your desired lat and long
-  const [priceList, SetPriceList] = useState([])
+  const [priceList, SetPriceList] = useState([]);
   const getPriceList = () => {
     const dummyData = [];
     for (let key in storePrices) {
       const NewObj = {
         category: key,
-        value: storePrices[key]
-      }
-      dummyData.push(NewObj)
+        value: storePrices[key],
+      };
+      dummyData.push(NewObj);
     }
-    SetPriceList(dummyData)
-  }
+    SetPriceList(dummyData);
+  };
   useEffect(() => {
     if (storePrices) {
-      getPriceList()
+      getPriceList();
     }
-  }, [])
+  }, []);
   return (
     <div className="border flex flex-col gap-2 p-4 shadow rounded-md  ">
       <div className="">
         <h4 className="text-xl font-normal">Call</h4>
-        <h5 className=" text-gray-600 text-sm font-medium">+91-{storePhoneNumber}</h5>
+        <h5 className=" text-gray-600 text-sm font-medium">
+          +91-{storePhoneNumber}
+        </h5>
       </div>
       <div className="">
         <h4 className="text-xl font-normal">Pricing</h4>
         <div className=" flex flex-col text-gray-500 gap-1">
-          {
-            priceList.length > 0 && priceList.map((price) => (
-              <div className="flex items-center justify-between text-sm text-gray-600 font-medium" key={price.category + price.value}>
+          {priceList.length > 0 &&
+            priceList.map((price) => (
+              <div
+                className="flex items-center justify-between text-sm text-gray-600 "
+                key={price.category + price.value}
+              >
                 <p className="capitalize">{price.category}</p>
                 <p className=" ">₹&nbsp;{price.value}</p>
               </div>
-            ))
-          }
+            ))}
           {/* ------black and white----- */}
         </div>
       </div>
@@ -70,10 +76,8 @@ const MapView = ({ storeData }) => {
       </div>
       <div className="flex items-center gap-3">
         <p className="text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer text-sm flex items-center gap-2">
-          {storeLocation.storeLandmark},
-          {storeLocation.storeCity},
-          {storeLocation.storeState},
-          {storeLocation.storeCountry},
+          {storeLocation.storeLandmark},{storeLocation.storeCity},
+          {storeLocation.storeState},{storeLocation.storeCountry},
           {storeLocation.storeZipCode}
           <span>
             {typeof window !== "undefined" && <ExternalLink size={18} />}
