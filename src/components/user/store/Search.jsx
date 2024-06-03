@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ChevronDown } from "lucide-react";
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,29 +10,37 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { API_DOMAIN } from "@/lib/constants";
+import ShowSearchResult from "../search/ShowSearchResult";
+import useDebounceCustomeHook from "@/hooks/useDebouceCustomeHook";
 
+function SearchResults(QueryRelatedTo, SearchInput) {
+  return (
+    useQuery({
+      queryKey: ['SearchAccoringtoFilter', QueryRelatedTo, SearchInput],
+      queryFn: async () => {
+        const res = await axios.get(`${API_DOMAIN}/api/v1/user/stores/search?${QueryRelatedTo}=${SearchInput}`);
+        return res.data;
+      },
+      enabled: SearchInput.length > 2
+    })
+  )
+}
 const SearchComponent = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const [searchQueryParameter, setSearchQueryParameter] = useState("Name");
 
+  const [queryInput, setQueryInput] = useState("")
+  const [searchQueryParameter, setSearchQueryParameter] = useState("Name");
   const [outerSearchHoverColor, setOuterSearchHoverColor] = React.useState(
     "bg-white border-[2px] border-gray-600/[0.2]"
   );
   const [searchType, setSearchType] = useState("bg-white");
 
-  const onSearch = useDebouncedCallback((e) => {
-    e.preventDefault();
-    const params = new URLSearchParams(searchParams);
-    if (e.target.value) {
-      e.target.value.length > 2 && params.set("search", e.target.value);
-    } else {
-      params.delete("search");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  const debouncedValueSearch = useDebounceCustomeHook(queryInput, 500)
 
+
+  const { error, data, isError, isLoading } = SearchResults(searchQueryParameter, debouncedValueSearch)
   const onClickName = () => {
     setOuterSearchHoverColor("bg-white border-[2px] border-gray-600/[0.2]");
     setSearchQueryParameter("Name");
@@ -54,7 +58,7 @@ const SearchComponent = () => {
 
   return (
     <div
-      className={`hidden md:flex flex-1  max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 ${outerSearchHoverColor}`}
+      className={`hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 ${outerSearchHoverColor}`}
       onMouseEnter={() =>
         setOuterSearchHoverColor("bg-gray-200 border-[2px] border-white ")
       }
@@ -63,7 +67,7 @@ const SearchComponent = () => {
       }
     >
       <form
-        onSubmit={onSearch}
+        onSubmit={(e) => e.preventDefault()}
         className="flex h-[100%] rounded-full px-2 hover:bg-white items-center w-[100%] transition duration-500"
         onMouseEnter={() => setSearchType("bg-gray-200")}
         onMouseLeave={() => setSearchType("bg-white")}
@@ -75,17 +79,16 @@ const SearchComponent = () => {
           type="text"
           placeholder="Search store by"
           className=" h-[40px] text-black  text-[14px] border-none outline-none bg-transparent"
-          onChange={onSearch}
+          onChange={(e) => setQueryInput(e.target.value)}
         />
       </form>
-
       <DropdownMenu>
         <DropdownMenuTrigger
           asChild
           className={`w-[180px] flex items-center gap-2 px-4 
           rounded-full  cursor-pointer text-gray-700 hover:bg-white h-[100%] border-none transition duration-500 ${searchType}`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between gap-2">
             <p className="text-gray-700 text-[14px] font-medium">
               {searchQueryParameter}
             </p>
@@ -127,6 +130,19 @@ const SearchComponent = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <div className={`absolute left-0 top-full mt-2 w-full rounded ${isError || isLoading ? "" : "bg-[#f7f7f7]"}`}>
+        {
+          isLoading && <span className="text-black text-xs ps-9">Loading...</span>
+        }
+        {
+          queryInput.length > 2 && data && <ShowSearchResult Iserror={error} Response={data} />
+        }
+        {
+          isError && <span className="text-red-600 text-xs">Some Error is being occured while fetching the result</span>
+        }
+
+      </div>
     </div>
   );
 };

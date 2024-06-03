@@ -13,7 +13,6 @@ export const metadata = {
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-
 export default async function RootLayout({ children }) {
   const session = await auth();
   const apiKey = process.env.GOOGLE_MAP_API_KEY;
