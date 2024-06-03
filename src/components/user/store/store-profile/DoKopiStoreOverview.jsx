@@ -45,35 +45,37 @@ const DoKopiStoreOverview = ({
               "No Review are given"}
           </div>
 
-          <Pagination className={"my-6"}>
-            <PaginationContent>
-              <PaginationItem>
-                {pageNumber > 1 && (
-                  <PaginationPrevious
-                    className={"cursor-pointer"}
-                    onClick={() => setPageNumber(pageNumber - 1)}
-                  />
-                )}
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink onClick={() => setPageNumber(1)}>
-                  1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                {4 * pageNumber < paginationDetails?.totalReviewsCount && (
-                  <PaginationNext
-                    className={"cursor-pointer"}
-                    disabled={!paginationDetails?.hasMoreReviews}
-                    onClick={() => setPageNumber(pageNumber + 1)}
-                  />
-                )}
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          {storeReviews.length > 0 && (
+            <Pagination className={"my-6"}>
+              <PaginationContent>
+                <PaginationItem>
+                  {pageNumber > 1 && (
+                    <PaginationPrevious
+                      className={"cursor-pointer"}
+                      onClick={() => setPageNumber(pageNumber - 1)}
+                    />
+                  )}
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink onClick={() => setPageNumber(1)}>
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  {4 * pageNumber < paginationDetails?.totalReviewsCount && (
+                    <PaginationNext
+                      className={"cursor-pointer"}
+                      disabled={!paginationDetails?.hasMoreReviews}
+                      onClick={() => setPageNumber(pageNumber + 1)}
+                    />
+                  )}
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </div>
     </section>

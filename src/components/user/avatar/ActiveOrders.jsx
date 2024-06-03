@@ -146,9 +146,7 @@ const ActiveOrders = () => {
                       </TableCell>
                       <TableCell>{order?.cartItems.length}</TableCell>
 
-                      <TableCell>
-                        ₹&nbsp;{order?.totalPrice || "N/A"}
-                      </TableCell>
+                      <TableCell>₹&nbsp;{order?.totalPrice || "N/A"}</TableCell>
                       <TableCell className="text-right">
                         <Sheet>
                           <SheetTrigger asChild>
@@ -171,7 +169,6 @@ const ActiveOrders = () => {
                               </SheetDescription>
                             </SheetHeader>
                             <OrderDetailsComponent id={order?._id} />
-                           
                           </SheetContent>
                         </Sheet>
                       </TableCell>
@@ -181,7 +178,7 @@ const ActiveOrders = () => {
               </Table>
             </div>
             {totalPages > 1 && (
-              <Pagination className={'my-2'}>
+              <Pagination className={"my-2"}>
                 <PaginationContent>
                   <PaginationItem>
                     <PaginationPrevious

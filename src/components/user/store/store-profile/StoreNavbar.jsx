@@ -14,21 +14,21 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const [activeTab, setActiveTab] = useState("upload-files");
   const [pageNumber, setPageNumber] = useState(1);
 
-  if (slug) {
-    if (localStorage.getItem("storeId") !== slug) {
-      localStorage.removeItem("storeId");
-      localStorage.setItem("storeId", slug);
-    } else {
-      localStorage.setItem("storeId", slug);
-    }
-  }
-
   useEffect(() => {
     const savedTab = localStorage.getItem("activeTab");
     if (savedTab) {
       setActiveTab(savedTab);
     }
-  }, []);
+
+    if (slug) {
+      if (localStorage.getItem("storeId") !== slug) {
+        localStorage.removeItem("storeId");
+        localStorage.setItem("storeId", slug);
+      } else {
+        localStorage.setItem("storeId", slug);
+      }
+    }
+  }, [slug]);
 
   const handleTabChange = (value) => {
     setActiveTab(value);
@@ -38,10 +38,10 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const { error, data, isError, isLoading } = useQuery({
     queryKey: ["storeDetails", pageNumber, slug],
     queryFn: () =>
-      axios.get(`${API_DOMAIN}/api/v1/user/stores/get-store-info/${slug}?pageNumber=${pageNumber}`),
+      axios.get(
+        `${API_DOMAIN}/api/v1/user/stores/get-store-info/${slug}?pageNumber=${pageNumber}`
+      ),
   });
-
-  console.log("data is ", data?.data);
 
   if (isError) {
     return (
