@@ -32,13 +32,25 @@ const Footer = () => {
           <li>
             <Link
               href="/refund-shipping-policy"
-              className="hover:underline underline-offset-4 me-4 md:me-6"
+              className="hidden md:flex  hover:underline underline-offset-4 me-4 md:me-6"
             >
               Shipping & Refund
             </Link>
           </li>
+
           <li>
-            <Link href="/contact" className="hover:underline underline-offset-4">
+            <Link
+              href="/refund-shipping-policy"
+              className=" md:hidden  hover:underline underline-offset-4 me-4 md:me-6"
+            >
+              Refund
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              className="hover:underline underline-offset-4"
+            >
               Contact
             </Link>
           </li>
