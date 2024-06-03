@@ -13,6 +13,7 @@ import BillDetails from "./BillDetails";
 import { API_DOMAIN } from "@/lib/constants";
 import { calculateTotalPrice } from "@/lib/price-calculator";
 import axios from "axios";
+import ErrorComponent from "../global/Error";
 
 const DokopiCartComponent = ({ setOpen }) => {
   const currentUser = useCurrentUser();
@@ -45,11 +46,9 @@ const DokopiCartComponent = ({ setOpen }) => {
   useEffect(() => {
     fetchStorePricing();
   }, []);
-
   useEffect(() => {
     setTotalPrice(calculateTotalPrice(cartItems, storePrice));
   }, [cartItems, storePrice]);
-
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));
   };
@@ -109,9 +108,7 @@ const DokopiCartComponent = ({ setOpen }) => {
         </div>
       ) : (
         <div className="mt-6 space-y-6">
-          <p className="text-center text-gray-600">
-            No documents in your cart.
-          </p>
+          <ErrorComponent errorMessage={"No documents in your cart."} />
         </div>
       )}
 

@@ -101,6 +101,7 @@ const FileUploader = ({
         setShowFileUploadProgress(false);
         setIsFileUploadedSuccessfully(false);
         setFiles((prev) => prev.slice(0, -1));
+    
         return (
           error?.response?.data?.msg || error?.message || "Something went wrong"
         );

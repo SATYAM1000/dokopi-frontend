@@ -78,7 +78,6 @@ const Navbar = ({ apiKey }) => {
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
               <SearchComponent />
-
               <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
@@ -100,7 +99,6 @@ const Navbar = ({ apiKey }) => {
                   <DokopiCartComponent  setOpen={setOpen} />
                 </SheetContent>
               </Sheet>
-
               {currentUser ? (
                 <UserAvatar />
               ) : (

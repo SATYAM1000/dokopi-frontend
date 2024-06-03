@@ -1,11 +1,22 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import DokopiCartComponent from "../../cart/DokopiCartComponent";
+import { useDispatch, useSelector } from "react-redux";
+
 const PrintConfig = ({
   fileInfo,
   setFileInfo,
@@ -15,6 +26,8 @@ const PrintConfig = ({
   error,
   pageNumberInput,
 }) => {
+  const [open, setOpen] = useState(false);
+  const cartItems = useSelector((state) => state.cart.items);
 
   return (
     <>
@@ -305,16 +318,26 @@ const PrintConfig = ({
             >
               Upload more
             </Button>
-            <Link href={"/cart"}>
-              <Button className="w-full bg-blue-600 hover:bg-blue-800 ">
-                Checkout
-              </Button>
-            </Link>
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild>
+                <Button className="w-full bg-blue-600 hover:bg-blue-800 ">
+                  Checkout
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle className="text-xl">Your Cart</SheetTitle>
+                  <SheetDescription className="text-gray-600">
+                    You have {cartItems.length} items in your cart
+                  </SheetDescription>
+                </SheetHeader>
+                <DokopiCartComponent setOpen={setOpen} />
+              </SheetContent>
+            </Sheet>
           </div>
         </form>
       </div>
     </>
   );
 };
-
 export default PrintConfig;

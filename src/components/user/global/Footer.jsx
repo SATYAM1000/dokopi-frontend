@@ -12,7 +12,7 @@ const Footer = () => {
           </a>
           . All Rights Reserved.
         </span>
-        <ul className="grid grid-cols-4 md:flex md:items-center mt-3 text-sm  text-gray-500 sm:mt-0">
+        <ul className="flex items-center justify-center sm:gap-2 md:gap-0 sm:text-center md:items-center mt-3 text-sm  text-gray-500 sm:mt-0">
           <li>
             <Link
               href="/terms-conditions"
