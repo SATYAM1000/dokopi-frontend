@@ -1,53 +1,42 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
 import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import ImageWithFallback from "./store-profile/ImageWithFallback";
 
 const SingleStoreCard = ({ storeData }) => {
   if (!storeData) return null;
-
   return (
     <motion.section
-      className="rounded-xl shadow-md border hover:border-black/[0.4]"
+      className="rounded-xl shadow-md border hover:border-black/[0.20] transition-all"
       initial="hidden"
       animate="visible"
       variants={{
         visible: { opacity: 1, scale: 1 },
-        hidden: { opacity: 0, scale: 0.8 }, // Adjust scale as needed
+        hidden: { opacity: 0, scale: 0.8 },
       }}
-      transition={{ duration: 0.2 }} // Adjust animation duration
+      transition={{ duration: 0.2 }}
     >
       <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
         <div className="overflow-hidden rounded-md">
-          <Carousel
-            className="max-h-[250px] min-h-[250px] overflow-hidden"
-            autoPlay={false}
-            infiniteLoop={true}
-            showStatus={false}
-            stopOnHover={true}
-            showThumbs={false}
-            showArrows={false}
-            showIndicators={false}
-            swipeable={true}
-          >
-            <div className="w-full h-full">
-              <Image
-                src={"/test/store.jpg"}
-                alt="slide1"
-                width={400}
-                height={350}
-                placeholder="blur"
-                blurDataURL="/test/blur.jpeg"
-                className="h-[245px] object-cover"
-              />
-            </div>
-          </Carousel>
+          <div className="w-full h-full">
+            <ImageWithFallback
+              src={storeData?.storeImagesURL[0]}
+              width={1000}
+              height={1000}
+              placeholder="blur"
+              blurDataURL="/test/blur.jpeg"
+              alt="store"
+              className="h-[245px] object-cover object-center rounded-lg"
+              fallbackSrc={
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ4HtE_O8tvs-TlF27vWMWHjxoCQ7HmFmZHBkZpKt1n4PFIN-aN&usqp=CAU"
+              }
+            />
+          </div>
         </div>
 
         <div className="w-full flex items-center justify-between">
