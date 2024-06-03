@@ -21,6 +21,7 @@ const DokopiCartComponent = ({ setOpen }) => {
   const dispatch = useDispatch();
 
   const [totalPrice, setTotalPrice] = React.useState(0);
+  const [storePrice, setStorePrice] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
 
   const fetchStorePricing = async () => {
@@ -33,7 +34,7 @@ const DokopiCartComponent = ({ setOpen }) => {
       );
 
       const price = calculateTotalPrice(cartItems, data?.data);
-      setTotalPrice(price);
+      setStorePrice(data?.data);
     } catch (error) {
       console.log("Error fetching store pricing:", error);
     } finally {
@@ -44,6 +45,10 @@ const DokopiCartComponent = ({ setOpen }) => {
   useEffect(() => {
     fetchStorePricing();
   }, []);
+
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice(cartItems, storePrice));
+  }, [cartItems, storePrice]);
 
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));

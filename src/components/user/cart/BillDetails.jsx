@@ -1,5 +1,4 @@
 import React from "react";
-import { ClipLoader } from "react-spinners";
 
 const BillDetails = ({ totalPrice }) => {
   if (totalPrice === 0) {
