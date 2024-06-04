@@ -28,7 +28,7 @@ function SearchResults(QueryRelatedTo, SearchInput) {
     })
   )
 }
-const SearchComponent = () => {
+const SearchComponent = ({ classNameForSearchBox }) => {
 
   const [queryInput, setQueryInput] = useState("")
   const [searchQueryParameter, setSearchQueryParameter] = useState("Name");
@@ -58,7 +58,7 @@ const SearchComponent = () => {
 
   return (
     <div
-      className={`hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 ${outerSearchHoverColor}`}
+      className={`${classNameForSearchBox} ${outerSearchHoverColor}`}
       onMouseEnter={() =>
         setOuterSearchHoverColor("bg-gray-200 border-[2px] border-white ")
       }
@@ -68,7 +68,7 @@ const SearchComponent = () => {
     >
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex h-[100%] rounded-full px-2 hover:bg-white items-center w-[100%] transition duration-500"
+        className="flex h-[100%] rounded-full ps-2 hover:bg-white items-center w-[100%] transition duration-500"
         onMouseEnter={() => setSearchType("bg-gray-200")}
         onMouseLeave={() => setSearchType("bg-white")}
       >
@@ -76,7 +76,7 @@ const SearchComponent = () => {
           <Search size={20} className="text-gray-700" />
         </button>
         <Input
-          type="text"
+          type="search"
           placeholder="Search store by"
           className=" h-[40px] text-black  text-[14px] border-none outline-none bg-transparent"
           onChange={(e) => setQueryInput(e.target.value)}
@@ -131,7 +131,7 @@ const SearchComponent = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <div className={`absolute left-0 top-full mt-2 w-full rounded ${isError || isLoading ? "" : "bg-[#f7f7f7]"}`}>
+      <div className={`absolute left-0 top-full z-20 mt-2 w-full rounded max-md:top-32 max-md:w-10/12 max-md:mr-3 max-md:ml-6 max-md:mt-0 ${isError || isLoading ? "" : "bg-[#f7f7f7]"}`}>
         {
           isLoading && <span className="text-black text-xs ps-9">Loading...</span>
         }
