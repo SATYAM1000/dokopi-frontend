@@ -60,7 +60,7 @@ const Navbar = ({ apiKey }) => {
     }
     setLastScrollY(window.scrollY);
   };
-
+  const classNameForSearchBox = `hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 `
   return (
     <nav
       className={`w-full h-[70px] md:h-[80px] bg-white flex items-center justify-between z-10 sticky top-0 transition-transform duration-300 border-b border-black/[0.1] ${show} `}
@@ -77,7 +77,7 @@ const Navbar = ({ apiKey }) => {
         <div className={`flex items-center justify-center gap-4 text-white`}>
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
-              <SearchComponent />
+              <SearchComponent classNameForSearchBox={classNameForSearchBox} />
               <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
@@ -96,7 +96,7 @@ const Navbar = ({ apiKey }) => {
                       You have {cartItemCount} items in your cart
                     </SheetDescription>
                   </SheetHeader>
-                  <DokopiCartComponent  setOpen={setOpen} />
+                  <DokopiCartComponent setOpen={setOpen} />
                 </SheetContent>
               </Sheet>
               {currentUser ? (
