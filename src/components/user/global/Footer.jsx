@@ -8,7 +8,7 @@ const Footer = () => {
         <span className="text-sm text-gray-500 sm:text-center">
           © 2024{" "}
           <a href="https://dokopi.com/" className="hover:underline">
-            Dokopi
+            Satyam
           </a>
           . All Rights Reserved.
         </span>
