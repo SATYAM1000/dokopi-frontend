@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Link from "next/link";
@@ -12,7 +12,8 @@ const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
   const { storeLocationCoordinates } = storeData
   const { coordinates } = storeLocationCoordinates
-  console.log(coordinates)
+  const DirectionURL = location ? `https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}` :
+    `https://www.google.com/maps?saddr=My+Location&daddr=${coordinates[0]},${coordinates[1]}`
   return (
     <motion.section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
@@ -50,7 +51,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           </h5>
           <Link
             target="_blank"
-            href={`https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}`}
+            href={DirectionURL}
             className="flex items-center justify-center font-medium gap-1 text-[13px] border border-black/[0.25] cursor-pointer bg-gray-100 text-gray-700 px-2 py-1 rounded-md mt-2"
           >
             Direction
@@ -99,7 +100,7 @@ const SingleStoreCard = ({ storeData, location }) => {
             </div>
           </div>
           <Link
-            href={`/stores/${storeData?.storeId}`}
+            href={`/ stores / ${storeData?.storeId} `}
             className="flex-1 flex items-center justify-center "
           >
             <Button className="w-full py-2 text-white/[0.85] font-medium rounded-sm">
