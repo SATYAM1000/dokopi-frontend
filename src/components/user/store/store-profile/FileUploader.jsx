@@ -21,10 +21,10 @@ const FileUploader = ({
   };
 
   const onFileUpload = async (e) => {
-    if (!currentUser || !token) {
-      toast.error("Login required", { description: "Please login to proceed" });
-      return;
-    }
+    // if (!currentUser || !token) {
+    //   toast.error("Login required", { description: "Please login to proceed" });
+    //   return;
+    // }
 
     const file = e.target.files[0];
     if (!file) {
