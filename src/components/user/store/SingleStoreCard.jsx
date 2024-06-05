@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Link from "next/link";
@@ -8,8 +8,11 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ImageWithFallback from "./store-profile/ImageWithFallback";
 
-const SingleStoreCard = ({ storeData }) => {
+const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
+  const { storeLocationCoordinates } = storeData
+  const { coordinates } = storeLocationCoordinates
+  console.log(coordinates)
   return (
     <motion.section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
@@ -47,7 +50,7 @@ const SingleStoreCard = ({ storeData }) => {
           </h5>
           <Link
             target="_blank"
-            href={`https://www.google.com/maps/dir/?api=1&destination=<span class="math-inline">\{storeData?\.storeLocationCoordinates?\.coordinates\[0\]\},</span>{storeData?.storeLocationCoordinates?.coordinates[1]}`}
+            href={`https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}`}
             className="flex items-center justify-center font-medium gap-1 text-[13px] border border-black/[0.25] cursor-pointer bg-gray-100 text-gray-700 px-2 py-1 rounded-md mt-2"
           >
             Direction
