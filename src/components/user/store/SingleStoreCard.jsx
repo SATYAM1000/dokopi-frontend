@@ -63,8 +63,8 @@ const SingleStoreCard = ({ storeData, location }) => {
         </p>
         <div className="w-full flex items-center justify-between">
           <p className="text-gray-500 text-medium text-[14px]">
-            {storeData?.storeServices?.join(", ").length > 40
-              ? storeData?.storeServices?.join(", ").slice(0, 40) + " ..."
+            {storeData?.storeServices?.join(", ").length > 30
+              ? storeData?.storeServices?.join(", ").slice(0, 30) + " ..."
               : storeData?.storeServices?.join(", ")}
           </p>
           <p className="text-slate-500 text-[14px]">
@@ -100,7 +100,7 @@ const SingleStoreCard = ({ storeData, location }) => {
             </div>
           </div>
           <Link
-            href={`/ stores / ${storeData?.storeId} `}
+            href={`/stores/${storeData?.storeId}`}
             className="flex-1 flex items-center justify-center "
           >
             <Button className="w-full py-2 text-white/[0.85] font-medium rounded-sm">
