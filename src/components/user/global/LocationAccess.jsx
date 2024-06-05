@@ -13,8 +13,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "../../ui/button";
 import { getUserCoordinates } from "@/lib/getlocation";
-
 import { ChevronDown } from "lucide-react";
+import useDebounceCustomeHook from "@/hooks/useDebouceCustomeHook";
+import { useQuery } from "@tanstack/react-query";
+import { API_DOMAIN } from "@/lib/constants";
+import PrintLocationSearchResult from "./PrintLocationSearchResult";
+import LocationSearchSkeletion from "./LocationSearchSkeletion";
+
+function SearchResults(SeachLocation) {
+  return (
+    useQuery({
+      queryKey: ['SearchLocationByInput', SeachLocation],
+      queryFn: async () => {
+        const res = await axios.get(`${API_DOMAIN}/api/v1/location?SeachLocation=${SeachLocation}`);
+        return res.data;
+      },
+      enabled: SeachLocation.length > 2
+    })
+  )
+}
 
 const LocationAccess = ({ apiKey }) => {
   const [location, setLocation] = useState(null);
@@ -23,7 +40,10 @@ const LocationAccess = ({ apiKey }) => {
   const [success, setSuccess] = useState(null);
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [SearchboxQuery, setSearchboxQuery] = useState("")
+  const debouncedValueSearch = useDebounceCustomeHook(SearchboxQuery, 300);
 
+  const { data, isError, isLoading } = SearchResults(debouncedValueSearch)
   useEffect(() => {
     const address = localStorage.getItem("userAddress");
     setIsClient(true);
@@ -34,11 +54,8 @@ const LocationAccess = ({ apiKey }) => {
     }
   }, []);
 
-  const handleLocationDetection = async () => {
+  const fetchLocationUsingCoordinates = async (coordinates) => {
     try {
-      setLocationError(null);
-      setSuccess(null);
-      const coordinates = await getUserCoordinates();
       if (coordinates) {
         setLocation(coordinates);
         const { latitude, longitude } = coordinates;
@@ -52,6 +69,7 @@ const LocationAccess = ({ apiKey }) => {
           }
         }
         const formattedAddress = localStorage.getItem("userAddress");
+        localStorage.setItem("coordinates", JSON.stringify(coordinates))
         setUserAddress(formattedAddress);
         setSuccess("Location detected successfully.");
         setTimeout(() => {
@@ -78,6 +96,19 @@ const LocationAccess = ({ apiKey }) => {
         setLocationError("An error occurred while detecting your location.");
       }
     }
+  }
+
+
+  const handleLocationDetection = async () => {
+    try {
+      setLocationError(null);
+      setSuccess(null);
+      const coordinates = await getUserCoordinates();
+      fetchLocationUsingCoordinates(coordinates)
+    }
+    catch {
+      setLocationError("An error occurred while detecting your location.");
+    }
   };
 
   return (
@@ -89,11 +120,10 @@ const LocationAccess = ({ apiKey }) => {
               <button
                 variant="link"
                 className={`w-full bg-transparent flex items-center text-[13px] border-none justify-center px-0 py-0
-               font-medium ${
-                 userAddress
-                   ? "text-black  hover:bg-transparent hover:text-black"
-                   : " text-black hover:bg-transparent hover:text-gray-500"
-               }`}
+               font-medium ${userAddress
+                    ? "text-black  hover:bg-transparent hover:text-black"
+                    : " text-black hover:bg-transparent hover:text-gray-500"
+                  }`}
               >
                 {userAddress
                   ? userAddress.split(",").slice(-2, -1)[0].trim()
@@ -124,12 +154,23 @@ const LocationAccess = ({ apiKey }) => {
                       Detect my location
                     </Button>
                     <p className=" text-black font-bold text-center">OR</p>
-                    <Input
-                      id="location"
-                      defaultValue={userAddress}
-                      placeholder="Enter your location"
-                      className="col-span-3 flex-1"
-                    />
+                    <div className="relative w-full">
+                      <Input
+                        type="search"
+                        id="location"
+                        defaultValue={userAddress}
+                        placeholder="Enter your location"
+                        className="col-span-3 flex-1"
+                        onChange={((e) => setSearchboxQuery(e.target.value))}
+                        autoComplete="off"
+                      />
+                      {/* Location Search Result  */}
+                      <div className="absolute w-full bg-white mt-3" onClick={(e) => { if (e.target.tagName == 'P') fetchLocationUsingCoordinates(e.target.dataset) }}>
+                        {isError && <span className="text-xs text-red-600">Unable to get Locations</span>}
+                        {SearchboxQuery.length > 2 && isLoading && <LocationSearchSkeletion />}
+                        {SearchboxQuery.length > 2 && data && <PrintLocationSearchResult datas={data} />}
+                      </div>
+                    </div>
                   </div>
                   {locationError ? (
                     <p className="text-red-500 text-[12px] text-left">
