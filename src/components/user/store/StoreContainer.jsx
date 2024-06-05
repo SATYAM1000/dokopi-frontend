@@ -11,14 +11,14 @@ const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allStores, setAllStores] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
+  const [address, setaddress] = useState()
 
   const { isLoading, error, data, isError, isFetching } = useQuery({
     queryKey: ["fetch-nearest-stores", currentPage],
     queryFn: ({ pageParam = currentPage }) =>
       axios
         .get(
-          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${
-            (pageParam - 1) * 6
+          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${(pageParam - 1) * 6
           }`
         )
         .then((res) => res.data),
@@ -40,9 +40,9 @@ const StoreContainer = () => {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
-
   useEffect(() => {
     if (data && data.data && data.data.stores) {
+      setaddress(JSON.parse(localStorage.getItem("coordinates")))
       setAllStores((prevStores) => [...prevStores, ...data.data.stores]);
     }
   }, [data]);
@@ -65,7 +65,7 @@ const StoreContainer = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-2">
                 {allStores.map((store, index) => (
-                  <SingleStoreCard key={index} storeData={store} />
+                  <SingleStoreCard key={index} storeData={store} location={address} />
                 ))}
               </div>
             )}

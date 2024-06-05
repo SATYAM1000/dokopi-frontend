@@ -43,7 +43,7 @@ const LocationAccess = ({ apiKey }) => {
   const [SearchboxQuery, setSearchboxQuery] = useState("")
   const debouncedValueSearch = useDebounceCustomeHook(SearchboxQuery, 300);
 
-  const { error, data, isError, isLoading } = SearchResults(debouncedValueSearch)
+  const { data, isError, isLoading } = SearchResults(debouncedValueSearch)
   useEffect(() => {
     const address = localStorage.getItem("userAddress");
     setIsClient(true);
@@ -69,6 +69,7 @@ const LocationAccess = ({ apiKey }) => {
           }
         }
         const formattedAddress = localStorage.getItem("userAddress");
+        localStorage.setItem("coordinates", JSON.stringify(coordinates))
         setUserAddress(formattedAddress);
         setSuccess("Location detected successfully.");
         setTimeout(() => {
