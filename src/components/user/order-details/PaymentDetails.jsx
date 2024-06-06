@@ -16,7 +16,7 @@ const PaymentDetails = ({ PaymentDetails }) => {
         </div>
         <div className="flex items-center justify-between">
           <p>Transaction ID: </p>
-          <span>{PaymentDetails?.razorpayPaymentId}</span>
+          <span>{PaymentDetails?.phonePeTransactionId}</span>
         </div>
         <div className="flex items-center justify-between">
           <p>Date: </p>

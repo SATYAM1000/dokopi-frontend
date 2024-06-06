@@ -132,7 +132,7 @@ const ActiveOrders = () => {
                       <TableCell>
                         <Badge
                           className={
-                            order?.paymentStatus === "paid"
+                            order?.paymentStatus === "success"
                               ? "bg-green-500 hover:bg-green-600  "
                               : "bg-red-500 hover:bg-red-600  "
                           }
@@ -142,7 +142,7 @@ const ActiveOrders = () => {
                       </TableCell>
 
                       <TableCell className="w-[100px]">
-                        {order?.razorpayPaymentId || "N/A"}
+                        {order?.phonePeTransactionId || "N/A"}
                       </TableCell>
                       <TableCell>{order?.cartItems.length}</TableCell>
 

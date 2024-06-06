@@ -30,14 +30,14 @@ const SingleStoreCard = ({ storeData, location }) => {
           <div className="w-full h-full">
             <ImageWithFallback
               src={storeData?.storeImagesURL[0]}
-              width={1000}
-              height={1000}
+              width={400}
+              height={400}
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"
               className="h-[245px] object-cover object-center rounded-lg"
               fallbackSrc={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ4HtE_O8tvs-TlF27vWMWHjxoCQ7HmFmZHBkZpKt1n4PFIN-aN&usqp=CAU"
+                "https://placehold.co/600x400/e6e6e6/FFFFFF.png?text=No+Image"
               }
             />
           </div>

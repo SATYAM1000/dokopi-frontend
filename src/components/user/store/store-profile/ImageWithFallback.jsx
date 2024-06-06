@@ -15,10 +15,9 @@ const ImageWithFallback = (props) => {
       onError={() => {
         setImgSrc(
           fallbackSrc ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ4HtE_O8tvs-TlF27vWMWHjxoCQ7HmFmZHBkZpKt1n4PFIN-aN&usqp=CAU"
+            "https://placehold.co/600x400/000000/FFFFFF.png?text=No+Image"
         );
       }}
-      
     />
   );
 };

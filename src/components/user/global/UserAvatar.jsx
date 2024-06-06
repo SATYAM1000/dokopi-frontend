@@ -14,24 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import {
-  History,
-  Headphones,
-  LogOut,
-  FileClock,
-  Lock,
-  Bell,
-} from "lucide-react";
-
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
+import { History, Headphones, LogOut, FileClock, Lock } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ClipLoader } from "react-spinners";
 import { API_DOMAIN } from "@/lib/constants";
@@ -57,6 +40,7 @@ const UserAvatar = () => {
         }
       );
       const { data } = response;
+      console.log("data in user avatar is  ", data);
       if (data?.success) {
         setHasActiveOrders(true);
       } else {
@@ -106,33 +90,34 @@ const UserAvatar = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {currentUser?.role === "USER" && (
-          <DropdownMenuItem
-            asChild
-            className={`${
-              !hasActiveOrders
-                ? "cursor-not-allowed text-gray-500"
-                : "cursor-pointer  "
-            }`}
+
+        <DropdownMenuItem
+          asChild
+          disabled={!hasActiveOrders}
+          className={`${
+            !hasActiveOrders
+              ? "cursor-not-allowed text-gray-500"
+              : "cursor-pointer  "
+          }`}
+        >
+          <div
+            className="flex items-center justify-between"
+            onClick={onActiveTabClick}
           >
-            <div
-              className="flex items-center justify-between"
-              onClick={onActiveTabClick}
-            >
-              <div className="flex items-center">
-                <FileClock size={17} />
-                <p className="pl-3">Active Order</p>
-              </div>
-              {hasActiveOrders ? (
-                <>
-                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse "></div>
-                </>
-              ) : (
-                <Lock size={17} />
-              )}
+            <div className="flex items-center">
+              <FileClock size={17} />
+              <p className="pl-3">Active Order</p>
             </div>
-          </DropdownMenuItem>
-        )}
+            {hasActiveOrders ? (
+              <>
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse "></div>
+              </>
+            ) : (
+              <Lock size={17} />
+            )}
+          </div>
+        </DropdownMenuItem>
+
         <DropdownMenuSeparator />
         {currentUser?.role === "USER" && (
           <DropdownMenuItem asChild className="cursor-pointer">

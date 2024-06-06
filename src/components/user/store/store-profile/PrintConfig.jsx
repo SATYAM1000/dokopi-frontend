@@ -15,7 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import DokopiCartComponent from "../../cart/DokopiCartComponent";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const PrintConfig = ({
   fileInfo,
@@ -320,7 +320,7 @@ const PrintConfig = ({
             </Button>
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button className="w-full bg-blue-600 hover:bg-blue-800 ">
+                <Button type="submit" className="w-full  bg-blue-600 hover:bg-blue-800 ">
                   Checkout
                 </Button>
               </SheetTrigger>
