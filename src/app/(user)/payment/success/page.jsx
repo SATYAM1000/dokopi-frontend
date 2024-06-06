@@ -1,6 +1,5 @@
 "use client";
 import { fetchAccessToken } from "@/actions/access-token";
-import Wrapper from "@/components/user/global/Wrapper";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { PuffLoader } from "react-spinners";
@@ -20,7 +19,7 @@ const PaymentSuccessPage = () => {
     const verifyPayment = async () => {
       try {
         const reference = new URLSearchParams(window.location.search).get(
-          "reference"
+          "id"
         );
         const token = await fetchAccessToken();
         const res = await axios.get(
