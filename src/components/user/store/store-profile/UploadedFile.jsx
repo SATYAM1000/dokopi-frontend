@@ -37,8 +37,8 @@ const UploadedFile = ({
 
   return (
     <section
-      className="border relative cursor-pointer  border-blue-500/[0.4] rounded-md px-4 py-2 w-full flex items-center justify-between gap-4 overflow-hidden
-     hover:border-blue-500/[0.5] hover:bg-blue-100 bg-blue-50 "
+      className="border relative cursor-pointer  border-indigo-500/[0.4] rounded-md px-4 py-2 w-full flex items-center justify-between gap-4 overflow-hidden
+     hover:border-indigo-500/[0.5] hover:bg-indigo-100 bg-indigo-50 "
     >
       <div className="flex items-center gap-4 relative ">
         <div className="h-[60px] w-[40px] overflow-hidden shrink-0 flex items-center justify-center">
@@ -68,7 +68,7 @@ const UploadedFile = ({
       <div className="flex items-center gap-6">
         <Badge
           className={
-            "mt-1 hidden md:flex max-w-fit text-[10px] bg-blue-500 hover:bg-blue-500"
+            "mt-1 hidden md:flex max-w-fit text-[10px] bg-indigo-500 hover:bg-indigo-500"
           }
         >
           Uploaded

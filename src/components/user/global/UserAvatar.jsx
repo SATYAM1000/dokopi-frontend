@@ -40,7 +40,6 @@ const UserAvatar = () => {
         }
       );
       const { data } = response;
-      console.log("data in user avatar is  ", data);
       if (data?.success) {
         setHasActiveOrders(true);
       } else {

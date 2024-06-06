@@ -153,7 +153,7 @@ const ActiveOrders = () => {
                             <Button
                               variant="link"
                               size="sm"
-                              className="w-[100px] text-blue-600 "
+                              className="w-[100px] text-indigo-600 "
                             >
                               View Details
                             </Button>

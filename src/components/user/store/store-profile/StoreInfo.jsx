@@ -22,7 +22,7 @@ const StoreInfo = ({ storeData }) => {
         <h1 className="text-3xl font-semibold">{storeDetails.storeName}</h1>
         <div className="flex items-center gap-6 text-xs md:text-base">
           <div className="flex items-center gap-2">
-            <span className="flex rounded items-center gap-1 text-white font-medium bg-blue-600 px-2 py-1">
+            <span className="flex rounded items-center gap-1 text-white font-medium bg-indigo-600 px-2 py-1">
               {/* Active Orders is not in the database  */}
               {10}
               <TiPlus />
@@ -35,7 +35,7 @@ const StoreInfo = ({ storeData }) => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="flex rounded items-center gap-1 text-white font-medium bg-blue-600 px-2 py-1">
+            <span className="flex rounded items-center gap-1 text-white font-medium bg-indigo-600 px-2 py-1">
               {/* Review Orders is not in the database  */}
               {4.5} <TiStarFullOutline />
             </span>

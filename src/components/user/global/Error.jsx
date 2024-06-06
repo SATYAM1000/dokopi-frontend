@@ -1,8 +1,13 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/user/global/Wrapper";
+import Link from "next/link";
 import React from "react";
 
-const ErrorComponent = ({ errorMessage = "Something went wrong" }) => {
+const ErrorComponent = ({
+  errorMessage = "Something went wrong",
+  showNavigationLink = true,
+}) => {
   return (
     <section className="w-full h-screen">
       <Wrapper>
@@ -32,6 +37,17 @@ const ErrorComponent = ({ errorMessage = "Something went wrong" }) => {
             </h1>
 
             <p className="mt-4 text-gray-500">{errorMessage}</p>
+
+            {showNavigationLink && (
+              <Link href="/stores" className="mt-6 inline-block">
+                <Button
+                  variant="link"
+                  className="text-indigo-600  underline underline-offset-4"
+                >
+                  Back to store
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </Wrapper>

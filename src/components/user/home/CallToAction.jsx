@@ -27,7 +27,7 @@ const CallToAction = () => {
               </div>
               <div className="flex flex-wrap items-center justify-center gap-6">
                 <Link href="https://merchant.dokopi.com/" target="_blank">
-                <button className="bg-blue-600 font-medium text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm">
+                <button className="bg-indigo-600 font-medium text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm">
                   Get Started
                 </button>
                 </Link>

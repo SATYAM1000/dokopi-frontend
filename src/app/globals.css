@@ -83,8 +83,8 @@
 
 /* Handle the scrollbar */
 ::-webkit-scrollbar-thumb {
-  background: #3c82f6; /* Color of the scrollbar handle */
-  border-radius: 2px; /* Border radius of the scrollbar handle */
+  background: #4f46e5; /* Color of the scrollbar handle */
+  border-radius: 0px; /* Border radius of the scrollbar handle */
 }
 
 /* Track (background) */

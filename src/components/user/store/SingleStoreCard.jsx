@@ -37,7 +37,7 @@ const SingleStoreCard = ({ storeData, location }) => {
               alt="store"
               className="h-[245px] object-cover object-center rounded-lg"
               fallbackSrc={
-                "https://placehold.co/600x400/e6e6e6/FFFFFF.png?text=No+Image"
+                "/test/blur.jpeg"
               }
             />
           </div>

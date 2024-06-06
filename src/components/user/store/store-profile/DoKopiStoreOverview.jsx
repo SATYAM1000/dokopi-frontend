@@ -14,6 +14,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import MapViewSkelton from "./MapViewSkelton";
+import ReviewsContainer from "./ReviewsContainer";
 
 const DoKopiStoreOverview = ({
   storeDetails,
@@ -31,21 +33,22 @@ const DoKopiStoreOverview = ({
       <StoreInfo storeData={storeDetails} />
       <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-12">
         <div className="w-full md:w-2/6">
-          <MapView storeData={storeDetails} />
+          {!storeDetails ? (
+            <>
+              <MapViewSkelton />
+            </>
+          ) : (
+            <MapView storeData={storeDetails} />
+          )}
         </div>
         <div className="flex flex-col gap-2 w-full md:w-4/6 ">
           <h2 className="text-xl flex flex-col md:block font-medium">
             Reviews
           </h2>
-          <div className="flex flex-col gap-3 mt-2">
-            {(storeReviews.length > 0 &&
-              storeReviews.map((OneReview) => (
-                <Review OneReview={OneReview} key={OneReview._id} />
-              ))) ||
-              "No Review are given"}
-          </div>
+        
+          <ReviewsContainer storeReviews={storeReviews} />
 
-          {storeReviews.length > 0 && (
+          {storeReviews.length > 4 && (
             <Pagination className={"my-6"}>
               <PaginationContent>
                 <PaginationItem>

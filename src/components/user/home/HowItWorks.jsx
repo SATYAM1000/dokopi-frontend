@@ -32,7 +32,7 @@ const HowItWorks = () => {
               <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                 <span className="text-xl font-semibold text-gray-700">
                   {" "}
-                  <CloudUpload className="h-7 w-7 text-blue-500" />{" "}
+                  <CloudUpload className="h-7 w-7 text-indigo-500" />{" "}
                 </span>
               </div>
               <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
@@ -48,7 +48,7 @@ const HowItWorks = () => {
               <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                 <span className="text-xl font-semibold text-gray-700">
                   {" "}
-                  <Printer className="h-7 w-7 text-blue-500" />
+                  <Printer className="h-7 w-7 text-indigo-500" />
                 </span>
               </div>
               <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
@@ -65,16 +65,15 @@ const HowItWorks = () => {
               <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                 <span className="text-xl font-semibold text-gray-700">
                   {" "}
-                  <CheckCheck className="h-7 w-7 text-blue-500" />{" "}
+                  <CheckCheck className="h-7 w-7 text-indigo-500" />{" "}
                 </span>
               </div>
               <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
-                Receive
+                Collect
               </h3>
               <p className="mt-4 text-base text-gray-600">
-                Enjoy the convenience of collecting your printed documents
-                hassle-free, providing you with peace of mind and convenience
-                every step of the way
+                Pick up your printed documents with ease, ensuring a smooth and
+                efficient process that saves you time and effort.
               </p>
             </div>
           </div>

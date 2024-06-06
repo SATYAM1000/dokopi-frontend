@@ -1,7 +1,6 @@
 import React from "react";
-import Wrapper from "../../global/Wrapper";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 
 const SingleStoreSkelton = () => {
   return (
@@ -10,7 +9,6 @@ const SingleStoreSkelton = () => {
         <TabsList>
           <Skeleton className="h-2 w-[250px]" />
         </TabsList>
-
         <TabsContent value="overview">
           <Skeleton className="h-[calc(100vh-150px)] w-full rounded-xl" />
         </TabsContent>

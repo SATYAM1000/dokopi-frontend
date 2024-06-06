@@ -34,7 +34,7 @@ const Footer = () => {
               href="/refund-shipping-policy"
               className="  hover:underline underline-offset-4 me-4 md:me-6"
             >
-              Shipping & Refund
+              Refund
             </Link>
           </li>
 

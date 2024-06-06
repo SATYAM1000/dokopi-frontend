@@ -167,7 +167,7 @@ const PrintConfig = ({
                   }}
                   className={`w-10 h-10 shrink-0 rounded-sm text-sm font-medium  shadow-md   transition-all duration-100 ${
                     fileInfo?.fileColorPagesToPrint.includes(pageNumber + 1)
-                      ? "border bg-blue-200 border-blue-400 text-blue-500"
+                      ? "border bg-indigo-200 border-indigo-400 text-indigo-500"
                       : "bg-gray-200 border border-black/[0.1] text-black "
                   } `}
                 >
@@ -314,13 +314,13 @@ const PrintConfig = ({
           >
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-800"
+              className="w-full bg-indigo-600 hover:bg-indigo-800"
             >
               Upload more
             </Button>
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button type="submit" className="w-full  bg-blue-600 hover:bg-blue-800 ">
+                <Button type="submit" className="w-full  bg-indigo-600 hover:bg-indigo-800 ">
                   Checkout
                 </Button>
               </SheetTrigger>

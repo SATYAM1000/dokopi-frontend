@@ -10,7 +10,7 @@ const Review = ({ OneReview }) => {
   const Month = KnownMonth[new Date(createdAt).getMonth()]
   const Year = new Date(createdAt).getFullYear()
   return (
-    <article className="border-b-2 border-gray-300/[0.5] pb-4">
+    <article className="border-b-2 border-gray-300/[0.5] pb-4 ">
       <div className="flex items-center mb-4">
         <Image
           className="w-10 h-10 me-4 rounded-full"

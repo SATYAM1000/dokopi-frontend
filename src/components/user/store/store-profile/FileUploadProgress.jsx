@@ -11,7 +11,7 @@ const FileUploadProgress = () => {
         height={100}
         alt="file uploader"
         unoptimized
-        className="h-[150px] w-[150px] object-cover object-center  rounded-full border-blue-400 border"
+        className="h-[150px] w-[150px] object-cover object-center  rounded-full border-indigo-400 border"
       />
       <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
         Processing your upload, just a moment...

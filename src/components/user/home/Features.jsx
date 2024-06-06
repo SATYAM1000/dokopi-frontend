@@ -21,11 +21,11 @@ const DoKopiFeatures = () => {
         </div>
 
         <div className="grid grid-cols-1 mt-10 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-0 xl:mt-24">
-          <div className="p-4 md:p-8 lg:p-14 hover:bg-blue-100 transition-all ">
+          <div className="p-4 md:p-8 lg:p-14 hover:bg-indigo-100 transition-all ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <Store className="h-7 w-7 text-blue-500" />{" "}
+                <Store className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -38,11 +38,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-blue-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-100 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow  ">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <CloudUpload className="h-7 w-7 text-blue-500" />{" "}
+                <CloudUpload className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -54,11 +54,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className=" p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-blue-100 transition-all">
+          <div className=" p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-100 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <SquareMenu className="h-7 w-7 text-blue-500" />{" "}
+                <SquareMenu className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -71,11 +71,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-blue-100 transition-all ">
+          <div className="p-4 md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-indigo-100 transition-all ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <FaTelegramPlane className="h-7 w-7 text-blue-500" />{" "}
+                <FaTelegramPlane className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -88,11 +88,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-blue-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-100 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <CircleDollarSign className="h-7 w-7 text-blue-500" />{" "}
+                <CircleDollarSign className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -104,11 +104,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-blue-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-100 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <Clock className="h-7 w-7 text-blue-500" />{" "}
+                <Clock className="h-7 w-7 text-indigo-500" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">

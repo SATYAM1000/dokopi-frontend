@@ -54,13 +54,13 @@ const Navbar = ({ apiKey }) => {
 
   const controlNavbar = () => {
     if (window.scrollY > 0) {
-      setShow("bg-white/[0.80]  ");
+      setShow("bg-white");
     } else {
       setShow("translate-y-0 ");
     }
     setLastScrollY(window.scrollY);
   };
-  const classNameForSearchBox = `hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 `
+  const classNameForSearchBox = `hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 `;
   return (
     <nav
       className={`w-full h-[70px] md:h-[80px] bg-white flex items-center justify-between z-10 sticky top-0 transition-transform duration-300 border-b border-black/[0.1] ${show} `}

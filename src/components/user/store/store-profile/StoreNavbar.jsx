@@ -54,7 +54,7 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
   return (
     <section className="w-full">
       <Wrapper>
-        {isLoading ? (
+        {isLoading  ? (
           <SingleStoreSkelton />
         ) : (
           <Tabs

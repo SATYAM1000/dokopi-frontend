@@ -75,12 +75,12 @@ const PaymentButton = ({ setOpen, totalPrice }) => {
 
   return (
     <div className=" pt-6 flex items-center justify-center">
-      <div className="space-y-4 text-center fixed overflow-hidden bottom-2  p-4 bg-blue-600 rounded-md ">
+      <div className="space-y-4 text-center fixed overflow-hidden bottom-2  p-4 bg-indigo-600 rounded-md ">
         <Button
           onClick={handlePhonePePaymentClick}
           disabled={loading}
           type="button"
-          className="w-full rounded-md bg-white hover:bg-white/90 px-3 py-2 text-sm font-semibold text-blue-600 shadow-sm "
+          className="w-full rounded-md bg-white hover:bg-white/90 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm "
         >
           Proceed to Payment
           {loading ? (
