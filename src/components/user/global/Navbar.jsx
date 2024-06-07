@@ -29,7 +29,6 @@ const Navbar = ({ apiKey }) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [open, setOpen] = useState(false);
-
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
