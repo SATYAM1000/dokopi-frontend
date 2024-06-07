@@ -34,6 +34,7 @@ const DokopiCartComponent = ({ setOpen }) => {
         )}`
       );
 
+      console.log(data)
       const price = calculateTotalPrice(cartItems, data?.data);
       setStorePrice(data?.data);
     } catch (error) {
@@ -42,7 +43,6 @@ const DokopiCartComponent = ({ setOpen }) => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchStorePricing();
   }, []);
@@ -88,13 +88,15 @@ const DokopiCartComponent = ({ setOpen }) => {
                         <X className="h-4 w-4" />
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 text-gray-700 text-[11px] ">
+                    <div className="flex items-center gap-2 text-gray-700 text-[11px] ">
                       <dd className="inline capitalize ">
                         {product?.filePrintMode}
                       </dd>
-
                       <dd className="inline capitalize">
                         {product?.fileColorType}
+                      </dd>
+                      <dd className="inline capitalize">
+                        {product?.additionalServices}
                       </dd>
                     </div>
                   </dl>
