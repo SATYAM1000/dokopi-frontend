@@ -21,10 +21,7 @@ const FileUploader = ({
   };
 
   const onFileUpload = async (e) => {
-    // if (!currentUser || !token) {
-    //   toast.error("Login required", { description: "Please login to proceed" });
-    //   return;
-    // }
+
 
     const file = e.target.files[0];
     if (!file) {
@@ -84,6 +81,7 @@ const FileUploader = ({
             fileOriginalName,
             fileExtension: uploadedFileExtension,
             filePageCount: data.pageCount,
+            fileIconPath: `/file-icons/${uploadedFileExtension}.svg`,
           }));
           resolve();
         })
