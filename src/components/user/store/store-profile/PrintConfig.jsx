@@ -200,11 +200,15 @@ const PrintConfig = ({
                     Single Sided
                   </Label>
                 </div>
-                <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
-                  <RadioGroupItem value="duplex" id="duplex" />
+                <div className="flex h-[40px] items-center space-x-2 bg-white border rounded-md pl-2">
+                  <RadioGroupItem
+                    value="duplex"
+                    id="duplex"
+                    disabled={fileInfo?.filePageCount === 1 || false}
+                  />
                   <Label
                     htmlFor="duplex"
-                    className="w-full flex items-center justify-start  h-full"
+                    className="w-full flex items-center justify-start h-full"
                   >
                     Double Sided
                   </Label>
@@ -320,7 +324,10 @@ const PrintConfig = ({
             </Button>
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button type="submit" className="w-full  bg-indigo-600 hover:bg-indigo-800 ">
+                <Button
+                  type="submit"
+                  className="w-full  bg-indigo-600 hover:bg-indigo-800 "
+                >
                   Checkout
                 </Button>
               </SheetTrigger>
