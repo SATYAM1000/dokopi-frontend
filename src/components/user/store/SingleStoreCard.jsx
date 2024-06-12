@@ -10,6 +10,7 @@ import ImageWithFallback from "./store-profile/ImageWithFallback";
 
 const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
+  console.log("store data ", storeData?.storeCurrentStatus);
   const { storeLocationCoordinates } = storeData
   const { coordinates } = storeLocationCoordinates
   const DirectionURL = location ? `https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}` :
@@ -95,7 +96,9 @@ const SingleStoreCard = ({ storeData, location }) => {
             </div>
 
             <div className="flex gap-1.5 text-[12px] md:text-[14px]">
-              <p className="font-medium text-green-500">Open</p>
+              <p className="font-medium text-green-500">
+               {storeData?.storeCurrentStatus ? storeData?.storeCurrentStatus : <span className="text-red-500">closed</span>}
+              </p>
               <p className="text-gray-500 font-medium">Closes at 10pm</p>
             </div>
           </div>
