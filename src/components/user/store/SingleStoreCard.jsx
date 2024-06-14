@@ -97,7 +97,7 @@ const SingleStoreCard = ({ storeData, location }) => {
 
             <div className="flex gap-1.5 text-[12px] md:text-[14px]">
               <p className="font-medium text-green-500">
-               {storeData?.storeCurrentStatus ==="open"? <span className="text-green-500">open</span> : <span className="text-red-500">closed</span>}
+               {storeData?.storeCurrentStatus ==="open"? <span className="text-green-500">Open</span> : <span className="text-red-500">Closed</span>}
               </p>
               <p className="text-gray-500 font-medium">Closes at 10pm</p>
             </div>
