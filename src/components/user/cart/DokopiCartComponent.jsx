@@ -22,6 +22,7 @@ const DokopiCartComponent = ({ setOpen }) => {
   const dispatch = useDispatch();
 
   const [totalPrice, setTotalPrice] = React.useState(0);
+  const [platformFee, setPlatformFee] = React.useState(0);
   const [storePrice, setStorePrice] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
 
@@ -34,7 +35,6 @@ const DokopiCartComponent = ({ setOpen }) => {
         )}`
       );
 
-      console.log(data)
       const price = calculateTotalPrice(cartItems, data?.data);
       setStorePrice(data?.data);
     } catch (error) {
@@ -47,7 +47,8 @@ const DokopiCartComponent = ({ setOpen }) => {
     fetchStorePricing();
   }, []);
   useEffect(() => {
-    setTotalPrice(calculateTotalPrice(cartItems, storePrice));
+    setTotalPrice(calculateTotalPrice(cartItems, storePrice).totalCharge + calculateTotalPrice(cartItems, storePrice).platformChargeForThisOrder);
+    setPlatformFee(calculateTotalPrice(cartItems, storePrice).platformChargeForThisOrder);
   }, [cartItems, storePrice]);
   const removeFromCartHandler = (id) => {
     dispatch(deleteFromCart(id));
@@ -69,7 +70,11 @@ const DokopiCartComponent = ({ setOpen }) => {
                 />
                 <div className="w-full">
                   <h3 className="text-[15px] font-medium text-gray-900">
-                    {product?.fileOriginalName}
+                    {product?.fileOriginalName.length > 20 ? (
+                      <>{product?.fileOriginalName.slice(0, 20)}...</>
+                    ) : (
+                      product?.fileOriginalName
+                    )}
                   </h3>
                   <dl className="mt-0.5 w-full space-y-px text-[11px] text-gray-700">
                     <div className="flex items-center justify-between w-full ">
@@ -80,6 +85,10 @@ const DokopiCartComponent = ({ setOpen }) => {
                         <dd className="inline font-medium">
                           {product?.filePageCount}&nbsp;Pages
                         </dd>
+                        <dd className="inline font-medium">
+                          {product?.fileCopiesCount}&nbsp;Copies
+                        </dd>
+                       
                       </div>
                       <div
                         className="cursor-pointer"
@@ -104,9 +113,9 @@ const DokopiCartComponent = ({ setOpen }) => {
               </li>
             ))}
           </ul>
-          <BillDetails totalPrice={totalPrice} />
+          <BillDetails totalPrice={totalPrice} platformFee={platformFee} />
           <CancellationPolicy />
-          <PaymentButton setOpen={setOpen} totalPrice={totalPrice} />
+          <PaymentButton setOpen={setOpen} totalPrice={totalPrice} platformFee={platformFee} />
         </div>
       ) : (
         <div className="mt-6 space-y-6">

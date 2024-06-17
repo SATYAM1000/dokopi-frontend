@@ -200,7 +200,7 @@ const PrintConfig = ({
                     Single Sided
                   </Label>
                 </div>
-                <div className="flex h-[40px] items-center space-x-2 bg-white border rounded-md pl-2">
+                <div className={`flex h-[40px] items-center space-x-2 bg-white border rounded-md pl-2 ${fileInfo?.filePageCount === 1 ? "cursor-not-allowed text-muted-foreground" : "cursor-pointer"}`}>
                   <RadioGroupItem
                     value="duplex"
                     id="duplex"

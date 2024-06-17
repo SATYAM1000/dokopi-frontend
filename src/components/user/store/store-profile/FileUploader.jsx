@@ -7,22 +7,18 @@ import { Button } from "@/components/ui/button";
 
 const FileUploader = ({
   token,
-  currentUser,
   setFileInfo,
   setFiles,
   setShowFileUploadProgress,
   setIsFileUploadedSuccessfully,
   fileUploadRef,
 }) => {
-
   const handleFileInputClick = () => {
     fileUploadRef.current.value = null;
     fileUploadRef.current.click();
   };
 
   const onFileUpload = async (e) => {
-
-
     const file = e.target.files[0];
     if (!file) {
       toast.error("File is required");
@@ -38,10 +34,7 @@ const FileUploader = ({
       return;
     }
 
-    const fileOriginalName =
-      file.name.length > 12
-        ? `${file.name.substring(0, 13)}... ${file.name.split(".")[1]}`
-        : file.name;
+    const fileOriginalName = file.name;
     const formData = new FormData();
     formData.append("file", file);
     setFiles((prev) => [...prev, { name: fileOriginalName, loading: 0 }]);
@@ -99,7 +92,8 @@ const FileUploader = ({
         setShowFileUploadProgress(false);
         setIsFileUploadedSuccessfully(false);
         setFiles((prev) => prev.slice(0, -1));
-    
+        console.error("Error uploading file:", error);
+
         return (
           error?.response?.data?.msg || error?.message || "Something went wrong"
         );
@@ -128,9 +122,7 @@ const FileUploader = ({
         size="sm"
         className="mt-2 bg-indigo-600 hover:bg-indigo-800 rounded-sm px-3 py-1 flex items-center justify-center gap-2"
       >
-        <p>
-            Upload File
-        </p>
+        <p>Upload File</p>
       </Button>
     </header>
   );

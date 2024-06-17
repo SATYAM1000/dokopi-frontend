@@ -1,6 +1,6 @@
 import React from "react";
 
-const BillDetails = ({ totalPrice }) => {
+const BillDetails = ({ totalPrice, platformFee }) => {
   return totalPrice === null || totalPrice === 0 ? (
     <></>
   ) : (
@@ -11,10 +11,17 @@ const BillDetails = ({ totalPrice }) => {
         </h1>
         <div className="text-[13px] text-gray-700 w-full">
           <div className="flex items-center justify-between">
-            <p>Subtotal: </p>
+            <p>Order Value: </p>
             <span>
               ₹&nbsp;
-              {totalPrice}
+              {totalPrice - platformFee}
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <p>Platform Fee: </p>
+            <span>
+              ₹&nbsp;
+              {platformFee}
             </span>
           </div>
           <div className="flex items-center justify-between">

@@ -2,7 +2,6 @@
 import React from "react";
 import StoreGallery from "./StoreGallery";
 import StoreInfo from "./StoreInfo";
-import Review from "./Review";
 import MapView from "./MapView";
 
 import {

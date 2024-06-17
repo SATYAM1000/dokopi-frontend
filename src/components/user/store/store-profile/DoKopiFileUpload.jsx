@@ -41,6 +41,7 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     fileColorType: "black and white",
     filePrintMode: "simplex",
     fileColorPagesToPrint: [],
+    
   });
 
   const onFinalSubmit = (e) => {

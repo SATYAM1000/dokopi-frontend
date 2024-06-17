@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import ShortUniqueId from "short-unique-id";
 
-const PaymentButton = ({ setOpen, totalPrice }) => {
+const PaymentButton = ({ setOpen, totalPrice , platformFee}) => {
   const currentUser = useCurrentUser();
   const uid = new ShortUniqueId();
 
@@ -39,6 +39,7 @@ const PaymentButton = ({ setOpen, totalPrice }) => {
       let data = {
         name: currentUser?.name,
         amount: totalPrice,
+        platformFee: platformFee,
         merchantTransactionId: "pay_" + uid.stamp(15),
         merchantUserId: "user_" + String(currentUser?.id),
         cartItems: cartItems,

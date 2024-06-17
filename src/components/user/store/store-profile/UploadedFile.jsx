@@ -26,7 +26,7 @@ const UploadedFile = ({
       filePaperType: "A4",
       fileColorType: "black and white",
       filePrintMode: "simplex",
-      messageForXeroxStore: '',
+      messageForXeroxStore: "",
       additionalServices: null,
       fileColorPagesToPrint: [],
     }));
@@ -51,9 +51,9 @@ const UploadedFile = ({
         </div>
         <div className="flex flex-col">
           <p className=" text-[13px] md:text-[15px] font-medium text-gray-700">
-            {fileInfo?.fileOriginalName
-              ? fileInfo?.fileOriginalName
-              : "No name available"}
+            {fileInfo?.fileOriginalName.length > 20
+              ? fileInfo?.fileOriginalName.slice(0, 20) + "..."
+              : fileInfo?.fileOriginalName}
           </p>
           <div className="flex items-center gap-4">
             <p className="text-xs text-gray-700 font-medium">

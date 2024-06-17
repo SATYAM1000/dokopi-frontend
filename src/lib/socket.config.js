@@ -1,6 +1,5 @@
 import { io } from "socket.io-client";
-import { API_DOMAIN } from "./constants";
 
-const socket = io(process.env.NEXT_PUBLIC_SOCKET_SERVER_URL); // Replace NEXT_PUBLIC_SOCKET_SERVER_URL with your actual server URL
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_SERVER_URL); 
 
 export default socket;
