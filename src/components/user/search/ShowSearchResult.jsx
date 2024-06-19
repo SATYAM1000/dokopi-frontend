@@ -4,9 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import Link from 'next/link'
 
-const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
+
 const ShowSearchResult = ({ Response }) => {
     const { data, success, msg } = Response
     if (!success) {
@@ -16,7 +14,7 @@ const ShowSearchResult = ({ Response }) => {
             </ScrollArea>)
     }
     return (
-        <ScrollArea className="h-72 w-full rounded-md border text-black">
+        <ScrollArea className="h-72 w-full rounded-md border text-black ">
             <div className="p-4">
                 {data && data.map((results) => {
                     const { storeDetails } = results

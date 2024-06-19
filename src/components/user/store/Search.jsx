@@ -132,9 +132,7 @@ const SearchComponent = ({ classNameForSearchBox }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <div className={`absolute left-0 top-full z-20 mt-2 w-full rounded max-md:top-32 max-md:w-10/12 max-md:mr-3 max-md:ml-6 max-md:mt-0 ${isError || isLoading ? "" : "bg-[#f7f7f7]"}`}>
-        {/* {
-          isLoading && <span className="text-black text-xs ps-9">Loading...</span>
-        } */}
+       
         {
           isLoading && <SearchSkelton/>
         }
