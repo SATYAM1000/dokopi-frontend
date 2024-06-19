@@ -7,40 +7,21 @@ import axios from "axios";
 import StoreSkelton from "./StoreSkelton";
 import ErrorComponent from "../global/Error";
 import { API_DOMAIN } from "@/lib/constants";
-
 const StoreContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allStores, setAllStores] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
-  const [address, setAddress] = useState(null);
-
-  // Retrieve coordinates from localStorage and set state
-  useEffect(() => {
-    const coordinates = JSON.parse(localStorage.getItem("coordinates"));
-    if (coordinates) {
-      setAddress(coordinates);
-    }
-  }, []);
-
-  // Construct the API URL dynamically
-  const getNearestStoresUrl = (page) => {
-    if (!address) return null;
-    const { latitude, longitude } = address;
-    const userZipCode = '411041'; // Replace with dynamic value if available
-    const limit = 6;
-    const skip = (page - 1) * limit;
-    return `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=${latitude}&longitude=${longitude}&userZipCode=${userZipCode}&limit=${limit}&skip=${skip}`;
-  };
+  const [address, setaddress] = useState()
 
   const { isLoading, error, data, isError, isFetching } = useQuery({
-    queryKey: ["fetch-nearest-stores", currentPage, address],
-    queryFn: ({ queryKey }) => {
-      const [, , addr] = queryKey;
-      const url = getNearestStoresUrl(currentPage);
-      if (!url) return Promise.reject(new Error("Coordinates not available"));
-      return axios.get(url).then((res) => res.data);
-    },
-    enabled: !!address,
+    queryKey: ["fetch-nearest-stores", currentPage],
+    queryFn: ({ pageParam = currentPage }) =>
+      axios
+        .get(
+          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${(pageParam - 1) * 6
+          }`
+        )
+        .then((res) => res.data),
     retry: false,
     refetchOnWindowFocus: false,
     getNextPageParam: (lastPage, pages) => {
@@ -59,9 +40,9 @@ const StoreContainer = () => {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
-
   useEffect(() => {
     if (data && data.data && data.data.stores) {
+      setaddress(JSON.parse(localStorage.getItem("coordinates")))
       setAllStores((prevStores) => [...prevStores, ...data.data.stores]);
     }
   }, [data]);
