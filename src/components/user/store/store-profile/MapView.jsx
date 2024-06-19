@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import MapViewSkelton from "./MapViewSkelton";
 const MapView = ({ storeData }) => {
+  console.log(storeData);
  
 
   const { storeLocationCoordinates, storeDetails, storePrices } = storeData;
@@ -65,7 +65,7 @@ const MapView = ({ storeData }) => {
             <MapContainer
               center={mapLocation}
               zoom={13}
-              scrollWheelZoom={false}
+              scrollWheelZoom={true}
               className="h-full -z-20"
               doubleClickZoom
             >
