@@ -118,14 +118,13 @@ const UserAvatar = () => {
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
-        {currentUser?.role === "USER" && (
-          <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={"/history"} className="flex items-center">
-              <History size={17} />
-              <p className="pl-3">History</p>
-            </Link>
-          </DropdownMenuItem>
-        )}
+
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href={"/history"} className="flex items-center">
+            <History size={17} />
+            <p className="pl-3">History</p>
+          </Link>
+        </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href="/contact" className="flex items-center">

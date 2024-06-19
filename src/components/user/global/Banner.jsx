@@ -28,7 +28,6 @@ const BannerForActiveOrders = () => {
           setTotalActiveOrders(data.totalOrders);
         }
       } catch (error) {
-        console.log(error);
         setHasActiveOrders(false);
       }
     };
@@ -51,7 +50,7 @@ const BannerForActiveOrders = () => {
               href="/active-orders"
               className="inline-block underline ml-2 underline-offset-4"
             >
-              View active orders&nbsp;&nbsp;&nbsp; &rarr;
+              View order status&nbsp;&nbsp;&nbsp; &rarr;
             </Link>
           </p>
         </div>

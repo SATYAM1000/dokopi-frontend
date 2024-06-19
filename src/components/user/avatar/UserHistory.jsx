@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import Wrapper from "../global/Wrapper";
 
 import { Badge } from "@/components/ui/badge";

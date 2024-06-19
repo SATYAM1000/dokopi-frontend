@@ -11,7 +11,7 @@ const FileDetails = ({ fileInfo, index }) => {
       <div className="text-[14px] text-gray-800 w-full">
         <div className="flex items-center justify-between">
           <p>File Name: </p>
-          <span>{fileInfo?.fileOriginalName}</span>
+          <span>{fileInfo?.fileOriginalName.length > 15 ? fileInfo?.fileOriginalName.slice(0, 15) + "..." : fileInfo?.fileOriginalName}</span>
         </div>
 
         <div className="flex items-center justify-between">
