@@ -20,30 +20,33 @@ import { API_DOMAIN } from "@/lib/constants";
 import PrintLocationSearchResult from "./PrintLocationSearchResult";
 import LocationSearchSkeletion from "./LocationSearchSkeletion";
 
+import { ClipLoader } from "react-spinners";
+
 function SearchResults(SeachLocation) {
-  return (
-    useQuery({
-      queryKey: ['SearchLocationByInput', SeachLocation],
-      queryFn: async () => {
-        const res = await axios.get(`${API_DOMAIN}/api/v1/location?SeachLocation=${SeachLocation}`);
-        return res.data;
-      },
-      enabled: SeachLocation.length > 2
-    })
-  )
+  return useQuery({
+    queryKey: ["SearchLocationByInput", SeachLocation],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${API_DOMAIN}/api/v1/location?SeachLocation=${SeachLocation}`
+      );
+      return res.data;
+    },
+    enabled: SeachLocation.length > 2,
+  });
 }
 
 const LocationAccess = ({ apiKey }) => {
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState(null);
   const [userAddress, setUserAddress] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [SearchboxQuery, setSearchboxQuery] = useState("")
+  const [SearchboxQuery, setSearchboxQuery] = useState("");
   const debouncedValueSearch = useDebounceCustomeHook(SearchboxQuery, 300);
 
-  const { data, isError, isLoading } = SearchResults(debouncedValueSearch)
+  const { data, isError, isLoading } = SearchResults(debouncedValueSearch);
   useEffect(() => {
     const address = localStorage.getItem("userAddress");
     setIsClient(true);
@@ -69,12 +72,9 @@ const LocationAccess = ({ apiKey }) => {
           }
         }
         const formattedAddress = localStorage.getItem("userAddress");
-        localStorage.setItem("coordinates", JSON.stringify(coordinates))
+        localStorage.setItem("coordinates", JSON.stringify(coordinates));
         setUserAddress(formattedAddress);
         setSuccess("Location detected successfully.");
-        setTimeout(() => {
-          setSuccess(null);
-        }, 3000);
       } else {
         setLocationError(
           "We do not have permission to determine your location. Please enter manually."
@@ -93,21 +93,26 @@ const LocationAccess = ({ apiKey }) => {
           setLocationError(null);
         }, 3000);
       } else {
-        setLocationError("An error occurred while detecting your location.");
+        setLocationError(
+          "An error occurred while detecting your location. Please enter manually."
+        );
       }
     }
-  }
-
+  };
 
   const handleLocationDetection = async () => {
     try {
+      setLoading(true);
       setLocationError(null);
       setSuccess(null);
       const coordinates = await getUserCoordinates();
-      fetchLocationUsingCoordinates(coordinates)
-    }
-    catch {
-      setLocationError("An error occurred while detecting your location.");
+      fetchLocationUsingCoordinates(coordinates);
+    } catch {
+      setLocationError(
+        "An error occurred while detecting your location. Please enter manually."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,10 +125,11 @@ const LocationAccess = ({ apiKey }) => {
               <button
                 variant="link"
                 className={`w-full bg-transparent flex items-center text-[13px] border-none justify-center px-0 py-0
-               font-medium ${userAddress
-                    ? "text-black  hover:bg-transparent hover:text-black"
-                    : " text-black hover:bg-transparent hover:text-gray-500"
-                  }`}
+               font-medium ${
+                 userAddress
+                   ? "text-black  hover:bg-transparent hover:text-black"
+                   : " text-black hover:bg-transparent hover:text-gray-500"
+               }`}
               >
                 {userAddress
                   ? userAddress.split(",").slice(-2, -1)[0].trim()
@@ -151,7 +157,11 @@ const LocationAccess = ({ apiKey }) => {
                       onClick={handleLocationDetection}
                       className="bg-green-700 w-full md:flex-1 text-white font-normal tracking-wide hover:bg-green-700"
                     >
-                      Detect my location
+                      {loading ? (
+                        <ClipLoader color="white" size={20} />
+                      ) : (
+                        "Detect my location"
+                      )}
                     </Button>
                     <p className=" text-black font-bold text-center">OR</p>
                     <div className="relative w-full">
@@ -161,14 +171,28 @@ const LocationAccess = ({ apiKey }) => {
                         defaultValue={userAddress}
                         placeholder="Enter your location"
                         className="col-span-3 flex-1"
-                        onChange={((e) => setSearchboxQuery(e.target.value))}
+                        onChange={(e) => setSearchboxQuery(e.target.value)}
                         autoComplete="off"
                       />
                       {/* Location Search Result  */}
-                      <div className="absolute w-full bg-white mt-3" onClick={(e) => { if (e.target.tagName == 'P') fetchLocationUsingCoordinates(e.target.dataset) }}>
-                        {isError && <span className="text-xs text-red-600">Unable to get Locations</span>}
-                        {SearchboxQuery.length > 2 && isLoading && <LocationSearchSkeletion />}
-                        {SearchboxQuery.length > 2 && data && <PrintLocationSearchResult datas={data} />}
+                      <div
+                        className="absolute w-full bg-white mt-3"
+                        onClick={(e) => {
+                          if (e.target.tagName == "P")
+                            fetchLocationUsingCoordinates(e.target.dataset);
+                        }}
+                      >
+                        {isError && (
+                          <span className="text-xs text-red-600">
+                            Unable to get Locations
+                          </span>
+                        )}
+                        {SearchboxQuery.length > 2 && isLoading && (
+                          <LocationSearchSkeletion />
+                        )}
+                        {SearchboxQuery.length > 2 && data && (
+                          <PrintLocationSearchResult datas={data} />
+                        )}
                       </div>
                     </div>
                   </div>

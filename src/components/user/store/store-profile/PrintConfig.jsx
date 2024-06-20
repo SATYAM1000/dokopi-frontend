@@ -190,7 +190,7 @@ const PrintConfig = ({
                 }))
               }
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className={`grid ${fileInfo?.filePageCount !== 1 && "md:grid-cols-2"} gap-4`}>
                 <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
                   <RadioGroupItem value="simplex" id="simplex" />
                   <Label
@@ -200,19 +200,19 @@ const PrintConfig = ({
                     Single Sided
                   </Label>
                 </div>
-                <div className={`flex h-[40px] items-center space-x-2 bg-white border rounded-md pl-2 ${fileInfo?.filePageCount === 1 ? "cursor-not-allowed text-muted-foreground" : "cursor-pointer"}`}>
-                  <RadioGroupItem
-                    value="duplex"
-                    id="duplex"
-                    disabled={fileInfo?.filePageCount === 1 || false}
-                  />
-                  <Label
-                    htmlFor="duplex"
-                    className="w-full flex items-center justify-start h-full"
+                {fileInfo?.filePageCount !== 1 && (
+                  <div
+                    className={`flex h-[40px] items-center space-x-2 bg-white border rounded-md pl-2 cursor-pointer`}
                   >
-                    Double Sided
-                  </Label>
-                </div>
+                    <RadioGroupItem value="duplex" id="duplex" />
+                    <Label
+                      htmlFor="duplex"
+                      className="w-full flex items-center justify-start h-full"
+                    >
+                      Double Sided
+                    </Label>
+                  </div>
+                )}
               </div>
             </RadioGroup>
           </div>
