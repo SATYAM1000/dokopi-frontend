@@ -62,7 +62,7 @@ const Navbar = ({ apiKey }) => {
   const classNameForSearchBox = `hidden md:flex flex-1 relative max-w-[350px] h-[40px] items-center justify-between gap-2 p-0.5  rounded-full transition duration-500 `;
   return (
     <nav
-      className={`w-full h-[70px] md:h-[80px] bg-white flex items-center justify-between z-10 sticky top-0 transition-transform duration-300 border-b border-black/[0.1] ${show} `}
+      className={`w-full h-[70px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 border-b border-black/[0.1] ${show} `}
     >
       <Wrapper className={`h-[70px] flex justify-between items-center`}>
         <div className="flex flex-col items-start">
