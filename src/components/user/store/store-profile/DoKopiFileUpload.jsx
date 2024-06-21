@@ -45,9 +45,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
 
   const onFinalSubmit = (e) => {
     e.preventDefault();
-    if (e.target[23].innerText === "Checkout") {
-      return;
-    }
 
     if (!currentUser) {
       toast.error("Login required", { description: "Please login to proceed" });
@@ -63,10 +60,14 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       !fileInfo.fileColorType ||
       !fileInfo.filePrintMode
     ) {
-      toast.error("Please fill all the required fields!");
-      setShake(true);
-      setTimeout(() => setShake(false), 500);
-      return;
+      if (e.target[23]?.innerText !== "Checkout") {
+        toast.error("Please add a document!");
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+        return;
+      }else{
+        return;
+      }
     }
 
     const encryptedFileURL = encryptSensitiveData(
@@ -92,7 +93,9 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
       fileColorPagesToPrint: [],
     });
     setPageNumberInput(``);
-    toast.success("File added successfully");
+    if(e.target[23]?.innerText !== "Checkout"){
+      toast.success("File added successfully");
+    }
     setIsFileUploadedSuccessfully(false);
   };
 

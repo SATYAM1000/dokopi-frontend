@@ -51,7 +51,7 @@ const UploadedFile = ({
         </div>
         <div className="flex flex-col">
           <p className=" text-[13px] md:text-[15px] font-medium text-gray-700">
-            {fileInfo?.fileOriginalName.length > 20
+            {fileInfo?.fileOriginalName && fileInfo?.fileOriginalName.length > 20
               ? fileInfo?.fileOriginalName.slice(0, 20) + "..."
               : fileInfo?.fileOriginalName}
           </p>
