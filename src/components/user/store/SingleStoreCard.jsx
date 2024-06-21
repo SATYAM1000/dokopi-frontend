@@ -10,7 +10,6 @@ import ImageWithFallback from "./store-profile/ImageWithFallback";
 
 const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
-  console.log("store data in single store card", storeData);
   const { storeLocationCoordinates } = storeData
   const { coordinates } = storeLocationCoordinates
   const DirectionURL = location ? `https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}` :

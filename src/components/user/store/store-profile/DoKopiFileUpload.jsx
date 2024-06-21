@@ -41,11 +41,14 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
     fileColorType: "black and white",
     filePrintMode: "simplex",
     fileColorPagesToPrint: [],
-    
   });
 
   const onFinalSubmit = (e) => {
     e.preventDefault();
+    if (e.target[23].innerText === "Checkout") {
+      return;
+    }
+
     if (!currentUser) {
       toast.error("Login required", { description: "Please login to proceed" });
       return;
@@ -176,7 +179,6 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
                     }
                     error={error}
                     pageNumberInput={pageNumberInput}
-
                   />
                 </div>
               </section>

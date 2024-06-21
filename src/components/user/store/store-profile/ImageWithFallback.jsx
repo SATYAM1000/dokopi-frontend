@@ -18,6 +18,7 @@ const ImageWithFallback = (props) => {
             "https://placehold.co/600x400/000000/FFFFFF.png?text=No+Image"
         );
       }}
+      
     />
   );
 };

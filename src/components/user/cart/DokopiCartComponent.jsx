@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { X } from "lucide-react";
 import { deleteFromCart } from "@/providers/redux/slices/cart-slice";
-import Script from "next/script";
 import { redirect } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CancellationPolicy from "./CancellationPolicy";
@@ -70,7 +69,7 @@ const DokopiCartComponent = ({ setOpen }) => {
                 />
                 <div className="w-full">
                   <h3 className="text-[15px] font-medium text-gray-900">
-                    {product?.fileOriginalName.length > 20 ? (
+                    {product?.fileOriginalName && product?.fileOriginalName.length > 20 ? (
                       <>{product?.fileOriginalName.slice(0, 20)}...</>
                     ) : (
                       product?.fileOriginalName
@@ -123,10 +122,7 @@ const DokopiCartComponent = ({ setOpen }) => {
         </div>
       )}
 
-      <Script
-        id="razorpay-checkout-js"
-        src="https://checkout.razorpay.com/v1/checkout.js"
-      />
+     
     </div>
   );
 };
