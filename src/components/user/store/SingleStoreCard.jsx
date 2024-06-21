@@ -13,7 +13,7 @@ const SingleStoreCard = ({ storeData, location }) => {
   const { storeLocationCoordinates } = storeData;
   const { coordinates } = storeLocationCoordinates;
 
-  const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}`;
+  const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
     <motion.section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
@@ -43,8 +43,8 @@ const SingleStoreCard = ({ storeData, location }) => {
 
         <div className="w-full flex items-center justify-between">
           <h5 className="text-[17px] font-medium mt-3 text-gray-800 ">
-            {storeData?.storeName.length > 22
-              ? storeData?.storeName.slice(0, 22) + " ..."
+            {storeData?.storeName.length > 25
+              ? storeData?.storeName.slice(0, 25) + " ..."
               : storeData?.storeName}
           </h5>
           <Link
