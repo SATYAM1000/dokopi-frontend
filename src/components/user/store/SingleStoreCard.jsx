@@ -29,7 +29,7 @@ const SingleStoreCard = ({ storeData, location }) => {
         <div className="overflow-hidden rounded-md">
           <div className="w-full h-full">
             <ImageWithFallback
-              src={storeData?.storeImagesURL[0]}
+              src={storeData?.storeImagesURL[0] || "/test/blur.jpeg"}
               width={400}
               height={400}
               placeholder="blur"
