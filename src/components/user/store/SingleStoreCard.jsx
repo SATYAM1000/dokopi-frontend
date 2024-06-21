@@ -10,10 +10,10 @@ import ImageWithFallback from "./store-profile/ImageWithFallback";
 
 const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
-  const { storeLocationCoordinates } = storeData
-  const { coordinates } = storeLocationCoordinates
-  const DirectionURL = location ? `https://www.google.com/maps?saddr=${location.latitude},${location.longitude}&daddr=${coordinates[0]},${coordinates[1]}` :
-    `https://www.google.com/maps?saddr=My+Location&daddr=${coordinates[0]},${coordinates[1]}`
+  const { storeLocationCoordinates } = storeData;
+  const { coordinates } = storeLocationCoordinates;
+
+  const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}`;
   return (
     <motion.section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
@@ -36,17 +36,15 @@ const SingleStoreCard = ({ storeData, location }) => {
               blurDataURL="/test/blur.jpeg"
               alt="store"
               className="h-[245px] object-cover object-center rounded-lg"
-              fallbackSrc={
-                "/test/blur.jpeg"
-              }
+              fallbackSrc={"/test/blur.jpeg"}
             />
           </div>
         </div>
 
         <div className="w-full flex items-center justify-between">
           <h5 className="text-[17px] font-medium mt-3 text-gray-800 ">
-            {storeData?.storeName.length > 25
-              ? storeData?.storeName.slice(0, 25) + " ..."
+            {storeData?.storeName.length > 22
+              ? storeData?.storeName.slice(0, 22) + " ..."
               : storeData?.storeName}
           </h5>
           <Link
@@ -96,7 +94,11 @@ const SingleStoreCard = ({ storeData, location }) => {
 
             <div className="flex gap-1.5 text-[12px] md:text-[14px]">
               <p className="font-medium text-green-500">
-               {storeData?.storeCurrentStatus ==="open"? <span className="text-green-500">Open</span> : <span className="text-red-500">Closed</span>}
+                {storeData?.storeCurrentStatus === "open" ? (
+                  <span className="text-green-500">Open</span>
+                ) : (
+                  <span className="text-red-500">Closed</span>
+                )}
               </p>
               <p className="text-gray-500 font-medium">Closes at 10pm</p>
             </div>

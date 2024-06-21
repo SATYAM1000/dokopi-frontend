@@ -45,7 +45,6 @@ const PaymentSuccessPage = () => {
         return;
       }
     };
-
     verifyPayment();
   }, []);
   return (
@@ -127,7 +126,7 @@ const PaymentSuccessPage = () => {
             href="/active-orders"
             className="inline-block text-sm  transition text-gray-900 underline underline-offset-4"
           >
-            Track your order here &rarr;
+            Track your order status &rarr;
           </Link>
         </div>
       </div>
