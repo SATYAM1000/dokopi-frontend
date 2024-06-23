@@ -1,15 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const DoKopiStoreShop = () => {
   const [loading, setLoading] = useState(false);
+  const onClickHandler = () => {
+    toast.info("This functionality is not available yet");
+  };
 
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
   return (
     <section className="w-full mt-6 min-h-[calc(100vh-250px)]">
@@ -28,7 +32,10 @@ const DoKopiStoreShop = () => {
             : Array(7)
                 .fill(0)
                 .map((_, index) => (
-                  <section key={index} className="rounded-xl border shadow border-blue-600/[0.2] hover:border-blue-600/[0.4]  transition-all duration-100">
+                  <section
+                    key={index}
+                    className="rounded-xl border shadow border-blue-600/[0.2] hover:border-blue-600/[0.4]  transition-all duration-100"
+                  >
                     <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
                       <div className="overflow-hidden  border-b border-blue-600/[0.2] hover:border-blue-600/[0.4]">
                         <Image
@@ -57,6 +64,7 @@ const DoKopiStoreShop = () => {
                           </span>
                         </p>
                         <button
+                          onClick={onClickHandler}
                           className={` font-medium py-0.5 px-3 rounded-sm bg-blue-100 text-blue-600 hover:bg-blue-200 border border-blue-700/[0.4]`}
                         >
                           Add
