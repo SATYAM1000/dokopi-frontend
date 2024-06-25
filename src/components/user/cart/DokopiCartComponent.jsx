@@ -70,7 +70,7 @@ const DokopiCartComponent = ({ setOpen }) => {
                 <div className="w-full">
                   <h3 className="text-[15px] font-medium text-gray-900">
                     {product?.fileOriginalName && product?.fileOriginalName.length > 20 ? (
-                      <>{product?.fileOriginalName.slice(0, 20)}...</>
+                      <>{product?.fileOriginalName}</>
                     ) : (
                       product?.fileOriginalName
                     )}

@@ -14,6 +14,8 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import BannerForActiveOrders from "@/components/user/global/Banner";
+import NextTopLoader from "nextjs-toploader";
+
 export default async function RootLayout({ children }) {
   const session = await auth();
   const apiKey = process.env.GOOGLE_MAP_API_KEY;
@@ -21,6 +23,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={archivo.className}>
+        <NextTopLoader color="#4f46e5" showSpinner={false} />
         <SessionProvider session={session}>
           <ReactQueryProvider>
             <ReduxProvider>
