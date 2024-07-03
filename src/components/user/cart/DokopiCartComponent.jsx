@@ -33,9 +33,9 @@ const DokopiCartComponent = ({ setOpen }) => {
           "storeId"
         )}`
       );
-
-      const price = calculateTotalPrice(cartItems, data?.data);
-      setStorePrice(data?.data);
+      const price = calculateTotalPrice(cartItems, data?.store?.storePrices);
+      setStorePrice(data?.store?.storePrices);
+      console.log("price is ", price);
     } catch (error) {
       console.log("Error fetching store pricing:", error);
     } finally {

@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import ImageWithFallback from "./store-profile/ImageWithFallback";
@@ -12,7 +13,7 @@ const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
   const { storeLocationCoordinates } = storeData;
   const { coordinates } = storeLocationCoordinates;
-
+  console.log(storeData);
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
     <motion.section
@@ -28,10 +29,11 @@ const SingleStoreCard = ({ storeData, location }) => {
       <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
         <div className="overflow-hidden rounded-md">
           <div className="w-full h-full">
-            <ImageWithFallback
+            <img
               src={storeData?.storeImagesURL[0] || "/test/blur.jpeg"}
-              width={400}
+              width={800}
               height={400}
+              layout="responsive"
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"
@@ -78,9 +80,9 @@ const SingleStoreCard = ({ storeData, location }) => {
           initial="hidden"
           variants={{
             visible: { opacity: 1, scale: 1 },
-            hidden: { opacity: 0, scale: 0.8 }, // Adjust as needed
+            hidden: { opacity: 0, scale: 0.8 },
           }}
-          transition={{ duration: 0.2 }} // Adjust animation duration
+          transition={{ duration: 0.2 }}
         >
           <div className="flex-1 ">
             <div className="flex items-center">
