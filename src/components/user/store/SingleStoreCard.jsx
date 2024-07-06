@@ -7,16 +7,26 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import ImageWithFallback from "./store-profile/ImageWithFallback";
 
 const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
   const { storeLocationCoordinates } = storeData;
   const { coordinates } = storeLocationCoordinates;
-  console.log(storeData);
+
+  const storeStatus =
+    storeData?.storeHours && getStoreStatus(storeData?.storeHours || null);
+
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    const period = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}:${
+      minutes < 10 ? `0${minutes}` : minutes
+    } ${period}`;
+  };
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
-    <motion.section
+    <section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
       initial="hidden"
       animate="visible"
@@ -29,16 +39,16 @@ const SingleStoreCard = ({ storeData, location }) => {
       <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
         <div className="overflow-hidden rounded-md">
           <div className="w-full h-full">
-            <img
-              src={storeData?.storeImagesURL[0] || "/test/blur.jpeg"}
-              width={800}
+            <Image
+              src={
+                storeData?.storeImagesKeys
+                  ? `https://d28fpa5kkce5uk.cloudfront.net/${storeData?.storeImagesKeys[0]}`
+                  : "/test/blur.jpeg"
+              }
+              width={600}
               height={400}
-              layout="responsive"
-              placeholder="blur"
-              blurDataURL="/test/blur.jpeg"
               alt="store"
-              className="h-[245px] object-cover object-center rounded-lg"
-              fallbackSrc={"/test/blur.jpeg"}
+              className="h-[245px] object-cover object-center rounded-lg animate-blurred-fade-in"
             />
           </div>
         </div>
@@ -63,9 +73,7 @@ const SingleStoreCard = ({ storeData, location }) => {
         </p>
         <div className="w-full flex items-center justify-between">
           <p className="text-gray-500 text-medium text-[14px]">
-            {storeData?.storeServices?.join(", ").length > 30
-              ? storeData?.storeServices?.join(", ").slice(0, 30) + " ..."
-              : storeData?.storeServices?.join(", ")}
+           Printing, Scanning, Copying...
           </p>
           <p className="text-slate-500 text-[14px]">
             {storeData?.distance < 1000
@@ -74,7 +82,7 @@ const SingleStoreCard = ({ storeData, location }) => {
             <span className="ml-1.5">away</span>
           </p>
         </div>
-        <motion.div
+        <div
           className="w-full flex bg-black/[0.05] px-2 py-2 rounded-md mt-2"
           animate="visible"
           initial="hidden"
@@ -91,32 +99,116 @@ const SingleStoreCard = ({ storeData, location }) => {
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
-              <p className="text-gray-500 ml-1 text-[14px] font-medium">(28)</p>
+              <p className="text-gray-500 ml-1 text-[14px] font-medium">(
+                {Math.ceil(Math.random() * 10)}
+                )</p>
             </div>
 
             <div className="flex gap-1.5 text-[12px] md:text-[14px]">
-              <p className="font-medium text-green-500">
-                {storeData?.storeCurrentStatus === "open" ? (
-                  <span className="text-green-500">Open</span>
-                ) : (
-                  <span className="text-red-500">Closed</span>
-                )}
+              <p className="font-medium">
+                {storeData?.storeHours && storeStatus.isOpen ? (
+                  <span className="text-green-600">Open</span>
+                ) : null}
               </p>
-              <p className="text-gray-500 font-medium">Closes at 10pm</p>
+
+              {storeStatus ? (
+                storeStatus.isOpen ? (
+                  <p className="text-gray-500 font-medium block">
+                    Closes at {formatTime(storeStatus.nextCloseTime)}
+                  </p>
+                ) : (
+                  <p className="text-red-600 font-medium block">
+                    Opens{" "}
+                    {storeStatus.nextOpenTime &&
+                    storeStatus.nextOpenTime.includes("at")
+                      ? storeStatus.nextOpenTime
+                      : `at ${formatTime(storeStatus.nextOpenTime)}`}
+                  </p>
+                )
+              ) : (
+                <p className="text-red-600 font-medium block">Not available</p>
+              )}
             </div>
           </div>
           <Link
             href={`/stores/${storeData?.storeId}`}
             className="flex-1 flex items-center justify-center "
           >
-            <Button className="w-full py-2 text-white/[0.85] font-medium rounded-sm">
+            <Button
+              type="button"
+              className="w-full py-2  text-white/[0.85] font-medium rounded-sm"
+            >
               Send Documents
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
 export default SingleStoreCard;
+
+
+function getStoreStatus(storeTiming) {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const now = new Date();
+  const currentDayIndex = now.getDay();
+  const currentTime = now.getHours() * 60 + now.getMinutes();
+
+  for (let i = 0; i < 7; i++) {
+    const dayIndex = (currentDayIndex + i) % 7;
+    const currentDay = daysOfWeek[dayIndex];
+    const todayTiming = storeTiming[currentDay];
+
+    if (!todayTiming || !todayTiming.isOpen) {
+      continue;
+    }
+
+    const openTimeParts = todayTiming.open.split(":");
+    const closeTimeParts = todayTiming.close.split(":");
+
+    const openTime =
+      parseInt(openTimeParts[0], 10) * 60 + parseInt(openTimeParts[1], 10);
+    const closeTime =
+      parseInt(closeTimeParts[0], 10) * 60 + parseInt(closeTimeParts[1], 10);
+
+    if (i === 0 && currentTime >= openTime && currentTime <= closeTime) {
+      // Store is currently open
+      return {
+        isOpen: true,
+        nextOpenTime: null,
+        nextCloseTime: todayTiming.close,
+      };
+    } else if (i === 0 && currentTime < openTime) {
+      // Store is currently closed but will open later today
+      return {
+        isOpen: false,
+        nextOpenTime: todayTiming.open,
+        nextCloseTime: null,
+      };
+    } else if (i > 0) {
+      // Store is closed and will open on a future day
+      return {
+        isOpen: false,
+        nextOpenTime: `${daysOfWeek[dayIndex]} at ${todayTiming.open}`,
+        nextCloseTime: null,
+      };
+    }
+  }
+
+  // If no opening times are found, return closed status
+  return {
+    isOpen: false,
+    nextOpenTime: null,
+    nextCloseTime: null,
+  };
+}

@@ -48,6 +48,12 @@ const nextConfig = {
         port: "",
         pathname: "/xeroxstores/**",
       },
+      {
+        protocol: "https",
+        hostname: "d28fpa5kkce5uk.cloudfront.net",
+        port: "",
+        pathname: "/**",
+      }
     ],
   },
 };

@@ -43,7 +43,7 @@ const BannerForActiveOrders = () => {
   return (
     <>
       {hasActiveOrders && (
-        <div className="bg-indigo-600 px-4 py-3 text-white">
+        <div className="bg-indigo-600 px-4 py-2 animate-fill-mode-forwards text-white">
           <p className="text-center text-sm font-medium">
             You have an active order.
             <Link

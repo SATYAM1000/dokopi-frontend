@@ -20,7 +20,7 @@ const StoreContainer = () => {
     queryFn: ({ pageParam = currentPage }) =>
       axios
         .get(
-          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.4&longitude=73.23&userZipCode=411041&limit=6&skip=${
+          `${API_DOMAIN}/api/v1/user/stores/nearest-stores?latitude=18.46872&longitude=73.836035&userZipCode=411041&limit=6&skip=${
             (pageParam - 1) * 6
           }`
         )
