@@ -65,7 +65,7 @@ const ActiveOrders = () => {
           return;
         }
 
-        console.log("data in user active orders is  ", data);
+        
         setActiveOrders(data?.data);
         setTotalPages(data?.totalPages);
       } catch (error) {

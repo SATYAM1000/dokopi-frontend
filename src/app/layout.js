@@ -15,6 +15,7 @@ import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import BannerForActiveOrders from "@/components/user/global/Banner";
 import NextTopLoader from "nextjs-toploader";
+import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
 
 export default async function RootLayout({ children }) {
   const session = await auth();
@@ -29,7 +30,12 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <BannerForActiveOrders />
               <Navbar apiKey={apiKey} />
-              {children}
+              {session?.user && session?.user?.phone === null ? (
+                <DoKopiUserPhone />
+              ) : (
+                children
+              )}
+
               <Toaster richColors />
             </ReduxProvider>
           </ReactQueryProvider>
