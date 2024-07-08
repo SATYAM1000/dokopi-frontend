@@ -107,8 +107,10 @@ const SingleStoreCard = ({ storeData, location }) => {
             <div className="flex gap-1.5 text-[12px] md:text-[14px]">
               <p className="font-medium">
                 {storeData?.storeHours && storeStatus.isOpen ? (
-                  <span className="text-green-600">Open</span>
-                ) : null}
+                  <span className="text-green-500">Open</span>
+                ) : (
+                  <span className="text-red-500">Closed</span>
+                )}
               </p>
 
               {storeStatus ? (
@@ -117,7 +119,7 @@ const SingleStoreCard = ({ storeData, location }) => {
                     Closes at {formatTime(storeStatus.nextCloseTime)}
                   </p>
                 ) : (
-                  <p className="text-red-600 font-medium block">
+                  <p className="text-gray-500 font-medium block">
                     Opens{" "}
                     {storeStatus.nextOpenTime &&
                     storeStatus.nextOpenTime.includes("at")
@@ -126,7 +128,7 @@ const SingleStoreCard = ({ storeData, location }) => {
                   </p>
                 )
               ) : (
-                <p className="text-red-600 font-medium block">Not available</p>
+                <p className="text-gray-500 font-medium block">Not available</p>
               )}
             </div>
           </div>
