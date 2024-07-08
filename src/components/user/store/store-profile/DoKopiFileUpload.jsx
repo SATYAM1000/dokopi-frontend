@@ -115,15 +115,15 @@ const DoKopiFileUpload = ({ token, encryptionKey }) => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full mt-6 md:mt-6">
       <section className="w-full">
         <div className="h-auto">
           <main className="h-full">
             <article
               aria-label="File Upload Modal"
-              className="relative h-full flex flex-col bg-white shadow-xl rounded-md"
+              className="relative h-full flex flex-col bg-white  rounded-md"
             >
-              <section className="h-full overflow-auto p-0 py-4 md:p-4 w-full flex flex-col">
+              <section className="h-full overflow-auto p-0  w-full flex flex-col">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
                   <div
                     className={`w-full flex flex-col h-auto rounded-lg border border-gray-400 p-4`}
