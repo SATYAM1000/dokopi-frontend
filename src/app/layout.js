@@ -1,9 +1,9 @@
-import { Geologica } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/user/global/Navbar";
 import { Toaster } from "sonner";
 import ReduxProvider from "@/providers/redux/redux-provider";
-const archivo = Geologica({ subsets: ["latin"] });
+const archivo = Nunito({ subsets: ["latin"] });
 
 export const metadata = {
   title: "DoKopi",

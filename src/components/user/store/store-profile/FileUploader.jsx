@@ -106,8 +106,8 @@ const FileUploader = ({
       className={`border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center rounded-md h-full cursor-pointer`}
       onClick={handleFileInputClick}
     >
-      <p className="mb-3 font-medium text-gray-700 flex flex-wrap justify-center">
-        <span>Drag and drop or</span>&nbsp;<span>files anywhere or</span>
+      <p className="mb-3 font-medium text-gray-700 text-sm flex flex-wrap justify-center">
+        <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
       </p>
       <input
         id="hidden-input"

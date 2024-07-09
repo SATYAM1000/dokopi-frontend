@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/sheet";
 import DokopiCartComponent from "../../cart/DokopiCartComponent";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { API_DOMAIN } from "@/lib/constants";
 
 const PrintConfig = ({
   fileInfo,
@@ -29,6 +31,22 @@ const PrintConfig = ({
   const [open, setOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
 
+
+  const fetchXeroxStorePricing = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DOMAIN}/api/v1/store/pricing/get/${currentUser.storeId}`
+      );
+      console.log("response is ", response);
+    } catch (error) {
+      console.log("Error fetching store pricing:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchXeroxStorePricing();
+  }, []);
+
   return (
     <>
       <div
@@ -38,11 +56,11 @@ const PrintConfig = ({
       >
         <p className="font-semibold text-gray-700 ">Printing Preferences</p>
         <form
-          className="mt-4 flex flex-col gap-4 w-full text-gray-700 "
+          className="mt-4 flex flex-col gap-6 w-full text-gray-700 "
           onSubmit={onFinalSubmit}
         >
           {/* -------------- COPIES COUNT------------------- */}
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="fileCopiesCount">Number of Copies</Label>
             <Input
               id="fileCopiesCount"
@@ -61,7 +79,7 @@ const PrintConfig = ({
             />
           </div>
           {/* --------------------fileColorType----------------------      */}
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="fileColorType">Printing Type</Label>
             <RadioGroup
               id="fileColorType"
@@ -74,7 +92,7 @@ const PrintConfig = ({
                 }))
               }
             >
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-4 gap-4">
                 <div
                   type="button"
                   className="flex items-center space-x-2 bg-white border h-[40px] rounded-md pl-2 cursor-pointer"
@@ -87,7 +105,7 @@ const PrintConfig = ({
                     htmlFor="black_and_white"
                     className="w-full flex items-center justify-start  h-full"
                   >
-                    Black & White
+                    B/W
                   </Label>
                 </div>
 
@@ -100,7 +118,20 @@ const PrintConfig = ({
                     htmlFor="color"
                     className="w-full flex items-center justify-start  h-full"
                   >
-                    Color
+                    Simple Color
+                  </Label>
+                </div>
+
+                <div
+                  type="button"
+                  className="flex items-center space-x-2 h-[40px] bg-white border rounded-md pl-2 cursor-pointer"
+                >
+                  <RadioGroupItem value="color" id="color" />
+                  <Label
+                    htmlFor="color"
+                    className="w-full flex items-center justify-start  h-full"
+                  >
+                    Digital Color
                   </Label>
                 </div>
 
@@ -121,7 +152,7 @@ const PrintConfig = ({
           </div>
 
           {fileInfo?.fileColorType === "mixed" && (
-            <div className="grid w-full items-center gap-1.5">
+            <div className="grid w-full items-center gap-2">
               <Label htmlFor="fileColorPagesToPrint">
                 Color Pages Selection
               </Label>
@@ -178,7 +209,7 @@ const PrintConfig = ({
           )}
 
           {/* ------------------filePrintMode--------------------- */}
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="copies_count">Print Sides</Label>
             <RadioGroup
               defaultValue="duplex"
@@ -190,7 +221,11 @@ const PrintConfig = ({
                 }))
               }
             >
-              <div className={`grid ${fileInfo?.filePageCount !== 1 && "md:grid-cols-2"} gap-4`}>
+              <div
+                className={`grid ${
+                  fileInfo?.filePageCount !== 1 && "md:grid-cols-2"
+                } gap-4`}
+              >
                 <div className="flex h-[40px] items-center space-x-2 bg-white border  rounded-md pl-2 ">
                   <RadioGroupItem value="simplex" id="simplex" />
                   <Label
@@ -217,7 +252,7 @@ const PrintConfig = ({
             </RadioGroup>
           </div>
           {/* ----------------filePaperType--------------------- */}
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="filePaperType">Paper Type</Label>
             <RadioGroup
               defaultValue="A4"
@@ -255,7 +290,7 @@ const PrintConfig = ({
                     htmlFor="Letter"
                     className="w-full flex items-center justify-start  h-full"
                   >
-                    Letter
+                    A2
                   </Label>
                 </div>
               </div>
@@ -263,7 +298,7 @@ const PrintConfig = ({
           </div>
 
           {/* -------------------additionalServices--------------------- */}
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="additionalServices">Additional Services</Label>
             <RadioGroup
               value={fileInfo?.additionalServices}
@@ -297,7 +332,7 @@ const PrintConfig = ({
             </RadioGroup>
           </div>
 
-          <div className="grid w-full items-center gap-1.5">
+          <div className="grid w-full items-center gap-2">
             <Label htmlFor="messageForXeroxStore">Message</Label>
             <Textarea
               placeholder="Type your message here."

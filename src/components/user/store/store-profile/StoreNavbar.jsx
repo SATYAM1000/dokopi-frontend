@@ -10,6 +10,7 @@ import ErrorComponent from "../../global/Error";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import SingleStoreSkelton from "./SingleStoreSkelton";
+import { ClipLoader } from "react-spinners";
 const StoreNavbar = ({ token, slug, encryptionKey }) => {
   const [activeTab, setActiveTab] = useState("upload-files");
   const [pageNumber, setPageNumber] = useState(1);
@@ -55,7 +56,9 @@ const StoreNavbar = ({ token, slug, encryptionKey }) => {
     <section className="w-full">
       <Wrapper>
         {isLoading  ? (
-          <SingleStoreSkelton />
+          <div className="w-full min-h-screen flex items-center justify-center">
+              <ClipLoader color="blue" size={40}  />
+          </div>
         ) : (
           <Tabs
             defaultValue={activeTab}

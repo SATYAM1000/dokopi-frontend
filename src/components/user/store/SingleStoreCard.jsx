@@ -26,7 +26,7 @@ const SingleStoreCard = ({ storeData, location }) => {
   };
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
-    <section
+    <motion.section
       className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all"
       initial="hidden"
       animate="visible"
@@ -36,7 +36,7 @@ const SingleStoreCard = ({ storeData, location }) => {
       }}
       transition={{ duration: 0.2 }}
     >
-      <div className="flex flex-col px-2 py-2 relative overflow-hidden  ">
+      <div className="flex flex-col px-2 py-2 relative overflow-hidden">
         <div className="overflow-hidden rounded-md">
           <div className="w-full h-full">
             <Image
@@ -54,10 +54,8 @@ const SingleStoreCard = ({ storeData, location }) => {
         </div>
 
         <div className="w-full flex items-center justify-between">
-          <h5 className="text-[17px] font-medium mt-3 text-gray-800 ">
-            {storeData?.storeName.length > 25
-              ? storeData?.storeName.slice(0, 25) + " ..."
-              : storeData?.storeName}
+          <h5 className="text-[17px] font-medium mt-3 text-gray-800 truncate">
+            {storeData?.storeName}
           </h5>
           <Link
             target="_blank"
@@ -68,14 +66,14 @@ const SingleStoreCard = ({ storeData, location }) => {
             <ArrowUpRight size={17} />
           </Link>
         </div>
-        <p className="text-gray-800 font-medium text-[15px] mt-1">
+        <p className="text-gray-800 font-medium text-[15px] mt-1 truncate">
           {storeData?.storeLandmark}
         </p>
         <div className="w-full flex items-center justify-between">
-          <p className="text-gray-500 text-medium text-[14px]">
-           Printing, Scanning, Copying...
+          <p className="text-gray-500 text-medium text-[14px] truncate">
+            Printing, Scanning, Copying...
           </p>
-          <p className="text-slate-500 text-[14px]">
+          <p className="text-slate-500 text-[14px] truncate">
             {storeData?.distance < 1000
               ? `${storeData?.distance?.toFixed(0)} m`
               : `${(storeData?.distance / 1000).toFixed(1)} km`}
@@ -92,19 +90,19 @@ const SingleStoreCard = ({ storeData, location }) => {
           }}
           transition={{ duration: 0.2 }}
         >
-          <div className="flex-1 ">
+          <div className="flex-1">
             <div className="flex items-center">
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
               <IoMdStar className="text-yellow-400" size={17} />
-              <p className="text-gray-500 ml-1 text-[14px] font-medium">(
-                {Math.ceil(Math.random() * 10)}
-                )</p>
+              <p className="text-gray-500 ml-1 text-[14px] font-medium truncate">
+                ({Math.ceil(Math.random() * 10)})
+              </p>
             </div>
 
-            <div className="flex gap-1.5 text-[12px] md:text-[14px]">
+            <div className="flex gap-1.5 text-[12px] md:text-[14px] truncate">
               <p className="font-medium">
                 {storeData?.storeHours && storeStatus.isOpen ? (
                   <span className="text-green-500">Open</span>
@@ -115,11 +113,11 @@ const SingleStoreCard = ({ storeData, location }) => {
 
               {storeStatus ? (
                 storeStatus.isOpen ? (
-                  <p className="text-gray-500 font-medium block">
+                  <p className="text-gray-500 font-medium block truncate">
                     Closes at {formatTime(storeStatus.nextCloseTime)}
                   </p>
                 ) : (
-                  <p className="text-gray-500 font-medium block">
+                  <p className="text-gray-500 font-medium block truncate">
                     Opens{" "}
                     {storeStatus.nextOpenTime &&
                     storeStatus.nextOpenTime.includes("at")
@@ -128,29 +126,30 @@ const SingleStoreCard = ({ storeData, location }) => {
                   </p>
                 )
               ) : (
-                <p className="text-gray-500 font-medium block">Not available</p>
+                <p className="text-gray-500 font-medium block truncate">
+                  Not available
+                </p>
               )}
             </div>
           </div>
           <Link
             href={`/stores/${storeData?.storeId}`}
-            className="flex-1 flex items-center justify-center "
+            className="flex-1 flex items-center justify-center"
           >
             <Button
               type="button"
-              className="w-full py-2  text-white/[0.85] font-medium rounded-sm"
+              className="w-full py-1.5 px-1 text-white/[0.85] font-medium rounded-sm"
             >
               Send Documents
             </Button>
           </Link>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
 export default SingleStoreCard;
-
 
 function getStoreStatus(storeTiming) {
   const daysOfWeek = [
