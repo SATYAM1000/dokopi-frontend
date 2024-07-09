@@ -1,9 +1,9 @@
-import { Nunito } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/user/global/Navbar";
 import { Toaster } from "sonner";
 import ReduxProvider from "@/providers/redux/redux-provider";
-const archivo = Nunito({ subsets: ["latin"] });
+const archivo = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "DoKopi",
