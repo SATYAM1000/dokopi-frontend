@@ -7,20 +7,15 @@ import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { useDispatch } from "react-redux";
-import { clearCart } from "@/providers/redux/slices/cart-slice";
 
 const PaymentSuccessPage = () => {
   const currentUser = useCurrentUser();
-  const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(true);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   useEffect(() => {
     const verifyPayment = async () => {
       try {
-        const reference = new URLSearchParams(window.location.search).get(
-          "id"
-        );
+        const reference = new URLSearchParams(window.location.search).get("id");
         const token = await fetchAccessToken();
         const res = await axios.get(
           `${API_DOMAIN}/api/v1/user/payment/verify-payment-id?paymentRefrenceId=${reference}&userId=${currentUser?.id}`,
@@ -35,7 +30,6 @@ const PaymentSuccessPage = () => {
           setIsPaymentSuccess(true);
           setLoading(false);
           toast.success("Payment Successful");
-          dispatch(clearCart());
           return;
         }
       } catch (error) {

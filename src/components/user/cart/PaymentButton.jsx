@@ -11,8 +11,9 @@ import { useSelector } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import ShortUniqueId from "short-unique-id";
 
-const PaymentButton = ({ setOpen, totalPrice , platformFee}) => {
+const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
   const currentUser = useCurrentUser();
+  if (!totalPrice) return null;
   const uid = new ShortUniqueId();
 
   const [loading, setLoading] = React.useState(false);
@@ -20,9 +21,10 @@ const PaymentButton = ({ setOpen, totalPrice , platformFee}) => {
   const handlePhonePePaymentClick = async () => {
     try {
       setLoading(true);
-      setOpen(false);
+      setIsCartOpen(false);
       if (!currentUser) {
         toast.error("Please login to continue");
+        setLoading(false);
         return;
       }
       const token = await fetchAccessToken();

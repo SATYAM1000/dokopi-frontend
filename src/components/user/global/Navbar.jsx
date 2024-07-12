@@ -11,8 +11,6 @@ import { IoCartOutline } from "react-icons/io5";
 import SearchComponent from "../store/Search";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setInitialCartItems } from "@/providers/redux/slices/cart-slice";
-
 import {
   Sheet,
   SheetContent,
@@ -28,7 +26,7 @@ const Navbar = ({ apiKey }) => {
   const [show, setShow] = useState("translate-y-0 ");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
@@ -36,13 +34,6 @@ const Navbar = ({ apiKey }) => {
   useEffect(() => {
     setCartItemCount(cartItems.length);
   }, [cartItems]);
-
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    if (savedCartItems) {
-      dispatch(setInitialCartItems(JSON.parse(savedCartItems)));
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
@@ -77,7 +68,7 @@ const Navbar = ({ apiKey }) => {
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
               <SearchComponent classNameForSearchBox={classNameForSearchBox} />
-              <Sheet open={open} onOpenChange={setOpen}>
+              <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
                 <SheetTrigger asChild>
                   <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
                     <IoCartOutline size={30} className="text-gray-700" />
@@ -95,7 +86,7 @@ const Navbar = ({ apiKey }) => {
                       You have {cartItemCount} items in your cart
                     </SheetDescription>
                   </SheetHeader>
-                  <DokopiCartComponent setOpen={setOpen} />
+                  <DokopiCartComponent setIsCartOpen={setIsCartOpen} />
                 </SheetContent>
               </Sheet>
               {currentUser ? (

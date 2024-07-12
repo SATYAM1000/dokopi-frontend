@@ -3,7 +3,6 @@ import { connectToDB } from "./lib/db.connect.js";
 import { User } from "./lib/user.model.js";
 import mongoose from "mongoose";
 import authConfig from "./auth.config";
-import socket from "./lib/socket.config.js";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/sign-in",
@@ -19,7 +18,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (existingUser?.isBlocked) return false;
         if (existingUser) {
           user.id = existingUser._id;
-          socket.emit("userLogin", existingUser._id);
           return true;
         }
         const newUser = new User({
@@ -30,7 +28,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
         await newUser.save();
         user.id = newUser._id;
-        socket.emit("userLogin", newUser._id);
         return true;
       }
 

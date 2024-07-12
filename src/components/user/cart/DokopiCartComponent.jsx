@@ -1,128 +1,140 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { X } from "lucide-react";
-import { deleteFromCart } from "@/providers/redux/slices/cart-slice";
 import { redirect } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CancellationPolicy from "./CancellationPolicy";
 import PaymentButton from "./PaymentButton";
 import BillDetails from "./BillDetails";
-import { API_DOMAIN } from "@/lib/constants";
 import { calculateTotalPrice } from "@/lib/price-calculator";
-import axios from "axios";
 import ErrorComponent from "../global/Error";
+import CartFileDetails from "./CartFileDetails";
+import axios from "axios";
+import { API_DOMAIN } from "@/lib/constants";
+import { toast } from "sonner";
+import {
+  deleteCartItem,
+  updateCartItem,
+} from "@/providers/redux/slices/new-cart-slice";
 
-const DokopiCartComponent = ({ setOpen }) => {
+const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   const currentUser = useCurrentUser();
   if (!currentUser) redirect("/auth/sign-in");
+
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const [totalPrice, setTotalPrice] = React.useState(0);
-  const [platformFee, setPlatformFee] = React.useState(0);
-  const [storePrice, setStorePrice] = React.useState(0);
-  const [loading, setLoading] = React.useState(false);
+  const [storePricing, setStorePricing] = useState(xeroxStorePricing);
 
-  const fetchStorePricing = async () => {
+  const [totalPriceForThisOrder, setTotalPriceForThisOrder] = React.useState(0);
+  const [platformFeeForThisOrder, setPlatformFeeForThisOrder] =
+    React.useState(0);
+
+  const fetchXeroxStorePricing = async () => {
     try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${API_DOMAIN}/api/v1/merchant/store/pricing/${localStorage.getItem(
+      const res = await axios.get(
+        `${API_DOMAIN}/api/v1/store/pricing/get/${localStorage.getItem(
           "storeId"
         )}`
       );
-      const price = calculateTotalPrice(cartItems, data?.store?.storePrices);
-      setStorePrice(data?.store?.storePrices);
-      console.log("price is ", price);
+      if (res.data.success) {
+        setStorePricing(res.data.data.priceList);
+        const price = calculateTotalPrice(cartItems, res.data.data.priceList);
+        setTotalPriceForThisOrder(price.totalCharge);
+        setPlatformFeeForThisOrder(price.platformCharge);
+      }
     } catch (error) {
       console.log("Error fetching store pricing:", error);
-    } finally {
-      setLoading(false);
     }
   };
+
   useEffect(() => {
-    fetchStorePricing();
-  }, []);
-  useEffect(() => {
-    setTotalPrice(calculateTotalPrice(cartItems, storePrice).totalCharge + calculateTotalPrice(cartItems, storePrice).platformChargeForThisOrder);
-    setPlatformFee(calculateTotalPrice(cartItems, storePrice).platformChargeForThisOrder);
-  }, [cartItems, storePrice]);
-  const removeFromCartHandler = (id) => {
-    dispatch(deleteFromCart(id));
+    if (storePricing) {
+      const price = calculateTotalPrice(cartItems, storePricing);
+      setTotalPriceForThisOrder(price.totalCharge);
+      setPlatformFeeForThisOrder(price.platformCharge);
+    } else {
+      fetchXeroxStorePricing();
+    }
+  }, [cartItems, storePricing]);
+
+  const handleDeleteItem = async (fileId) => {
+    console.log("file id is ", fileId);
+    try {
+      await dispatch(
+        deleteCartItem({ userId: currentUser.id, fileId })
+      ).unwrap();
+      toast.success("Item deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete item");
+      console.error("Failed to delete item:", error);
+    }
   };
+
+  const handleUpdateItem = async (fileId) => {
+    const updatedItem = {
+      fileId,
+      fileKey: "key123-updated",
+      fileName: "file123-updated.pdf",
+      fileSize: "3MB",
+      fileExtension: "pdf",
+      pageCount: 12,
+    };
+    try {
+      await dispatch(
+        updateCartItem({ userId, fileId, updatedCartItem: updatedItem })
+      ).unwrap();
+      toast.success("Item updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update item");
+      console.error("Failed to update item:", error);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await dispatch(clearCart(userId)).unwrap();
+      toast.success("Cart cleared successfully!");
+    } catch (error) {
+      toast.error("Failed to clear cart");
+      console.error("Failed to clear cart:", error);
+    }
+  };
+
   return (
     <div className="w-[100%] relative flex flex-col items-center justify-center">
       {cartItems.length > 0 ? (
         <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
-          <ul className="space-y-4 bg-gray-100 rounded-md    ">
+          <ul className="space-y-4  rounded-md flex flex-col gap-4    ">
             {cartItems.map((product) => (
-              <li
+              <CartFileDetails
                 key={product.id}
-                className="flex p-2 rounded-md items-center gap-4 pb-4 min-w-full border-b border-gray-300"
-              >
-                <img
-                  src={product?.fileIconPath}
-                  alt={product?.fileOriginalName}
-                  className="h-16 w-16 rounded object-contain"
-                />
-                <div className="w-full">
-                  <h3 className="text-[15px] font-medium text-gray-900">
-                    {product?.fileOriginalName && product?.fileOriginalName.length > 20 ? (
-                      <>{product?.fileOriginalName}</>
-                    ) : (
-                      product?.fileOriginalName
-                    )}
-                  </h3>
-                  <dl className="mt-0.5 w-full space-y-px text-[11px] text-gray-700">
-                    <div className="flex items-center justify-between w-full ">
-                      <div className="flex items-center gap-4">
-                        <dd className="inline font-medium">
-                          {product?.fileSize}
-                        </dd>
-                        <dd className="inline font-medium">
-                          {product?.filePageCount}&nbsp;Pages
-                        </dd>
-                        <dd className="inline font-medium">
-                          {product?.fileCopiesCount}&nbsp;Copies
-                        </dd>
-                       
-                      </div>
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => removeFromCartHandler(product?.id)}
-                      >
-                        <X className="h-4 w-4" />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-700 text-[11px] ">
-                      <dd className="inline capitalize ">
-                        {product?.filePrintMode}
-                      </dd>
-                      <dd className="inline capitalize">
-                        {product?.fileColorType}
-                      </dd>
-                      <dd className="inline capitalize">
-                        {product?.additionalServices}
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </li>
+                handleDeleteItem={handleDeleteItem}
+                product={product}
+              />
             ))}
           </ul>
-          <BillDetails totalPrice={totalPrice} platformFee={platformFee} />
+          {totalPriceForThisOrder > 0 && (
+            <BillDetails
+              totalPrice={totalPriceForThisOrder}
+              platformFee={platformFeeForThisOrder}
+            />
+          )}
           <CancellationPolicy />
-          <PaymentButton setOpen={setOpen} totalPrice={totalPrice} platformFee={platformFee} />
+          {totalPriceForThisOrder > 0 && (
+            <PaymentButton
+              setIsCartOpen={setIsCartOpen}
+              totalPrice={totalPriceForThisOrder}
+              platformFee={platformFeeForThisOrder}
+            />
+          )}
         </div>
       ) : (
         <div className="mt-6 space-y-6">
           <ErrorComponent errorMessage={"No documents in your cart."} />
         </div>
       )}
-
-     
     </div>
   );
 };

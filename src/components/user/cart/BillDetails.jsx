@@ -1,7 +1,7 @@
 import React from "react";
 
 const BillDetails = ({ totalPrice, platformFee }) => {
-  return totalPrice === null || totalPrice === 0 ? (
+  return totalPrice === null  ? (
     <></>
   ) : (
     <>

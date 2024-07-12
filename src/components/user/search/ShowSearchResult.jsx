@@ -24,11 +24,11 @@ const ShowSearchResult = ({ Response }) => {
                             <div className="space-y-1">
                                 <h4 className="text-sm font-medium leading-none">{storeDetails.storeName}</h4>
                                 <p className="text-sm text-muted-foreground">
-                                    {storeLocation.storeLandmark},
-                                    {storeLocation.storeCity},
-                                    {storeLocation.storeState},
-                                    {storeLocation.storeCountry},
-                                    {storeLocation.storeZipCode}
+                                    {storeLocation?.storeLandmark},
+                                    {storeLocation?.storeCity},
+                                    {storeLocation?.storeState},
+                                    {storeLocation?.storeCountry},
+                                    {storeLocation?.storeZipCode}
                                 </p>
                             </div>
                         </Link>

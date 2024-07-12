@@ -70,7 +70,7 @@ html::-webkit-scrollbar {
   display: none;
 }
 body {
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }
 @layer base {
@@ -84,13 +84,13 @@ body {
 
 /* Hide the scrollbar track */
 ::-webkit-scrollbar {
-  width: 6px; /* Width of the scrollbar */
-  height: 6px; /* Height of the scrollbar */
+  width: 2px; /* Width of the scrollbar */
+  height: 3px; /* Height of the scrollbar */
 }
 
 /* Handle the scrollbar */
 ::-webkit-scrollbar-thumb {
-  background: #4f46e5; /* Color of the scrollbar handle */
+  background: #7c838d; /* Color of the scrollbar handle */
   border-radius: 0px; /* Border radius of the scrollbar handle */
 }
 
