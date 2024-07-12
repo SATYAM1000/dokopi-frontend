@@ -3,33 +3,30 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
+import { Box, X } from "lucide-react";
 import { fetchAccessToken } from "@/actions/access-token";
 import { API_DOMAIN } from "@/lib/constants";
-import { Box, X } from "lucide-react";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const BannerForActiveOrders = () => {
   const currentUser = useCurrentUser();
-  if (!currentUser) return null;
   const [hasActiveOrders, setHasActiveOrders] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [activeOrdersCount, setActiveOrdersCount] = useState(0);
-  const pathname = usePathname();
-  if (
-    pathname === "/active-orders" ||
-    pathname === "/history" ||
-    pathname === "/contact" ||
-    pathname === "/terms-conditions" ||
-    pathname === "/privacy-policy" ||
-    pathname === "/refund-shipping-policy" ||
-    pathname === "/payment/success"
-  )
-    return null;
+  const [excludedRoutes] = useState([
+    "/active-orders",
+    "/history",
+    "/contact",
+    "/terms-conditions",
+    "/privacy-policy",
+    "/refund-shipping-policy",
+    "/payment/success",
+  ]);
 
   useEffect(() => {
+    if (!currentUser) return;
+
     const fetchActiveOrders = async () => {
       try {
         const { data } = await axios.get(
@@ -47,28 +44,35 @@ const BannerForActiveOrders = () => {
           setIsModalVisible(true);
         }
       } catch (error) {
+        console.error("Error fetching active orders:", error);
         setHasActiveOrders(false);
       }
     };
 
     fetchActiveOrders();
-  }, []);
+  }, [currentUser]);
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
     localStorage.setItem("modalClosed", "true");
   };
 
+  const currentPath = window.location.pathname;
+
+  // Check if the modal should not be displayed based on current route
+  if (currentUser && excludedRoutes.includes(currentPath)) return null;
+  if (!currentUser || !isModalVisible) return null;
+
   return (
     <AnimatePresence>
       {isModalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            className="bg-white p-6 rounded-lg shadow-lg text-center relative z-60 max-w-lg w-full mx-4"
-          >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        >
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center relative z-60 max-w-lg w-full mx-4">
             <button
               onClick={handleCloseModal}
               className="absolute top-4 right-4 bg-gray-200 flex items-center justify-center rounded-full w-8 h-8 text-gray-500 hover:text-gray-600"
@@ -76,13 +80,13 @@ const BannerForActiveOrders = () => {
               <X size={24} />
             </button>
 
-            <div>
+            <div className="mb-4 mx-auto w-full flex items-center justify-center">
               <Image
                 src="/main/active-orders.jpg"
                 alt="Active Orders"
                 width={300}
                 height={300}
-                className="mx-auto rounded-full aspect-auto "
+                className="rounded-full"
               />
             </div>
             <p className="mb-4 font-medium text-gray-700">
@@ -94,8 +98,8 @@ const BannerForActiveOrders = () => {
                 View order status &rarr;
               </Link>
             </p>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
