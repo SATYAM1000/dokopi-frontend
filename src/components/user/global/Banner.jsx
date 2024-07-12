@@ -1,13 +1,34 @@
 "use client";
-import { fetchAccessToken } from "@/actions/access-token";
-import { API_DOMAIN } from "@/lib/constants";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { fetchAccessToken } from "@/actions/access-token";
+import { API_DOMAIN } from "@/lib/constants";
+import { Box, X } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const BannerForActiveOrders = () => {
+  const currentUser = useCurrentUser();
+  if (!currentUser) return null;
   const [hasActiveOrders, setHasActiveOrders] = useState(false);
-  const [totalActiveOrders, setTotalActiveOrders] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [activeOrdersCount, setActiveOrdersCount] = useState(0);
+  const pathname = usePathname();
+  if (
+    pathname === "/active-orders" ||
+    pathname === "/history" ||
+    pathname === "/contact" ||
+    pathname === "/terms-conditions" ||
+    pathname === "/privacy-policy" ||
+    pathname === "/refund-shipping-policy" ||
+    pathname === "/payment/success"
+  )
+    return null;
+
   useEffect(() => {
     const fetchActiveOrders = async () => {
       try {
@@ -20,12 +41,10 @@ const BannerForActiveOrders = () => {
           }
         );
 
-        if (data.totalOrders === 0) {
-          setHasActiveOrders(false);
-          return;
-        } else {
+        setActiveOrdersCount(data.totalOrders);
+        if (data.totalOrders > 0 && !localStorage.getItem("modalClosed")) {
           setHasActiveOrders(true);
-          setTotalActiveOrders(data.totalOrders);
+          setIsModalVisible(true);
         }
       } catch (error) {
         setHasActiveOrders(false);
@@ -35,27 +54,50 @@ const BannerForActiveOrders = () => {
     fetchActiveOrders();
   }, []);
 
-
-
-
-  if (!hasActiveOrders) return null;
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    localStorage.setItem("modalClosed", "true");
+  };
 
   return (
-    <>
-      {hasActiveOrders && (
-        <div className="bg-indigo-600 px-4 py-2 animate-fill-mode-forwards text-white">
-          <p className="text-center text-sm font-medium">
-            You have an active order.
-            <Link
-              href="/active-orders"
-              className="inline-block underline ml-2 underline-offset-4"
+    <AnimatePresence>
+      {isModalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className="bg-white p-6 rounded-lg shadow-lg text-center relative z-60 max-w-lg w-full mx-4"
+          >
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 bg-gray-200 flex items-center justify-center rounded-full w-8 h-8 text-gray-500 hover:text-gray-600"
             >
-              View order status&nbsp;&nbsp;&nbsp; &rarr;
-            </Link>
-          </p>
+              <X size={24} />
+            </button>
+
+            <div>
+              <Image
+                src="/main/active-orders.jpg"
+                alt="Active Orders"
+                width={300}
+                height={300}
+                className="mx-auto rounded-full aspect-auto "
+              />
+            </div>
+            <p className="mb-4 font-medium text-gray-700">
+              You have {activeOrdersCount} active orders.
+              <Link
+                href="/active-orders"
+                className="underline ml-2 text-[14px] text-indigo-600 underline-offset-4"
+              >
+                View order status &rarr;
+              </Link>
+            </p>
+          </motion.div>
         </div>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
