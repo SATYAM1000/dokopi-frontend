@@ -2,8 +2,9 @@ import React from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { ClipLoader } from "react-spinners";
 
-const CartFileDetails = ({ product, handleDeleteItem }) => {
+const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
   if (!product) return null;
   function convertBytes(sizeInBytes) {
     const KB = sizeInBytes / 1024;
@@ -93,14 +94,20 @@ const CartFileDetails = ({ product, handleDeleteItem }) => {
         )}
       </div>
       <div className="flex items-center justify-items-end  ">
-        <button className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
+        <button className="w-full py-1 outline-none text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
           Edit
         </button>
         <button
-          className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200"
+          className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200 flex items-center justify-center"
           onClick={() => handleDeleteItem(product?.fileId)}
         >
-          Delete
+          {loader ? (
+            <div className="flex items-center justify-center p-0.5">
+              <ClipLoader color="black" size={16} />
+            </div>
+          ) : (
+            "Delete"
+          )}
         </button>
       </div>
     </li>

@@ -24,15 +24,13 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   if (!currentUser) redirect("/auth/sign-in");
 
   const { items, loading, error } = useSelector((state) => state.cart);
-  console.log("items in dokopi cart component ", items);
 
   const dispatch = useDispatch();
-
   const [storePricing, setStorePricing] = useState(xeroxStorePricing);
-
   const [totalPriceForThisOrder, setTotalPriceForThisOrder] = React.useState(0);
   const [platformFeeForThisOrder, setPlatformFeeForThisOrder] =
     React.useState(0);
+  const [loader, setLoader] = useState(false);
 
   const fetchXeroxStorePricing = async () => {
     try {
@@ -63,8 +61,8 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   }, [items, storePricing]);
 
   const handleDeleteItem = async (fileId) => {
-    console.log("file id is ", fileId);
     try {
+      setLoader(true);
       await dispatch(
         deleteCartItem({ userId: currentUser.id, fileId })
       ).unwrap();
@@ -72,6 +70,8 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
     } catch (error) {
       toast.error(error.message);
       console.error("Failed to delete item:", error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -121,6 +121,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
                     key={product.id}
                     handleDeleteItem={handleDeleteItem}
                     product={product}
+                    loader={loader}
                   />
                 ))}
               </ul>
