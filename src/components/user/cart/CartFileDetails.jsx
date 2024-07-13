@@ -1,6 +1,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const CartFileDetails = ({ product, handleDeleteItem }) => {
   if (!product) return null;
@@ -16,7 +17,7 @@ const CartFileDetails = ({ product, handleDeleteItem }) => {
   }
   return (
     <li className="flex flex-col border border-gray-200 relative p-1 bg-gray-100 rounded-md gap-1 w-full">
-      <div className="w-full flex bg-white p-2  rounded-md items-center gap-4">
+      <div className="w-full flex bg-white p-2 border border-gray-200  rounded-md items-center gap-4">
         <Image
           src={product?.iconPath}
           alt={product?.fileName}
@@ -49,25 +50,6 @@ const CartFileDetails = ({ product, handleDeleteItem }) => {
                   {product?.copiesCount}&nbsp;Copies
                 </dd>
               </div>
-
-              <div className="cursor-pointer absolute top-2 right-2 flex items-center gap-2">
-                {/* <div className="p-1 rounded-full flex items-center justify-center ">
-                  <FaRegEdit size={16} className="h-4 w-4" />
-                </div> */}
-                <div
-                  onClick={() => handleDeleteItem(product?.fileId)}
-                  className="p-1 rounded-full "
-                >
-                  <X className="h-4 w-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 text-[11px] ">
-              <dd className="inline capitalize ">{product?.filePrintMode}</dd>
-              <dd className="inline capitalize">{product?.fileColorType}</dd>
-              <dd className="inline capitalize">
-                {product?.additionalServices}
-              </dd>
             </div>
           </dl>
         </div>
@@ -109,6 +91,17 @@ const CartFileDetails = ({ product, handleDeleteItem }) => {
             <span className=" font-medium ">{product?.xeroxStoreMessage}</span>
           </div>
         )}
+      </div>
+      <div className="flex items-center justify-items-end  ">
+        <button className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
+          Edit
+        </button>
+        <button
+          className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200"
+          onClick={() => handleDeleteItem(product?.fileId)}
+        >
+          Delete
+        </button>
       </div>
     </li>
   );

@@ -38,6 +38,7 @@ const UploadedFileConfigurations = ({
   const user = useCurrentUser();
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.cart);
+  console.log("items in print config", items);
   const [xeroxStorePricing, setXeroxStorePricing] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [availablePrintSides, setAvailablePrintSides] = useState([]);

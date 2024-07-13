@@ -24,6 +24,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   if (!currentUser) redirect("/auth/sign-in");
 
   const { items, loading, error } = useSelector((state) => state.cart);
+  console.log("items in dokopi cart component ", items);
 
   const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       ).unwrap();
       toast.success("Item deleted successfully!");
     } catch (error) {
-      toast.error("Failed to delete item");
+      toast.error(error.message);
       console.error("Failed to delete item:", error);
     }
   };
@@ -89,7 +90,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       ).unwrap();
       toast.success("Item updated successfully!");
     } catch (error) {
-      toast.error("Failed to update item");
+      toast.error(error.message);
       console.error("Failed to update item:", error);
     }
   };
@@ -103,8 +104,6 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       console.error("Failed to clear cart:", error);
     }
   };
-
-  if (error) return <ErrorComponent errorMessage={error.msg} />;
 
   return (
     <>
