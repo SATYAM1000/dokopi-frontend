@@ -1,68 +1,102 @@
 import React from "react";
+import Image from "next/image";
 
 const FileDetails = ({ fileInfo, index }) => {
+  console.log("file info is ", fileInfo);
   if (!fileInfo) return null;
+  function convertBytes(sizeInBytes) {
+    const KB = sizeInBytes / 1024;
+    const MB = sizeInBytes / (1024 * 1024);
+    if (MB > 1) {
+      return `${MB.toFixed(2)} MB`;
+    } else if (KB > 1) {
+      return `${KB.toFixed(2)} KB`;
+    }
+    return `${sizeInBytes} B`;
+  }
 
   return (
-    <div className="w-full rounded-md bg-gray-100 px-4 py-2 flex flex-col gap-1 ">
-      <h1 className="text-left text-[16px] font-bold text-gray-900">
-        Document {index + 1}
-      </h1>
-      <div className="text-[14px] text-gray-800 w-full">
-        <div className="flex items-center justify-between">
-          <p>File Name: </p>
-          <span>{fileInfo?.fileOriginalName.length > 15 ? fileInfo?.fileOriginalName.slice(0, 15) + "..." : fileInfo?.fileOriginalName}</span>
+    <li className="flex flex-col border border-gray-200 relative p-1 bg-white rounded-md gap-1 w-full">
+      <div className="w-full flex bg-gray-100 p-2  rounded-md items-center gap-4">
+        <Image
+          src={fileInfo?.iconPath}
+          alt={fileInfo?.fileName}
+          width={100}
+          height={100}
+          className="h-12 w-12 rounded object-contain"
+        />
+        <div className="w-full">
+          <h3 className="text-[14px] font-medium text-gray-900">
+            {fileInfo?.fileName && fileInfo.fileName.length > 20 ? (
+              <>
+                {fileInfo.fileName.slice(0, 20)}...
+                {fileInfo.fileExtension}
+              </>
+            ) : (
+              fileInfo?.fileName + "." + fileInfo?.fileExtension
+            )}
+          </h3>
+
+          <dl className="mt-0.5 w-full space-y-px text-[12px] text-gray-700">
+            <div className="flex  w-full flex-col ">
+              <div className="flex items-center gap-4">
+                <dd className="inline font-medium">
+                  {convertBytes(fileInfo?.fileSize)}
+                </dd>
+                <dd className="inline font-medium">
+                  {fileInfo?.pageCount}&nbsp;Pages
+                </dd>
+                <dd className="inline font-medium">
+                  {fileInfo?.copiesCount}&nbsp;Copies
+                </dd>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700 text-[11px] ">
+              <dd className="inline capitalize ">{fileInfo?.filePrintMode}</dd>
+              <dd className="inline capitalize">{fileInfo?.fileColorType}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div className="w-full flex flex-col p-2 text-[12px] text-gray-600">
+        <div className="flex items-center justify-between gap-4">
+          <span className=" font-medium">Paper Size:</span>{" "}
+          <span className=" font-medium ">{fileInfo?.paperSize}</span>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p>Number of Copies: </p>
-          <span>{fileInfo?.fileCopiesCount}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <p>Print Mode: </p>
-          <span className="capitalize">
-            {fileInfo?.filePrintMode} on {fileInfo?.filePaperType}
-          </span>
-        </div>
-        <div className="flex items-center justify-between">
-          <p>Print Type:</p>
-          <span className="capitalize">{fileInfo?.fileColorType} </span>
+        <div className="flex items-center justify-between gap-4">
+          <span className=" font-medium">Print Type:</span>{" "}
+          <span className=" font-medium ">{fileInfo?.printType}</span>
         </div>
 
-        {fileInfo?.fileColorType === "mixed" && (
-          <div
-            className={`flex  ${
-              fileInfo?.fileColorPagesToPrint.length > 8
-                ? "flex-col"
-                : "items-center justify-between"
-            }`}
-          >
-            <p>Color Pages:</p>
-            <span className="text-wrap overflow-hidden">
-              {fileInfo?.fileColorPagesToPrint
-                ?.sort((a, b) => parseInt(a) - parseInt(b))
-                .join(", ")}{" "}
+        <div className="flex items-center justify-between gap-4">
+          <span className=" font-medium ">Print Sides:</span>{" "}
+          <span className=" font-medium ">{fileInfo?.printSides}</span>
+        </div>
+
+        {fileInfo?.printType === "mixed" && (
+          <div className="flex items-center justify-between gap-4">
+            <span className=" font-medium ">Color Type:</span>{" "}
+            <span className=" font-medium ">{fileInfo?.mixedPrintType}</span>
+          </div>
+        )}
+        {fileInfo?.printType === "mixed" && (
+          <div className="flex items-center justify-between gap-4">
+            <span className=" font-medium ">Color Pages:</span>{" "}
+            <span className=" font-medium ">
+              {fileInfo?.colorPages.join(", ")}
             </span>
           </div>
         )}
 
-        {fileInfo?.additionalServices && (
-          <div className="flex items-center justify-between">
-            <p>Additional Services: </p>
-            <span>{fileInfo?.additionalServices}</span>
-          </div>
-        )}
-
-        {fileInfo?.messageForXeroxStore && (
+        {fileInfo?.xeroxStoreMessage.length > 0 && (
           <div className="flex flex-col">
-            <p>Message: </p>
-            <span className="py-2 px-2 border bg-white font-normal mt-1 rounded-md text-wrap overflow-hidden ">
-              {fileInfo?.messageForXeroxStore}
-            </span>
+            <span className=" font-medium ">Color Pages:</span>{" "}
+            <span className=" font-medium ">{fileInfo?.xeroxStoreMessage}</span>
           </div>
         )}
       </div>
-    </div>
+    </li>
   );
 };
 

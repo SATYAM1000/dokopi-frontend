@@ -138,3 +138,20 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.processing-badge {
+  background: linear-gradient(270deg, #4caf50, #81c784);
+  background-size: 200% 200%;
+  animation: moveBackground 2s linear infinite;
+}
+

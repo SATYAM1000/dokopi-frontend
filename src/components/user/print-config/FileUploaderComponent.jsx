@@ -115,7 +115,7 @@ const FileUploaderComponent = ({
       })}
     >
       <input {...getInputProps()} />
-      <p className="mb-3 font-medium text-gray-700 text-sm flex flex-wrap justify-center">
+      <p className="mb-3 font-medium text-gray-500 text-xs md:text-sm flex flex-wrap justify-center">
         {isDragActive ? (
           <span>Drop the file here...</span>
         ) : (

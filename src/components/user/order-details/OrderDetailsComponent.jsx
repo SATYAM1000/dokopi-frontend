@@ -39,7 +39,7 @@ const OrderDetailsComponent = ({ id }) => {
     <>
       {loading ? (
         <div className="w-[100%] h-[20vh] flex items-center justify-center">
-          <ClipLoader color="#000" loading={loading} size={30} />
+          <ClipLoader color="blue" loading={loading} size={20} />
         </div>
       ) : (
         <div className="w-[100%] relative flex flex-col items-center justify-center">

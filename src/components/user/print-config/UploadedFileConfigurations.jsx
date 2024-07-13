@@ -27,6 +27,7 @@ import {
 import DokopiCartComponent from "../cart/DokopiCartComponent";
 
 import { toast } from "sonner";
+import { ClipLoader } from "react-spinners";
 
 const UploadedFileConfigurations = ({
   uploadedFileInfo,
@@ -40,10 +41,8 @@ const UploadedFileConfigurations = ({
   const [xeroxStorePricing, setXeroxStorePricing] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [availablePrintSides, setAvailablePrintSides] = useState([]);
-
-  useEffect(() => {
-    dispatch(fetchCartItems(user.id));
-  }, [dispatch, user.id]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     fetchXeroxStorePricing();
@@ -74,6 +73,7 @@ const UploadedFileConfigurations = ({
 
   const handleAddItem = async () => {
     try {
+      setIsLoading(true);
       if (validateCartItem(uploadedFileInfo)) {
         await dispatch(
           addCartItem({ userId: user.id, cartItem: uploadedFileInfo })
@@ -88,12 +88,14 @@ const UploadedFileConfigurations = ({
     } catch (error) {
       console.error("Failed to add item:", error);
       toast.error(error?.msg || "Failed to add file");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleCheckout = async () => {
-    setIsCartOpen(true);
     try {
+      setIsLoader(true);
       if (validateCartItem(uploadedFileInfo)) {
         await dispatch(
           addCartItem({ userId: user.id, cartItem: uploadedFileInfo })
@@ -106,6 +108,9 @@ const UploadedFileConfigurations = ({
     } catch (error) {
       console.error("Failed to add item:", error);
       toast.error(error?.msg || "Failed to add file");
+    } finally {
+      setIsLoader(false);
+      setIsCartOpen(true);
     }
   };
 
@@ -338,9 +343,14 @@ const UploadedFileConfigurations = ({
             <Button
               onClick={handleAddItem}
               type="button"
+              disabled={isLoading}
               className="w-full h-[40px] bg-indigo-500 hover:bg-indigo-600 text-white border border-gray-200 rounded-md"
             >
-              Upload more files
+              {isLoading ? (
+                <ClipLoader color="white" size={16} />
+              ) : (
+                <p>Upload more</p>
+              )}
             </Button>
 
             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
@@ -348,9 +358,14 @@ const UploadedFileConfigurations = ({
                 <Button
                   onClick={handleCheckout}
                   type="button"
+                  disabled={isLoader}
                   className="w-full h-[40px] bg-indigo-500 hover:bg-indigo-600 text-white rounded-md"
                 >
-                  Checkout
+                  {isLoader ? (
+                    <ClipLoader color="white" size={16} />
+                  ) : (
+                    "Checkout"
+                  )}
                 </Button>
               </SheetTrigger>
               <SheetContent>

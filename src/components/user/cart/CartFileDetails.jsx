@@ -1,6 +1,5 @@
 import React from "react";
 import { X } from "lucide-react";
-import { toast } from "sonner";
 import Image from "next/image";
 
 const CartFileDetails = ({ product, handleDeleteItem }) => {

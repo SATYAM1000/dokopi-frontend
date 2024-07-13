@@ -68,8 +68,8 @@ const UploadedFileComponent = ({
                 </span>
                 <div>
                   <p className="text-sm font-medium text-gray-800 dark:text-white">
-                    {file.fileName.length > 17
-                      ? file.fileName.slice(0, 17) + "..." + file.fileExtension
+                    {file.fileName.length > 10
+                      ? file.fileName.slice(0, 10) + "..." + file.fileExtension
                       : file.fileName + "." + file.fileExtension}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-neutral-500">

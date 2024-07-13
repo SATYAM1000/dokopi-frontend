@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, X } from "lucide-react";
+import { X } from "lucide-react";
 import { fetchAccessToken } from "@/actions/access-token";
 import { API_DOMAIN } from "@/lib/constants";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { usePathname } from "next/navigation";
 
 const BannerForActiveOrders = () => {
+  const pathname = usePathname();
   const currentUser = useCurrentUser();
   const [hasActiveOrders, setHasActiveOrders] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,7 +41,7 @@ const BannerForActiveOrders = () => {
         );
 
         setActiveOrdersCount(data.totalOrders);
-        if (data.totalOrders > 0 && !localStorage.getItem("modalClosed")) {
+        if (data.totalOrders > 0 && localStorage.getItem("userAddress") && !localStorage.getItem("modalClosed")) {
           setHasActiveOrders(true);
           setIsModalVisible(true);
         }
@@ -52,27 +54,27 @@ const BannerForActiveOrders = () => {
     fetchActiveOrders();
   }, [currentUser]);
 
+  if (!hasActiveOrders) return null;
+
   const handleCloseModal = () => {
     setIsModalVisible(false);
     localStorage.setItem("modalClosed", "true");
   };
 
-  const currentPath = window.location.pathname;
-
   // Check if the modal should not be displayed based on current route
-  if (currentUser && excludedRoutes.includes(currentPath)) return null;
+  if (pathname && excludedRoutes.includes(pathname)) return null;
   if (!currentUser || !isModalVisible) return null;
 
   return (
     <AnimatePresence>
       {isModalVisible && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-        >
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center relative z-60 max-w-lg w-full mx-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, transition: { duration: 0.3 } }}
+            animate={{ opacity: 1, scale: 1, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0 }}
+            className="bg-white p-6 rounded-lg shadow-lg text-center relative z-60 max-w-lg w-full mx-4"
+          >
             <button
               onClick={handleCloseModal}
               className="absolute top-4 right-4 bg-gray-200 flex items-center justify-center rounded-full w-8 h-8 text-gray-500 hover:text-gray-600"
@@ -98,8 +100,8 @@ const BannerForActiveOrders = () => {
                 View order status &rarr;
               </Link>
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

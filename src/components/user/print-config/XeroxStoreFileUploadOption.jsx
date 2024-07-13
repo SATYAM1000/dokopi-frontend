@@ -36,7 +36,7 @@ const XeroxStoreFileUploadOption = () => {
                           : "Upload File"}
                       </h1>
                     </div>
-                    <div className="rounded-lg  mt-4 p-2">
+                    <div className="rounded-md mt-4">
                       {isFileUploadedSuccessfully ? (
                         <UploadedFileComponent
                           file={uploadedFileInfo}

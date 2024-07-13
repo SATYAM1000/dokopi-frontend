@@ -20,6 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import DokopiCartComponent from "../cart/DokopiCartComponent";
+import { fetchCartItems } from "@/providers/redux/slices/new-cart-slice";
 
 const Navbar = ({ apiKey }) => {
   const currentUser = useCurrentUser();
@@ -30,6 +31,12 @@ const Navbar = ({ apiKey }) => {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(fetchCartItems(currentUser.id));
+    }
+  }, [currentUser?.id, dispatch]);
 
   useEffect(() => {
     setCartItemCount(cartItems.length);

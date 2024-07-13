@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/pagination";
 import { ClipLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
+import { Check, Copy, Loader, X } from "lucide-react";
 
 import {
   Sheet,
@@ -39,21 +40,91 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import OrderDetailsComponent from "../order-details/OrderDetailsComponent";
+import { Clock1 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { toast } from "sonner";
+import { useCurrentUser } from "@/hooks/use-current-user";
+
+const columnsHeader = [
+  {
+    index: 1,
+    columnName: "Order ID",
+  },
+  {
+    index: 2,
+    columnName: "Order Status",
+  },
+
+  {
+    index: 3,
+    columnName: "Order Date",
+  },
+
+  {
+    index: 4,
+    columnName: "Payment Id",
+  },
+
+  {
+    index: 5,
+    columnName: "Payment Status",
+  },
+
+  {
+    index: 6,
+    columnName: "Files Sent",
+  },
+
+  {
+    index: 7,
+    columnName: "Amount",
+  },
+
+  {
+    index: 8,
+    columnName: "View Details",
+  },
+];
 
 const ActiveOrders = () => {
+  const currentUser = useCurrentUser();
   const [ActiveOrders, setActiveOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  function formatDate(createdAt) {
+    const date = new Date(createdAt);
+    const now = new Date();
+
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    const timeOptions = { hour: "2-digit", minute: "2-digit" };
+    const formattedTime = date.toLocaleTimeString([], timeOptions);
+
+    if (diffDays === 0) {
+      return `Today at ${formattedTime}`;
+    } else if (diffDays === 1) {
+      return `Yesterday at ${formattedTime}`;
+    } else if (diffDays <= 2) {
+      return `${diffDays} days ago at ${formattedTime}`;
+    } else {
+      return date.toLocaleDateString();
+    }
+  }
   useEffect(() => {
     const getUserActiveOrders = async () => {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `${API_DOMAIN}/api/v1/user/orders/active?page=${currentPage}&limit=10`,
+          `${API_DOMAIN}/api/v1/user/orders/active?page=${currentPage}&limit=8`,
           {
             headers: {
               Authorization: `Bearer ${await fetchAccessToken()}`,
@@ -74,7 +145,11 @@ const ActiveOrders = () => {
       }
     };
 
-    getUserActiveOrders();
+    if (currentUser) {
+      getUserActiveOrders();
+    } else {
+      return null;
+    }
   }, [currentPage]);
 
   const handleNextPage = () => {
@@ -88,67 +163,151 @@ const ActiveOrders = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  const copyToClipboard = (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text);
+      toast.success("Copied successfully!", {
+        duration: 1000,
+      });
+      return;
+    } else {
+      toast.error("Failed to copy text!", {
+        duration: 1000,
+      });
+    }
+  };
+
   return (
     <section className="min-h-[50vh] w-full ">
       <Wrapper className={"w-full h-full "}>
         {loading ? (
           <div className="w-full h-[calc(100vh-350px)] flex items-center justify-center">
-            <ClipLoader color="#000000" loading={loading} size={50} />
+            <ClipLoader color="blue" loading={loading} size={40} />
           </div>
         ) : ActiveOrders?.length > 0 ? (
-          <div className="w-full h-auto flex flex-col gap-6 mt-4">
-            <div className="w-full flex items-center py-2 border-b border-black/[0.2]">
-              <h1 className=" text-[18px] md:text-[20px] font-medium text-black">
-                Active Orders
-              </h1>
-            </div>
+          <div className="w-full h-auto flex flex-col gap-1 mt-4">
             {/* ----container---------- */}
             <div className="w-full max-h-[100vh] min-h-[calc(100vh-250px)] overflow-hidden">
               <Table className="w-full max-h-[55vh] overflow-y-scroll hide-scrollbar  rounded-md ">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[200px]">Order No.</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="w-[150px]">Order Status</TableHead>
-                    <TableHead className="w-[130px]">Pay. Status</TableHead>
-                    <TableHead className="w-[200px]">Transaction ID</TableHead>
-                    <TableHead className="w-[150px]">Files Count</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead className="text-right">&nbsp;</TableHead>
+                    {columnsHeader.map((column) => (
+                      <TableHead
+                        className=" whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        key={column.index}
+                      >
+                        {column.columnName}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 </TableHeader>
-                <TableBody className="font-medium">
+                <TableBody className="font-medium text-gray-700 text-sm">
                   {ActiveOrders?.map((order) => (
                     <TableRow>
                       <TableCell className="w-[100px]">
                         {order?.orderNumber || "N/A"}
                       </TableCell>
-                      <TableCell>
-                        {new Date(order?.createdAt).toLocaleDateString() ||
-                          "N/A"}
-                      </TableCell>
                       <TableCell className="capitalize">
-                        {order?.orderStatus || "N/A"}
+                        {order?.orderStatus === "pending" && (
+                          <Badge
+                            className={
+                              "bg-orange-100 w-fit text-orange-500 border-orange-500 hover:bg-orange-200 flex items-center justify-center"
+                            }
+                          >
+                            <span>
+                              <Clock1
+                                size={12}
+                                className="mr-1 text-orange-500"
+                              />
+                            </span>
+                            Pending
+                          </Badge>
+                        )}
+                        {order?.orderStatus === "processing" && (
+                          <Badge
+                            className={
+                              "bg-indigo-100  text-indigo-500 border-indigo-500 hover:bg-indigo-200"
+                            }
+                          >
+                            <span>
+                              <Loader
+                                size={12}
+                                className="mr-1  text-indigo-500 animate-spin-clockwise repeat-infinite animate-duration-1000"
+                              />
+                            </span>
+                            Processing
+                          </Badge>
+                        )}
+                        {order?.orderStatus === "printed" && (
+                          <Badge
+                            className={
+                              "bg-green-100 text-green-500 animate-tada animate-iteration-count-infinite delay-1000 border-green-500 hover:bg-green-200"
+                            }
+                          >
+                            <span>
+                              <Check
+                                size={12}
+                                className="mr-1 text-green-500"
+                              />
+                            </span>
+                            Printed
+                          </Badge>
+                        )}
+
+                        {order?.orderStatus === "rejected" && (
+                          <Badge
+                            className={
+                              "bg-red-100 animate-tada animate-iteration-count-infinite delay-1000 text-red-500 border-red-500 hover:bg-red-200"
+                            }
+                          >
+                            <span>
+                              <X size={12} className="mr-1 text-red-500" />
+                            </span>
+                            Rejected
+                          </Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="whitespace-nowrap">
+                        {order?.createdAt ? formatDate(order.createdAt) : "N/A"}
+                      </TableCell>
+
+                      <TableCell className="w-fit flex items-center ">
+                        {order?.phonePeTransactionId || "N/A"}
+
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <span
+                                onClick={() =>
+                                  copyToClipboard(order?.phonePeTransactionId)
+                                }
+                                className="bg-gray-100 px-1 py-1 border border-gray-300 rounded-sm flex items-center justify-center ml-3 cursor-pointer"
+                              >
+                                <Copy size={14} className=" text-gray-500" />
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="text-xs ">Copy</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </TableCell>
                       <TableCell>
                         <Badge
                           className={
                             order?.paymentStatus === "success"
-                              ? "bg-green-500 capitalize hover:bg-green-600  "
+                              ? "bg-green-100 text-green-500 border border-green-500 capitalize hover:bg-green-200 cursor-default  "
                               : "bg-red-500 hover:bg-red-600  "
                           }
                         >
                           {order?.paymentStatus || "N/A"}
                         </Badge>
                       </TableCell>
-
-                      <TableCell className="w-[100px]">
-                        {order?.phonePeTransactionId || "N/A"}
-                      </TableCell>
                       <TableCell>{order?.cartItems.length}</TableCell>
 
                       <TableCell>₹&nbsp;{order?.totalPrice || "N/A"}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell>
                         <Sheet>
                           <SheetTrigger asChild>
                             <Button
