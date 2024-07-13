@@ -102,7 +102,9 @@ const UploadedFileConfigurations = ({
           addCartItem({ userId: user.id, cartItem: uploadedFileInfo })
         ).unwrap();
 
-        toast.success("File added to cart");
+        toast.success("File added to cart", {
+          duration: 500,
+        });
         resetUploadedFileInfo();
         setIsFileUploadedSuccessfully(false);
       }
