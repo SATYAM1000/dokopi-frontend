@@ -21,28 +21,26 @@ const HeaderOptions = [
   },
   {
     index: 3,
-    heading: "Print Type",
+    heading: "Type",
   },
 
   {
     index: 4,
-    heading: "Base Price",
+    heading: "Price (₹)",
   },
 
   {
     index: 5,
-    heading: "Condition Value",
+    heading: "On Pages(>=)",
   },
   {
     index: 6,
-    heading: "Condition Price",
+    heading: "New Price",
   },
 ];
 
 const PricingTable = ({ storeData }) => {
   const { pricing } = storeData;
-  console.log("pricing in pricing table ", pricing);
-
   if (!pricing)
     return (
       <div className=" flex flex-col text-gray-500 gap-1 overflow-hidden">
@@ -62,7 +60,7 @@ const PricingTable = ({ storeData }) => {
                   <TableHead
                     key={index}
                     scope="col"
-                    className=" text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className=" whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     {option.heading}
                   </TableHead>
@@ -74,22 +72,22 @@ const PricingTable = ({ storeData }) => {
                 <React.Fragment key={index}>
                   {price.conditionsList.map((condition, subIndex) => (
                     <TableRow key={`${index}-${subIndex}`}>
-                      <TableCell className="text-left text-xs font-medium text-gray-500  tracking-wider">
+                      <TableCell className="text-left whitespace-nowrap text-xs font-medium text-gray-500  tracking-wider">
                         {price.paperSize}
                       </TableCell>
-                      <TableCell className="text-left text-sm  text-gray-500  tracking-wider">
-                        {price.printingSides}
+                      <TableCell className="text-left whitespace-nowrap text-sm capitalize text-gray-500  tracking-wider">
+                        {price.printingSides.split("_").join(" ")}
                       </TableCell>
-                      <TableCell className="text-left text-sm  text-gray-500  tracking-wider">
-                        {price.printType}
+                      <TableCell className="text-left whitespace-nowrap text-sm capitalize  text-gray-500  tracking-wider">
+                        {price.printType.split("_").join(" ")}
                       </TableCell>
-                      <TableCell className="text-left text-sm  text-gray-500  tracking-wider">
+                      <TableCell className="text-left whitespace-nowrap text-sm  text-gray-500  tracking-wider">
                         ₹{price.basePrice}
                       </TableCell>
-                      <TableCell className="text-left text-sm  text-gray-500  tracking-wider">
+                      <TableCell className="text-left whitespace-nowrap text-sm  text-gray-500  tracking-wider">
                         {condition.conditionValue}
                       </TableCell>
-                      <TableCell className="text-left text-sm  text-gray-500  tracking-wider">
+                      <TableCell className="text-left whitespace-nowrap text-sm  text-gray-500  tracking-wider">
                         ₹{condition.conditionPrice}
                       </TableCell>
                     </TableRow>

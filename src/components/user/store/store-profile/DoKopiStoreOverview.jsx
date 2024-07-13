@@ -28,6 +28,7 @@ const DoKopiStoreOverview = ({
   const [hasMoreReviews, setHasMoreReviews] = React.useState(
     paginationDetails?.hasMoreReviews || false
   );
+
   return (
     <section className="w-full mt-6 min-h-screen flex flex-col gap-5">
       <StoreGallery storeData={storeDetails} />
@@ -45,9 +46,14 @@ const DoKopiStoreOverview = ({
         <div className="flex flex-col gap-6 w-full md:w-4/6 ">
           {/* ----------pricing--------------- */}
           <div className="w-full">
-            <h2 className="text-xl mb-3 flex flex-col md:block font-medium">
-              Pricing
-            </h2>
+            <div className="w-full mb-3">
+              <h2 className="text-xl flex flex-col md:block font-medium">
+                Store Pricing
+              </h2>
+              <p className="text-xs mt-2 text-gray-500 ">
+                <span className="text-red-500 font-medium">Note:</span> Prices apply per page.
+              </p>
+            </div>
             <div className="w-full h-fit rounded-md">
               <PricingTable storeData={storeDetails} />
             </div>

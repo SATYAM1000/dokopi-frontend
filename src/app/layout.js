@@ -17,6 +17,7 @@ import BannerForActiveOrders from "@/components/user/global/Banner";
 import NextTopLoader from "nextjs-toploader";
 import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
 
+
 export default async function RootLayout({ children }) {
   const session = await auth();
   const apiKey = process.env.GOOGLE_MAP_API_KEY;

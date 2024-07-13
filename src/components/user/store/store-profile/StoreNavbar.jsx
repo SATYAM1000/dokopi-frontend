@@ -153,12 +153,16 @@ const StoreNavbar = ({ slug }) => {
               })}
             </TabsList>
             <TabsContent value="overview">
-              <DoKopiStoreOverview
-                storeDetails={data?.data?.data}
-                paginationDetails={data?.data?.pagination}
-                pageNumber={pageNumber}
-                setPageNumber={setPageNumber}
-              />
+              {isLoading ? (
+                <></>
+              ) : (
+                <DoKopiStoreOverview
+                  storeDetails={data?.data?.data}
+                  paginationDetails={data?.data?.pagination}
+                  pageNumber={pageNumber}
+                  setPageNumber={setPageNumber}
+                />
+              )}
             </TabsContent>
             <TabsContent value="upload-files">
               <XeroxStoreFileUploadOption />

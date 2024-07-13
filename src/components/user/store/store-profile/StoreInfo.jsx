@@ -59,9 +59,9 @@ const StoreInfo = ({ storeData }) => {
         </h3>
         <div className="text-sm flex gap-2">
           {storeData?.storeTiming && storeStatus.isOpen ? (
-            <span className="text-green-600 font-medium">Open</span>
+            <span className="text-green-500 font-medium">Open</span>
           ) : (
-            <span className="text-red-600" font-medium>
+            <span className="text-red-500 font-medium">
               Closed
             </span>
           )}

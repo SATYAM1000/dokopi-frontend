@@ -1,13 +1,20 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
-
+import StoreGallerySkelton from "./StoreGallerySkelton";
 
 const StoreGallery = ({ storeData }) => {
   const { storeImagesKeys } = storeData;
+  const [loaded, setLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setLoaded(true);
+  };
 
   return (
     <>
+      {/* Placeholder skeleton */}
+      {!loaded && <StoreGallerySkelton />}
       <div className="w-full h-60 md:hidden">
         <Image
           src={
@@ -20,6 +27,7 @@ const StoreGallery = ({ storeData }) => {
           blurDataURL="/test/blur.jpeg"
           width={1000}
           height={1000}
+          onLoad={handleImageLoad}
         />
       </div>
 
@@ -36,6 +44,7 @@ const StoreGallery = ({ storeData }) => {
             blurDataURL="/test/blur.jpeg"
             alt="store"
             className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg transition duration-700 hover:scale-110"
+            onLoad={handleImageLoad}
           />
         </div>
 
@@ -52,6 +61,7 @@ const StoreGallery = ({ storeData }) => {
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               className="w-full h-full object-cover animate-blurred-fade-in object-center rounded-lg transition duration-700 hover:scale-110"
+              onLoad={handleImageLoad}
             />
           </div>
           <div className="w-full h-2/4 overflow-hidden rounded-lg">
@@ -66,6 +76,7 @@ const StoreGallery = ({ storeData }) => {
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               className="w-full h-full object-cover animate-blurred-fade-in object-center rounded-lg transition duration-700 hover:scale-110"
+              onLoad={handleImageLoad}
             />
           </div>
         </div>
@@ -82,6 +93,7 @@ const StoreGallery = ({ storeData }) => {
               blurDataURL="/test/blur.jpeg"
               alt="store"
               className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg"
+              onLoad={handleImageLoad}
             />
           </div>
           <div className="w-full h-2/4 relative">
@@ -96,6 +108,7 @@ const StoreGallery = ({ storeData }) => {
               blurDataURL="/test/blur.jpeg"
               alt="store"
               className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg"
+              onLoad={handleImageLoad}
             />
           </div>
         </div>

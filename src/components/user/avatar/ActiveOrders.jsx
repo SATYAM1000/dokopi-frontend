@@ -65,7 +65,6 @@ const ActiveOrders = () => {
           return;
         }
 
-        
         setActiveOrders(data?.data);
         setTotalPages(data?.totalPages);
       } catch (error) {
@@ -135,7 +134,7 @@ const ActiveOrders = () => {
                         <Badge
                           className={
                             order?.paymentStatus === "success"
-                              ? "bg-green-500 hover:bg-green-600  "
+                              ? "bg-green-500 capitalize hover:bg-green-600  "
                               : "bg-red-500 hover:bg-red-600  "
                           }
                         >
