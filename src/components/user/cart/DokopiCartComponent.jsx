@@ -24,20 +24,16 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   if (!currentUser) redirect("/auth/sign-in");
 
   const { items, loading, error } = useSelector((state) => state.cart);
-
   const dispatch = useDispatch();
   const [storePricing, setStorePricing] = useState(xeroxStorePricing);
   const [totalPriceForThisOrder, setTotalPriceForThisOrder] = React.useState(0);
-  const [platformFeeForThisOrder, setPlatformFeeForThisOrder] =
-    React.useState(0);
-  const [loader, setLoader] = useState(false);
+  const [platformFeeForThisOrder, setPlatformFeeForThisOrder] = React.useState(0);
+  const [loadingItems, setLoadingItems] = useState({});
 
   const fetchXeroxStorePricing = async () => {
     try {
       const res = await axios.get(
-        `${API_DOMAIN}/api/v1/store/pricing/get/${localStorage.getItem(
-          "storeId"
-        )}`
+        `${API_DOMAIN}/api/v1/store/pricing/get/${localStorage.getItem("storeId")}`
       );
       if (res.data.success) {
         setStorePricing(res.data.data.priceList);
@@ -62,7 +58,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
 
   const handleDeleteItem = async (fileId) => {
     try {
-      setLoader(true);
+      setLoadingItems((prevState) => ({ ...prevState, [fileId]: true }));
       await dispatch(
         deleteCartItem({ userId: currentUser.id, fileId })
       ).unwrap();
@@ -71,7 +67,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       toast.error(error.message);
       console.error("Failed to delete item:", error);
     } finally {
-      setLoader(false);
+      setLoadingItems((prevState) => ({ ...prevState, [fileId]: false }));
     }
   };
 
@@ -114,14 +110,14 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       ) : (
         <div className="w-[100%] relative flex flex-col items-center justify-center">
           {items && items.length > 0 ? (
-            <div className="mt-6 space-y-6 w-[100%]  max-h-[67vh] overflow-hidden rounded-md  overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
-              <ul className="space-y-4  rounded-md flex flex-col gap-4    ">
+            <div className="mt-6 space-y-6 w-[100%] max-h-[67vh] overflow-hidden rounded-md overflow-y-scroll relative hide-scrollbar flex flex-col mb-6 gap-2">
+              <ul className="space-y-4 rounded-md flex flex-col gap-4">
                 {items.map((product) => (
                   <CartFileDetails
                     key={product.id}
                     handleDeleteItem={handleDeleteItem}
                     product={product}
-                    loader={loader}
+                    loader={loadingItems[product.fileId]}
                   />
                 ))}
               </ul>

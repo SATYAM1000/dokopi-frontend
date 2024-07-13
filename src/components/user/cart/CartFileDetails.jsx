@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ClipLoader } from "react-spinners";
 
 const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
+  console.log("loader is ", loader)
   if (!product) return null;
+
+  // Function to convert bytes to a readable format
   function convertBytes(sizeInBytes) {
     const KB = sizeInBytes / 1024;
     const MB = sizeInBytes / (1024 * 1024);
@@ -16,9 +19,10 @@ const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
     }
     return `${sizeInBytes} B`;
   }
+
   return (
     <li className="flex flex-col border border-gray-200 relative p-1 bg-gray-100 rounded-md gap-1 w-full">
-      <div className="w-full flex bg-white p-2 border border-gray-200  rounded-md items-center gap-4">
+      <div className="w-full flex bg-white p-2 border border-gray-200 rounded-md items-center gap-4">
         <Image
           src={product?.iconPath}
           alt={product?.fileName}
@@ -37,9 +41,8 @@ const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
               product?.fileName + "." + product?.fileExtension
             )}
           </h3>
-
           <dl className="mt-0.5 w-full space-y-px text-[12px] text-gray-700">
-            <div className="flex  w-full flex-col ">
+            <div className="flex w-full flex-col">
               <div className="flex items-center gap-4">
                 <dd className="inline font-medium">
                   {convertBytes(product?.fileSize)}
@@ -57,43 +60,37 @@ const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
       </div>
       <div className="w-full flex flex-col p-2 text-[12px] text-gray-600">
         <div className="flex items-center justify-between gap-4">
-          <span className=" font-medium">Paper Size:</span>{" "}
-          <span className=" font-medium ">{product?.paperSize}</span>
+          <span className="font-medium">Paper Size:</span>{" "}
+          <span className="font-medium">{product?.paperSize}</span>
         </div>
-
         <div className="flex items-center justify-between gap-4">
-          <span className=" font-medium">Print Type:</span>{" "}
-          <span className=" font-medium ">{product?.printType}</span>
+          <span className="font-medium">Print Type:</span>{" "}
+          <span className="font-medium">{product?.printType}</span>
         </div>
-
         <div className="flex items-center justify-between gap-4">
-          <span className=" font-medium ">Print Sides:</span>{" "}
-          <span className=" font-medium ">{product?.printSides}</span>
+          <span className="font-medium">Print Sides:</span>{" "}
+          <span className="font-medium">{product?.printSides}</span>
         </div>
-
         {product?.printType === "mixed" && (
           <div className="flex items-center justify-between gap-4">
-            <span className=" font-medium ">Color Type:</span>{" "}
-            <span className=" font-medium ">{product?.mixedPrintType}</span>
+            <span className="font-medium">Color Type:</span>{" "}
+            <span className="font-medium">{product?.mixedPrintType}</span>
           </div>
         )}
         {product?.printType === "mixed" && (
           <div className="flex items-center justify-between gap-4">
-            <span className=" font-medium ">Color Pages:</span>{" "}
-            <span className=" font-medium ">
-              {product?.colorPages.join(", ")}
-            </span>
+            <span className="font-medium">Color Pages:</span>{" "}
+            <span className="font-medium">{product?.colorPages.join(", ")}</span>
           </div>
         )}
-
         {product?.xeroxStoreMessage.length > 0 && (
           <div className="flex flex-col">
-            <span className=" font-medium ">Color Pages:</span>{" "}
-            <span className=" font-medium ">{product?.xeroxStoreMessage}</span>
+            <span className="font-medium">Color Pages:</span>{" "}
+            <span className="font-medium">{product?.xeroxStoreMessage}</span>
           </div>
         )}
       </div>
-      <div className="flex items-center justify-items-end  ">
+      <div className="flex items-center justify-items-end">
         <button className="w-full py-1 outline-none text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
           Edit
         </button>
