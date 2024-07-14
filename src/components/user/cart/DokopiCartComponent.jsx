@@ -15,6 +15,7 @@ import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import {
   deleteCartItem,
+  fetchCartItems,
   updateCartItem,
 } from "@/providers/redux/slices/new-cart-slice";
 import { ClipLoader } from "react-spinners";
@@ -27,13 +28,16 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   const dispatch = useDispatch();
   const [storePricing, setStorePricing] = useState(xeroxStorePricing);
   const [totalPriceForThisOrder, setTotalPriceForThisOrder] = React.useState(0);
-  const [platformFeeForThisOrder, setPlatformFeeForThisOrder] = React.useState(0);
+  const [platformFeeForThisOrder, setPlatformFeeForThisOrder] =
+    React.useState(0);
   const [loadingItems, setLoadingItems] = useState({});
 
   const fetchXeroxStorePricing = async () => {
     try {
       const res = await axios.get(
-        `${API_DOMAIN}/api/v1/store/pricing/get/${localStorage.getItem("storeId")}`
+        `${API_DOMAIN}/api/v1/store/pricing/get/${localStorage.getItem(
+          "storeId"
+        )}`
       );
       if (res.data.success) {
         setStorePricing(res.data.data.priceList);
@@ -71,33 +75,37 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
     }
   };
 
-  const handleUpdateItem = async (fileId) => {
-    const updatedItem = {
-      fileId,
-      fileKey: "key123-updated",
-      fileName: "file123-updated.pdf",
-      fileSize: "3MB",
-      fileExtension: "pdf",
-      pageCount: 12,
-    };
+  const handleUpdateItem = async (fileId, updatedItem) => {
     try {
+      const updatedCartItem = {
+        fileId: updatedItem?.fileId,
+        fileKey: updatedItem?.fileKey,
+        fileName: updatedItem?.fileName,
+        fileExtension: updatedItem?.fileExtension,
+        fileSize: updatedItem?.fileSize,
+        pageCount: updatedItem?.pageCount,
+        copiesCount: updatedItem?.copiesCount,
+        printType: updatedItem?.printType,
+        printSides: updatedItem?.printSides,
+        paperSize: updatedItem?.paperSize,
+        colorPages: updatedItem?.colorPages,
+        mixedPrintType: updatedItem?.mixedPrintType,
+        iconPath: updatedItem?.iconPath,
+        xeroxStoreMessage: updatedItem?.xeroxStoreMessage || "",
+      };
       await dispatch(
-        updateCartItem({ userId, fileId, updatedCartItem: updatedItem })
+        updateCartItem({
+          userId: currentUser.id,
+          fileId,
+          updatedCartItem: updatedCartItem,
+        })
       ).unwrap();
+      dispatch(fetchCartItems(currentUser.id));
+
       toast.success("Item updated successfully!");
     } catch (error) {
       toast.error(error.message);
       console.error("Failed to update item:", error);
-    }
-  };
-
-  const handleClearCart = async () => {
-    try {
-      await dispatch(clearCart(userId)).unwrap();
-      toast.success("Cart cleared successfully!");
-    } catch (error) {
-      toast.error("Failed to clear cart");
-      console.error("Failed to clear cart:", error);
     }
   };
 
@@ -118,6 +126,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
                     handleDeleteItem={handleDeleteItem}
                     product={product}
                     loader={loadingItems[product.fileId]}
+                    handleUpdateItem={handleUpdateItem}
                   />
                 ))}
               </ul>

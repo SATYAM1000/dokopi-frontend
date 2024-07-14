@@ -1,24 +1,25 @@
-import React from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { ClipLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import UpdateFileInfo from "./UpdateFileInfo";
 
-const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
-  console.log("loader is ", loader)
+const CartFileDetails = ({
+  product,
+  handleDeleteItem,
+  loader,
+  handleUpdateItem,
+}) => {
   if (!product) return null;
 
-  // Function to convert bytes to a readable format
-  function convertBytes(sizeInBytes) {
-    const KB = sizeInBytes / 1024;
-    const MB = sizeInBytes / (1024 * 1024);
-    if (MB > 1) {
-      return `${MB.toFixed(2)} MB`;
-    } else if (KB > 1) {
-      return `${KB.toFixed(2)} KB`;
-    }
-    return `${sizeInBytes} B`;
-  }
+  const [uploadedFileInfo, setUploadedFileInfo] = useState(product);
 
   return (
     <li className="flex flex-col border border-gray-200 relative p-1 bg-gray-100 rounded-md gap-1 w-full">
@@ -80,22 +81,43 @@ const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
         {product?.printType === "mixed" && (
           <div className="flex items-center justify-between gap-4">
             <span className="font-medium">Color Pages:</span>{" "}
-            <span className="font-medium">{product?.colorPages.join(", ")}</span>
+            <span className="font-medium">
+              {product?.colorPages.join(", ")}
+            </span>
           </div>
         )}
-        {product?.xeroxStoreMessage.length > 0 && (
+        {product?.xeroxStoreMessage?.length > 0 && (
           <div className="flex flex-col">
             <span className="font-medium">Color Pages:</span>{" "}
             <span className="font-medium">{product?.xeroxStoreMessage}</span>
           </div>
         )}
       </div>
-      <div className="flex items-center justify-items-end">
-        <button className="w-full py-1 outline-none text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
-          Edit
-        </button>
+      <div className="flex items-center justify-between">
+        <Dialog>
+          <DialogTrigger className="w-full focus:outline-none">
+            <button className="w-full py-1   outline-none text-sm bg-white hover:bg-gray-50 rounded border border-gray-200">
+              Edit
+            </button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit File Info</DialogTitle>
+              <DialogDescription>
+                Edit the file information for the selected file.
+              </DialogDescription>
+            </DialogHeader>
+            <UpdateFileInfo
+              uploadedFileInfo={uploadedFileInfo}
+              setUploadedFileInfo={setUploadedFileInfo}
+              product={product}
+              handleUpdateItem={handleUpdateItem}
+            />
+          </DialogContent>
+        </Dialog>
+
         <button
-          className="w-full py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200 flex items-center justify-center"
+          className="w-full  py-1 text-sm bg-white hover:bg-gray-50 rounded border border-gray-200 flex items-center justify-center"
           onClick={() => handleDeleteItem(product?.fileId)}
         >
           {loader ? (
@@ -112,3 +134,14 @@ const CartFileDetails = ({ product, handleDeleteItem, loader }) => {
 };
 
 export default CartFileDetails;
+
+function convertBytes(sizeInBytes) {
+  const KB = sizeInBytes / 1024;
+  const MB = sizeInBytes / (1024 * 1024);
+  if (MB > 1) {
+    return `${MB.toFixed(2)} MB`;
+  } else if (KB > 1) {
+    return `${KB.toFixed(2)} KB`;
+  }
+  return `${sizeInBytes} B`;
+}

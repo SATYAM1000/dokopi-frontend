@@ -7,13 +7,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCartItems,
-  addCartItem,
-  updateCartItem,
-  deleteCartItem,
-  clearCart,
-} from "@/providers/redux/slices/new-cart-slice";
+import { addCartItem } from "@/providers/redux/slices/new-cart-slice";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 import {
@@ -38,10 +32,10 @@ const UploadedFileConfigurations = ({
   const user = useCurrentUser();
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.cart);
-  console.log("items in print config", items);
   const [xeroxStorePricing, setXeroxStorePricing] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [availablePrintSides, setAvailablePrintSides] = useState([]);
+  const [availablePrintTypes, setAvailablePrintTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
 
@@ -127,25 +121,19 @@ const UploadedFileConfigurations = ({
 
       if (response.data.success) {
         setXeroxStorePricing(response.data.data.priceList);
+        updateAvailablePrintTypes(uploadedFileInfo.paperSize);
       }
     } catch (error) {
       console.log("Error fetching store pricing:", error);
     }
   };
 
-  const getUniquePrintTypes = (list) => {
-    const seen = new Set();
-    return list.filter((item) => {
-      const duplicate = seen.has(item.printType);
-      seen.add(item.printType);
-      return !duplicate;
-    });
+  const updateAvailablePrintTypes = (paperSize) => {
+    const filteredPrintTypes = xeroxStorePricing
+      .filter((price) => price.paperSize === paperSize)
+      .map((price) => price.printType);
+    setAvailablePrintTypes([...new Set(filteredPrintTypes)]);
   };
-
-  const uniquePriceList = getUniquePrintTypes(xeroxStorePricing);
-  uniquePriceList.push({
-    printType: "mixed",
-  });
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -153,6 +141,14 @@ const UploadedFileConfigurations = ({
       ...prevInfo,
       [id]: value,
     }));
+  };
+
+  const handlePaperSizeChange = (value) => {
+    setUploadedFileInfo((prevInfo) => ({
+      ...prevInfo,
+      paperSize: value,
+    }));
+    updateAvailablePrintTypes(value);
   };
 
   const handlePrintTypeChange = (value) => {
@@ -165,7 +161,7 @@ const UploadedFileConfigurations = ({
       setAvailablePrintSides(["single_sided", "double_sided"]);
     } else {
       const sides = xeroxStorePricing
-        .filter((price) => price.printType === value)
+        .filter((price) => price.printType === value && price.paperSize === uploadedFileInfo.paperSize)
         .map((price) => price.printingSides);
       setAvailablePrintSides([...new Set(sides)]);
     }
@@ -209,12 +205,7 @@ const UploadedFileConfigurations = ({
             <RadioGroup
               name="paperSize"
               defaultValue="A4"
-              onValueChange={(value) =>
-                setUploadedFileInfo((prevInfo) => ({
-                  ...prevInfo,
-                  paperSize: value,
-                }))
-              }
+              onValueChange={handlePaperSizeChange}
             >
               <div className={`grid grid-cols-2 gap-4`}>
                 <div className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
@@ -253,23 +244,20 @@ const UploadedFileConfigurations = ({
               onValueChange={handlePrintTypeChange}
             >
               <div className={`grid grid-cols-2 gap-4`}>
-                {uniquePriceList.map((item, index) => (
+                {availablePrintTypes.map((printType, index) => (
                   <div
                     key={index}
                     className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer"
                   >
-                    <RadioGroupItem
-                      value={item.printType}
-                      id={item.printType}
-                    />
+                    <RadioGroupItem value={printType} id={printType} />
                     <label
                       className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
-                      htmlFor={item.printType}
+                      htmlFor={printType}
                     >
-                      {item.printType === "black_and_white" && "B/W"}
-                      {item.printType === "simple_color" && "Simple Color"}
-                      {item.printType === "digital_color" && "Digital Color"}
-                      {item.printType === "mixed" && "Mixed"}
+                      {printType === "black_and_white" && "B/W"}
+                      {printType === "simple_color" && "Simple Color"}
+                      {printType === "digital_color" && "Digital Color"}
+                      {printType === "mixed" && "Mixed"}
                     </label>
                   </div>
                 ))}

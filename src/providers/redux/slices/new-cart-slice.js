@@ -70,7 +70,7 @@ export const updateCartItem = createAsyncThunk(
           },
         }
       );
-      return response.data.cartItem;
+      return response.data.cart;
     } catch (error) {
       console.error(
         "Error updating cart item:",
