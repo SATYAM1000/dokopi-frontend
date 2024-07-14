@@ -29,7 +29,7 @@ export default async function RootLayout({ children }) {
         <SessionProvider session={session}>
           <ReactQueryProvider>
             <ReduxProvider>
-              <BannerForActiveOrders />
+              {/* <BannerForActiveOrders /> */}
               <Navbar apiKey={apiKey} />
               {session?.user && session?.user?.phone === null ? (
                 <DoKopiUserPhone />
