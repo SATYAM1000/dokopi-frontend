@@ -66,11 +66,11 @@ const CartFileDetails = ({
         </div>
         <div className="flex items-center justify-between gap-4">
           <span className="font-medium">Print Type:</span>{" "}
-          <span className="font-medium">{product?.printType}</span>
+          <span className="font-medium capitalize">{product?.printType.split('_').join(' ')}</span>
         </div>
         <div className="flex items-center justify-between gap-4">
           <span className="font-medium">Print Sides:</span>{" "}
-          <span className="font-medium">{product?.printSides}</span>
+          <span className="font-medium capitalize">{product?.printSides.split('_').join(' ')}</span>
         </div>
         {product?.printType === "mixed" && (
           <div className="flex items-center justify-between gap-4">

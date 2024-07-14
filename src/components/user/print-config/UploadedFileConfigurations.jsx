@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -42,6 +43,16 @@ const UploadedFileConfigurations = ({
   useEffect(() => {
     fetchXeroxStorePricing();
   }, []);
+
+  useEffect(() => {
+    if (xeroxStorePricing.length > 0) {
+      updateAvailablePrintTypes(uploadedFileInfo.paperSize);
+      updateAvailablePrintSides(
+        uploadedFileInfo.printType,
+        uploadedFileInfo.paperSize
+      );
+    }
+  }, [xeroxStorePricing]);
 
   const validateCartItem = (cartItem) => {
     const requiredFields = [
@@ -135,6 +146,20 @@ const UploadedFileConfigurations = ({
     setAvailablePrintTypes([...new Set(filteredPrintTypes)]);
   };
 
+  const updateAvailablePrintSides = (printType, paperSize) => {
+    if (printType === "mixed") {
+      setAvailablePrintSides(["single_sided", "double_sided"]);
+    } else {
+      const sides = xeroxStorePricing
+        .filter(
+          (price) =>
+            price.printType === printType && price.paperSize === paperSize
+        )
+        .map((price) => price.printingSides);
+      setAvailablePrintSides([...new Set(sides)]);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setUploadedFileInfo((prevInfo) => ({
@@ -147,6 +172,8 @@ const UploadedFileConfigurations = ({
     setUploadedFileInfo((prevInfo) => ({
       ...prevInfo,
       paperSize: value,
+      printType: "", // Clear the selected print type
+      printSides: "", // Clear the selected print sides
     }));
     updateAvailablePrintTypes(value);
   };
@@ -155,16 +182,9 @@ const UploadedFileConfigurations = ({
     setUploadedFileInfo((prevInfo) => ({
       ...prevInfo,
       printType: value,
+      printSides: "", // Clear the selected print sides
     }));
-
-    if (value === "mixed") {
-      setAvailablePrintSides(["single_sided", "double_sided"]);
-    } else {
-      const sides = xeroxStorePricing
-        .filter((price) => price.printType === value && price.paperSize === uploadedFileInfo.paperSize)
-        .map((price) => price.printingSides);
-      setAvailablePrintSides([...new Set(sides)]);
-    }
+    updateAvailablePrintSides(value, uploadedFileInfo.paperSize);
   };
 
   return (
@@ -205,6 +225,7 @@ const UploadedFileConfigurations = ({
             <RadioGroup
               name="paperSize"
               defaultValue="A4"
+              value={uploadedFileInfo.paperSize || "A4"}
               onValueChange={handlePaperSizeChange}
             >
               <div className={`grid grid-cols-2 gap-4`}>
@@ -240,7 +261,7 @@ const UploadedFileConfigurations = ({
             </label>
             <RadioGroup
               name="printType"
-              defaultValue="black_and_white"
+              value={uploadedFileInfo.printType || ""}
               onValueChange={handlePrintTypeChange}
             >
               <div className={`grid grid-cols-2 gap-4`}>
@@ -276,7 +297,7 @@ const UploadedFileConfigurations = ({
               </label>
               <RadioGroup
                 name="printingSides"
-                defaultValue="single_sided"
+                value={uploadedFileInfo.printSides || ""}
                 onValueChange={(value) =>
                   setUploadedFileInfo((prevInfo) => ({
                     ...prevInfo,
