@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import { ClipLoader } from "react-spinners";
@@ -20,6 +21,7 @@ const CartFileDetails = ({
   if (!product) return null;
 
   const [uploadedFileInfo, setUploadedFileInfo] = useState(product);
+  console.log("product is ", product);
 
   return (
     <li className="flex flex-col border border-gray-200 relative p-1 bg-gray-100 rounded-md gap-1 w-full">
@@ -59,40 +61,48 @@ const CartFileDetails = ({
           </dl>
         </div>
       </div>
-      <div className="w-full flex flex-col p-2 text-[12px] text-gray-600">
+      <div className={`w-full flex flex-col p-2 text-[12px] text-gray-600 ${product?.xeroxStoreMessage?.length > 0 ? "border-b border-gray-300" : ""}`}>
         <div className="flex items-center justify-between gap-4">
           <span className="font-medium">Paper Size:</span>{" "}
           <span className="font-medium">{product?.paperSize}</span>
         </div>
         <div className="flex items-center justify-between gap-4">
           <span className="font-medium">Print Type:</span>{" "}
-          <span className="font-medium capitalize">{product?.printType.split('_').join(' ')}</span>
+          <span className="font-medium capitalize">
+            {product?.printType.split("_").join(" ")}
+          </span>
         </div>
         <div className="flex items-center justify-between gap-4">
           <span className="font-medium">Print Sides:</span>{" "}
-          <span className="font-medium capitalize">{product?.printSides.split('_').join(' ')}</span>
+          <span className="font-medium capitalize">
+            {product?.printSides.split("_").join(" ")}
+          </span>
         </div>
-        {product?.printType === "mixed" && (
+        {product?.printType === "mixed" && product?.mixedPrintType && (
           <div className="flex items-center justify-between gap-4">
             <span className="font-medium">Color Type:</span>{" "}
-            <span className="font-medium">{product?.mixedPrintType}</span>
+            <span className="font-medium">
+              {product?.mixedPrintType.split("_").join(" ")}
+            </span>
           </div>
         )}
         {product?.printType === "mixed" && (
           <div className="flex items-center justify-between gap-4">
             <span className="font-medium">Color Pages:</span>{" "}
             <span className="font-medium">
-              {product?.colorPages.join(", ")}
+              {product?.colorPages
+                ? [...product.colorPages].sort().join(", ")
+                : ""}
             </span>
           </div>
         )}
-        {product?.xeroxStoreMessage?.length > 0 && (
-          <div className="flex flex-col">
-            <span className="font-medium">Color Pages:</span>{" "}
-            <span className="font-medium">{product?.xeroxStoreMessage}</span>
-          </div>
-        )}
       </div>
+      {product?.xeroxStoreMessage?.length > 0 && (
+        <div className="flex flex-col text-[12px] text-gray-600 px-2 py-1">
+          <span className="font-medium">Message:</span>{" "}
+          <span className="font-medium">{product?.xeroxStoreMessage}</span>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Dialog>
           <DialogTrigger className="w-full focus:outline-none">
