@@ -3,6 +3,7 @@ import { connectToDB } from "./lib/db.connect.js";
 import { User } from "./lib/user.model.js";
 import mongoose from "mongoose";
 import authConfig from "./auth.config";
+import { Order } from "./lib/order.model.js";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/sign-in",
@@ -43,6 +44,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.image = token.picture || token.image;
         session.user.role = token.role;
         session.user.phone = token.phone || null;
+        session.user.isOrderActive = token.isOrderActive;
       }
 
       return session;
@@ -56,11 +58,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           _id: token.sub,
         });
         if (!user) return token;
+        const isOrderActive = await Order.find({
+          userId: token.sub,
+          isOrderActive: true,
+          paymentStatus: "success",
+          orderStatus: {
+            $in: ["rejected", "pending", "processing", "printed"],
+          },
+        });
+
         token.role = user.role;
         token.name = user.name;
         token.email = user.email;
         token.image = user.image;
         token.phone = user?.phone || null;
+        token.isOrderActive = isOrderActive?.length > 0;
       }
       return token;
     },

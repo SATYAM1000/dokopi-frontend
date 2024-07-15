@@ -26,7 +26,7 @@ import {
 import { ClipLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { Check, Clock1, Copy, Loader, X } from "lucide-react";
+import { Check, Copy, X } from "lucide-react";
 import { toast } from "sonner";
 
 import {

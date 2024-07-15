@@ -23,38 +23,13 @@ import { useRouter } from "next/navigation";
 
 const UserAvatar = () => {
   const [showLoader, setShowLoader] = useState(false);
-  const [hasActiveOrders, setHasActiveOrders] = useState(false);
+
   const currentUser = useCurrentUser();
+  const [hasActiveOrders, setHasActiveOrders] = useState(
+    currentUser?.isOrderActive || false
+  );
   const router = useRouter();
   if (!currentUser) return null;
-
-  const fetchUserActiveOrders = async () => {
-    try {
-      const accessToken = await fetchAccessToken();
-      const response = await axios.get(
-        `${API_DOMAIN}/api/v1/user/orders/active`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      const { data } = response;
-      if (data?.success) {
-        setHasActiveOrders(true);
-      } else {
-        setHasActiveOrders(false);
-      }
-    } catch (error) {
-      setHasActiveOrders(false);
-    }
-  };
-
-  useEffect(() => {
-    if (currentUser) {
-      fetchUserActiveOrders();
-    }
-  }, []);
 
   const onActiveTabClick = () => {
     router.replace("/active-orders");
