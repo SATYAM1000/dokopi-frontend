@@ -10,6 +10,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PaymentSuccessPage = () => {
   const currentUser = useCurrentUser();
+  if (!currentUser) return null;
   const [loading, setLoading] = React.useState(true);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   useEffect(() => {
@@ -39,8 +40,8 @@ const PaymentSuccessPage = () => {
         return;
       }
     };
-    verifyPayment();
-  }, []);
+    if (currentUser) verifyPayment();
+  }, [currentUser]);
   return (
     <div className="h-[calc(100vh-70px)] bg-gray-100  md:h-[calc(100vh-80px)] flex items-center justify-center bg-grid-black/[0.05]">
       <div
