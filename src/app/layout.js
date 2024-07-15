@@ -13,10 +13,9 @@ export const metadata = {
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import BannerForActiveOrders from "@/components/user/global/Banner";
 import NextTopLoader from "nextjs-toploader";
-import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
-
+import dynamic from "next/dynamic";
+const DoKopiUserPhone = dynamic(() => import("@/components/user/auth/DoKopiUserPhone"));
 
 export default async function RootLayout({ children }) {
   const session = await auth();
@@ -29,7 +28,6 @@ export default async function RootLayout({ children }) {
         <SessionProvider session={session}>
           <ReactQueryProvider>
             <ReduxProvider>
-              {/* <BannerForActiveOrders /> */}
               <Navbar apiKey={apiKey} />
               {session?.user && session?.user?.phone === null ? (
                 <DoKopiUserPhone />

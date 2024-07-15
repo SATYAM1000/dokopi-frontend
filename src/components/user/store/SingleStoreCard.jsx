@@ -37,6 +37,7 @@ const SingleStoreCard = ({ storeData, location }) => {
               }
               width={600}
               height={400}
+              priority={true}
               alt="store"
               className="h-[245px] object-cover object-center rounded-lg animate-blurred-fade-in"
             />
@@ -120,5 +121,3 @@ const SingleStoreCard = ({ storeData, location }) => {
 };
 
 export default SingleStoreCard;
-
-
