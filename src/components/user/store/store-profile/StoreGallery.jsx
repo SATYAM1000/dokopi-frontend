@@ -13,7 +13,6 @@ const StoreGallery = ({ storeData }) => {
 
   return (
     <>
-      {/* Placeholder skeleton */}
       {!loaded && <StoreGallerySkelton />}
       <div className="w-full h-60 md:hidden">
         <Image

@@ -8,6 +8,11 @@ const StoreContainer = dynamic(() =>
   import("@/components/user/store/StoreContainer")
 );
 
+export const metadata={
+  title:"Xerox Stores",
+  description:"Print with ease. Anywhere. Anytime."
+}
+
 export default async function StoresPage() {
   return (
     <section className="w-full h-auto">
