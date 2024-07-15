@@ -181,11 +181,17 @@ const UpdateFileInfo = ({
           <Input
             id="updatedCopiesCount"
             type="number"
+            name="copiesCount"
             min="1"
             defaultValue={uploadedFileInfo.copiesCount || ""}
             required={true}
             className="w-full border border-gray-200 rounded-sm h-[40px] pl-2"
-            onChange={handleInputChange}
+            onChange={(e) => {
+              setUploadedFileInfo((prevInfo) => ({
+                ...prevInfo,
+                copiesCount: e.target.value,
+              }));
+            }}
           />
         </div>
 
