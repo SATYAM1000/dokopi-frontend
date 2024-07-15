@@ -30,7 +30,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           <div className="w-full h-full">
             <Image
               src={
-                storeData?.storeImagesKeys
+                storeData?.storeImagesKeys?.length>0
                   ? `https://d28fpa5kkce5uk.cloudfront.net/${storeData?.storeImagesKeys[0]}`
                   : "/test/blur.jpeg"
               }

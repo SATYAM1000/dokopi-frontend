@@ -13,7 +13,7 @@ const DoKopiStoreShop = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 200);
   }, []);
   return (
     <section className="w-full mt-6 min-h-[calc(100vh-250px)]">

@@ -21,7 +21,7 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
   const handlePhonePePaymentClick = async () => {
     try {
       setLoading(true);
-      setIsCartOpen(false);
+
       if (!currentUser) {
         toast.error("Please login to continue");
         setLoading(false);
@@ -73,6 +73,7 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
       toast.error(error.response?.data?.msg || "Something went wrong");
     } finally {
       setLoading(false);
+      setIsCartOpen(false);
     }
   };
 
@@ -87,7 +88,7 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
         >
           Proceed to Payment
           {loading ? (
-            <ClipLoader color="#000" size={17} className="mr-6" />
+            <ClipLoader color="#4f46e5" size={17} className="ml-6" />
           ) : (
             <>&nbsp;&nbsp;&nbsp;&rarr;</>
           )}
