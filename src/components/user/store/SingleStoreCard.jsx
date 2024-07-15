@@ -1,5 +1,4 @@
 import React from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
@@ -38,6 +37,8 @@ const SingleStoreCard = ({ storeData, location }) => {
               width={600}
               height={400}
               priority={true}
+              placeholder="blur"
+              blurDataURL="/test/blur.jpeg"
               alt="store"
               className="h-[245px] object-cover object-center rounded-lg animate-blurred-fade-in"
             />
