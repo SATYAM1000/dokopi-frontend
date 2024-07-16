@@ -20,6 +20,7 @@ const MapView = dynamic(() => import("./MapView"), { ssr: false });
 
 const DoKopiStoreOverview = ({
   storeDetails,
+  prices,
   paginationDetails,
   pageNumber,
   setPageNumber,
@@ -55,7 +56,7 @@ const DoKopiStoreOverview = ({
               </p>
             </div>
             <div className="w-full h-fit rounded-md">
-              <PricingTable storeData={storeDetails} />
+              <PricingTable prices={prices} />
             </div>
           </div>
 
@@ -64,7 +65,7 @@ const DoKopiStoreOverview = ({
               Reviews
             </h2>
 
-            <ReviewsContainer storeReviews={storeReviews} />
+            {/* <ReviewsContainer storeReviews={storeReviews} /> */}
 
             {storeReviews.length > 4 && (
               <Pagination className={"my-6"}>

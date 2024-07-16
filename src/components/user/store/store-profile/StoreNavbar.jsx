@@ -158,6 +158,7 @@ const StoreNavbar = ({ slug }) => {
               ) : (
                 <DoKopiStoreOverview
                   storeDetails={data?.data?.data}
+                  prices={data?.data?.prices}
                   paginationDetails={data?.data?.pagination}
                   pageNumber={pageNumber}
                   setPageNumber={setPageNumber}
