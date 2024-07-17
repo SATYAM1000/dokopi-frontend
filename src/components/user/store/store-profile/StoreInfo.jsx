@@ -3,12 +3,13 @@
 import React from "react";
 import { TiPlus, TiStarFullOutline } from "react-icons/ti";
 import { getStoreStatus } from "@/lib/get-store-status";
+import { CalculateRating } from "@/lib/CalculateRating";
 
-const StoreInfo = ({ storeData }) => {
-  const { storeDetails} = storeData;
+const StoreInfo = ({ storeData, storeReviews }) => {
+  const { storeDetails } = storeData;
   const { storeLocation } = storeDetails;
- 
-
+  console.log(storeReviews)
+  const rating = CalculateRating(storeReviews)
   const storeStatus =
     storeData?.storeTiming && getStoreStatus(storeData?.storeTiming || null);
 
@@ -16,9 +17,8 @@ const StoreInfo = ({ storeData }) => {
     const [hours, minutes] = time.split(":").map(Number);
     const period = hours >= 12 ? "PM" : "AM";
     const formattedHours = hours % 12 || 12;
-    return `${formattedHours}:${
-      minutes < 10 ? `0${minutes}` : minutes
-    } ${period}`;
+    return `${formattedHours}:${minutes < 10 ? `0${minutes}` : minutes
+      } ${period}`;
   };
 
   return (
@@ -40,7 +40,7 @@ const StoreInfo = ({ storeData }) => {
           </div>
           <div className="flex items-center gap-2">
             <span className="flex rounded items-center gap-1 text-white font-medium bg-indigo-600 px-2 py-1">
-              {4.5} <TiStarFullOutline />
+              {rating} <TiStarFullOutline />
             </span>
             <span>
               <p className="border-dashed border-b border-gray-500">Rating</p>
@@ -75,7 +75,7 @@ const StoreInfo = ({ storeData }) => {
               <p className="text-gray-600 text-[14px] font-medium block truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
-                storeStatus.nextOpenTime.includes("at")
+                  storeStatus.nextOpenTime.includes("at")
                   ? storeStatus.nextOpenTime
                   : `at ${formatTime(storeStatus.nextOpenTime)}`}
               </p>
