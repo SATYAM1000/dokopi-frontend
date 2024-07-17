@@ -33,7 +33,7 @@ const DoKopiStoreOverview = ({
   return (
     <section className="w-full mt-6 min-h-screen flex flex-col gap-5">
       <StoreGallery storeData={storeDetails} />
-      <StoreInfo storeData={storeDetails} />
+      <StoreInfo storeData={storeDetails} storeReviews={storeReviews}/>
       <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-12">
         <div className="w-full md:w-2/6">
           {!storeDetails ? (
@@ -59,13 +59,15 @@ const DoKopiStoreOverview = ({
               <PricingTable prices={prices} />
             </div>
           </div>
+          {/* ----------Review--------------- */}
 
           <div className="w-full">
             <h2 className="text-xl mb-3 flex flex-col md:block font-medium">
               Reviews
             </h2>
 
-            {/* <ReviewsContainer storeReviews={storeReviews} /> */}
+            <ReviewsContainer storeReviews={storeReviews} />
+
 
             {storeReviews.length > 4 && (
               <Pagination className={"my-6"}>

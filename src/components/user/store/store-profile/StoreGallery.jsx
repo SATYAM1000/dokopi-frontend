@@ -30,12 +30,13 @@ const StoreGallery = ({ storeData }) => {
         />
       </div>
 
+
       <div className="hidden w-full h-96 md:flex gap-1">
         <div className="w-full h-full overflow-hidden rounded-lg">
           <Image
             src={
-              `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[0]}` ||
-              "https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+              storeImagesKeys[0] ? `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[0]}`
+                : "https://images.unsplash.com/photo-1509641498745-13c26fd1ed89?dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
             }
             width={1000}
             height={1000}
@@ -51,8 +52,9 @@ const StoreGallery = ({ storeData }) => {
           <div className="w-full h-2/4 overflow-hidden rounded-lg">
             <Image
               src={
-                `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[1]}` ||
-                "/test/blur.jpeg"
+                storeImagesKeys[1] ? `
+                https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[1]}` :
+                  "/test/blur.jpeg"
               }
               alt="store"
               width={350}
@@ -66,8 +68,9 @@ const StoreGallery = ({ storeData }) => {
           <div className="w-full h-2/4 overflow-hidden rounded-lg">
             <Image
               src={
-                `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[2]}` ||
-                "/test/blur.jpeg"
+                storeImagesKeys[2] ? `
+                https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[2]}` :
+                  "/test/blur.jpeg"
               }
               alt="store"
               width={350}
@@ -85,8 +88,9 @@ const StoreGallery = ({ storeData }) => {
               width={350}
               height={350}
               src={
-                `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[3]}` ||
-                "/test/blur.jpeg"
+                storeImagesKeys[3] ? `
+                https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[3]}` :
+                  "/test/blur.jpeg"
               }
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
@@ -100,8 +104,9 @@ const StoreGallery = ({ storeData }) => {
               width={400}
               height={400}
               src={
-                `https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[4]}` ||
-                "/test/blur.jpeg"
+                storeImagesKeys[4] ? `
+                https://d28fpa5kkce5uk.cloudfront.net/${storeImagesKeys[4]}` :
+                  "/test/blur.jpeg"
               }
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
@@ -112,6 +117,7 @@ const StoreGallery = ({ storeData }) => {
           </div>
         </div>
       </div>
+
     </>
   );
 };
