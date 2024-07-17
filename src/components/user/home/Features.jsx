@@ -1,4 +1,4 @@
-"use client";
+
 import { CloudUpload } from "lucide-react";
 import { Store } from "lucide-react";
 import { SquareMenu } from "lucide-react";
@@ -21,7 +21,7 @@ const DoKopiFeatures = () => {
         </div>
 
         <div className="grid grid-cols-1 mt-10 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-0 xl:mt-24">
-          <div className="p-4 md:p-8 lg:p-14 hover:bg-indigo-100 transition-all ">
+          <div className="p-4 md:p-8 lg:p-14 hover:bg-indigo-50 transition-all ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -38,7 +38,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow  ">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -54,7 +54,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className=" p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-100 transition-all">
+          <div className=" p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -71,7 +71,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-indigo-100 transition-all ">
+          <div className="p-4 md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-indigo-50 transition-all ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -88,7 +88,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -104,7 +104,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-100 transition-all">
+          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50 transition-all">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}

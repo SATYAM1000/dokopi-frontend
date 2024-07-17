@@ -1,7 +1,4 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import { FaTelegramPlane } from "react-icons/fa";
 import { MoveRight } from 'lucide-react';
 
 

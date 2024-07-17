@@ -1,8 +1,7 @@
-"use client";
 import React from "react";
-import { CloudUpload } from "lucide-react";
-import { Printer } from "lucide-react";
-import { CheckCheck } from "lucide-react";
+import { CloudUpload, Printer, CheckCheck } from "lucide-react";
+import Image from "next/image";
+
 
 const HowItWorks = () => {
   return (
@@ -20,10 +19,12 @@ const HowItWorks = () => {
 
         <div className="relative mt-12 lg:mt-20">
           <div className="absolute inset-x-0 hidden xl:px-44 top-2 md:block md:px-20 lg:px-28">
-            <img
+            <Image
               className="w-full"
               src="https://cdn.rareblocks.xyz/collection/celebration/images/steps/2/curved-dotted-line.svg"
-              alt=""
+              width={1000}
+              height={1000}
+              alt="svg"
             />
           </div>
 

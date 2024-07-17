@@ -24,7 +24,7 @@ const DoKopiSignIn = () => {
     startTransition(() => {
       setShowLoader(true);
       signIn("google", {
-        callbackUrl: "/",
+        callbackUrl: "/stores",
       }).finally(() => {
         setShowLoader(false);
       });
