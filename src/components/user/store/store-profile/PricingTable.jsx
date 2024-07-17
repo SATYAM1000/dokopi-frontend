@@ -65,7 +65,7 @@ const PricingTable = ({ prices }) => {
                   <TableHead
                     key={index}
                     scope="col"
-                    className=" whitespace-nowrap text-left text-xs font-black text-gray-500 uppercase tracking-wider"
+                    className=" whitespace-nowrap text-left text-xs  text-gray-500 uppercase tracking-wider"
                   >
                     {option.heading}
                   </TableHead>
