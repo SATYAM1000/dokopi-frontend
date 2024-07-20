@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import StoreGallery from "./StoreGallery";
 import StoreInfo from "./StoreInfo";
 import {
   Pagination,
@@ -16,7 +15,9 @@ import ReviewsContainer from "./ReviewsContainer";
 import PricingTable from "./PricingTable";
 import dynamic from "next/dynamic";
 
-const MapView = dynamic(() => import("./MapView"), { ssr: false });
+import StoreGallerySkelton from "./StoreGallerySkelton";
+const StoreGallery = dynamic(() => import("./StoreGallery"), { ssr: false, loading: () => <StoreGallerySkelton /> });
+const MapView = dynamic(() => import("./MapView"), { ssr: false, loading: () => <MapViewSkelton /> });
 
 const DoKopiStoreOverview = ({
   storeDetails,

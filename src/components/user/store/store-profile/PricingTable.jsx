@@ -40,6 +40,7 @@ const HeaderOptions = [
 ];
 
 const PricingTable = ({ prices }) => {
+  console.log("store prices are ", prices)
   if (!prices)
     return (
       <div className=" flex flex-col text-gray-500 gap-1 overflow-hidden">

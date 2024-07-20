@@ -1,16 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DoKopiStoreOverview from "./DoKopiStoreOverview";
-import DoKopiFileUpload from "./DoKopiFileUpload";
-import DoKopiStoreShop from "./DoKopiStoreShop";
 import Wrapper from "../../global/Wrapper";
 import { useQuery } from "@tanstack/react-query";
-import ErrorComponent from "../../global/Error";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { ClipLoader } from "react-spinners";
-import XeroxStoreFileUploadOption from "../../print-config/XeroxStoreFileUploadOption";
+import dynamic from "next/dynamic";
+
+const XeroxStoreFileUploadOption = dynamic(() =>
+  import("../../print-config/XeroxStoreFileUploadOption")
+);
+import DoKopiStoreOverview from "./DoKopiStoreOverview";
+// const DoKopiStoreOverview = dynamic(() => import("./DoKopiStoreOverview"));
+const DoKopiStoreShop = dynamic(() => import("./DoKopiStoreShop"));
+const ErrorComponent = dynamic(() => import("../../global/Error"));
 
 const NavbarMenuList = [
   {
