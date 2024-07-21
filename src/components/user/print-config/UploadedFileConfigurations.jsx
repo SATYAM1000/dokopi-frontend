@@ -83,7 +83,6 @@ const UploadedFileConfigurations = ({
 
   const handleAddItem = async () => {
     try {
-      console.log("set uploaded file info add component ", uploadedFileInfo);
       setIsLoading(true);
       if (validateCartItem(uploadedFileInfo)) {
         await dispatch(
