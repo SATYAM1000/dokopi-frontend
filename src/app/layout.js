@@ -32,6 +32,11 @@ export default async function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://api.dokopi.com" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
         <link rel="dns-prefetch" href="https://d28fpa5kkce5uk.cloudfront.net" />
+
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://api.dokopi.com" />
+        <link rel="preconnect" href="https://lh3.googleusercontent.com" />
+        <link rel="preconnect" href="https://d28fpa5kkce5uk.cloudfront.net" />
       </head>
       <body className={archivo.className}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
