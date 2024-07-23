@@ -15,6 +15,7 @@ import { MoveRight } from "lucide-react";
 import axios from "axios";
 import { fetchAccessToken } from "@/actions/access-token";
 import { toast } from "sonner";
+import { API_DOMAIN } from "@/lib/constants";
 
 const DoKopiUserPhone = () => {
   const [showLoader, setShowLoader] = useState(false);
@@ -35,7 +36,7 @@ const DoKopiUserPhone = () => {
 
       if (validatePhoneNumber(phoneNumber)) {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_DOMAIN}/api/v1/user/phone`,
+          `${API_DOMAIN}/api/v1/user/phone`,
           { phoneNumber },
           {
             headers: {
