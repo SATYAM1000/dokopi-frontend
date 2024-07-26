@@ -14,23 +14,39 @@ export const calculateTotalPrice = (cartItems, storePrices) => {
     if (!totalPages[item.paperSize]) {
       totalPages[item.paperSize] = {};
     }
-    if (item.printType === "mixed" && item.colorPages && item.colorPages.length > 0) {
+    if (
+      item.printType === "mixed" &&
+      item.colorPages &&
+      item.colorPages.length > 0
+    ) {
       if (!totalPages[item.paperSize][item.mixedPrintType]) {
-        totalPages[item.paperSize][item.mixedPrintType] = { single_sided: 0, double_sided: 0 };
+        totalPages[item.paperSize][item.mixedPrintType] = {
+          single_sided: 0,
+          double_sided: 0,
+        };
       }
       item.colorPages.forEach((page) => {
         const pageCount = item.copiesCount;
-        totalPages[item.paperSize][item.mixedPrintType][item.printSides] += pageCount;
+        totalPages[item.paperSize][item.mixedPrintType][item.printSides] +=
+          pageCount;
         if (!totalPages[item.paperSize]["black_and_white"]) {
-          totalPages[item.paperSize]["black_and_white"] = { single_sided: 0, double_sided: 0 };
+          totalPages[item.paperSize]["black_and_white"] = {
+            single_sided: 0,
+            double_sided: 0,
+          };
         }
-        totalPages[item.paperSize]["black_and_white"][item.printSides] += (item.pageCount - item.colorPages.length) * item.copiesCount;
+        totalPages[item.paperSize]["black_and_white"][item.printSides] +=
+          (item.pageCount - item.colorPages.length) * item.copiesCount;
       });
     } else {
       if (!totalPages[item.paperSize][item.printType]) {
-        totalPages[item.paperSize][item.printType] = { single_sided: 0, double_sided: 0 };
+        totalPages[item.paperSize][item.printType] = {
+          single_sided: 0,
+          double_sided: 0,
+        };
       }
-      totalPages[item.paperSize][item.printType][item.printSides] += item.pageCount * item.copiesCount;
+      totalPages[item.paperSize][item.printType][item.printSides] +=
+        item.pageCount * item.copiesCount;
     }
   });
 
@@ -38,7 +54,10 @@ export const calculateTotalPrice = (cartItems, storePrices) => {
 
   const calculateCharge = (paperSize, printType, printSides, pageCount) => {
     const relevantStorePrices = storePrices.filter(
-      (item) => item.paperSize === paperSize && item.printType === printType && item.printingSides === printSides
+      (item) =>
+        item.paperSize === paperSize &&
+        item.printType === printType &&
+        item.printingSides === printSides
     );
 
     relevantStorePrices.forEach((item) => {
@@ -73,7 +92,7 @@ export const calculateTotalPrice = (cartItems, storePrices) => {
   console.log("totalCharge is ", totalCharge);
 
   return {
-    totalCharge: totalCharge,
+    totalCharge: Math.ceil(totalCharge),
     platformCharge: platformCharge,
   };
 };
