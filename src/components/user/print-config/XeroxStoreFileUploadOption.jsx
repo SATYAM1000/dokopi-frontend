@@ -11,7 +11,6 @@ const XeroxStoreFileUploadOption = () => {
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
   const [isFileUploading, setIsFileUploading] = useState(false);
-  const [showShakingAnimation, setShowShakingAnimation] = useState(false);
   const [uploadedFileInfo, setUploadedFileInfo, resetUploadedFileInfo] =
     useUploadedFileInfo();
 

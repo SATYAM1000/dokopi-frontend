@@ -19,6 +19,7 @@ const UpdateFileInfo = ({
   const [xeroxStorePricing, setXeroxStorePricing] = useState([]);
   const [availablePrintSides, setAvailablePrintSides] = useState([]);
   const [availablePrintTypes, setAvailablePrintTypes] = useState([]);
+  const [availablePaperSizes, setAvailablePaperSizes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -34,8 +35,14 @@ const UpdateFileInfo = ({
     if (xeroxStorePricing.length > 0) {
       updateAvailablePrintTypes(uploadedFileInfo.paperSize);
       updateAvailablePrintSides(uploadedFileInfo.printType);
+      updateAvailablePaperSizes();
     }
   }, [xeroxStorePricing]);
+
+  const updateAvailablePaperSizes = () => {
+    const paperSizes = xeroxStorePricing.map((price) => price.paperSize);
+    setAvailablePaperSizes([...new Set(paperSizes)]);
+  };
 
   useEffect(() => {
     setIsButtonEnabled(
@@ -53,6 +60,7 @@ const UpdateFileInfo = ({
 
       if (response.data.success) {
         setXeroxStorePricing(response.data.data.priceList);
+        console.log("pricing in update: ", response.data.data.priceList);
       }
     } catch (error) {
       console.error("Error fetching store pricing:", error);
@@ -210,7 +218,7 @@ const UpdateFileInfo = ({
             onValueChange={handlePaperSizeChange}
           >
             <div className="grid grid-cols-2 gap-4">
-              {["A4", "A3"].map((size) => (
+              {availablePaperSizes.map((size) => (
                 <div
                   key={size}
                   className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer"

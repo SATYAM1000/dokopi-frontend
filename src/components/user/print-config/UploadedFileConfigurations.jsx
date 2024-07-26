@@ -39,6 +39,8 @@ const UploadedFileConfigurations = ({
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [availablePrintSides, setAvailablePrintSides] = useState([]);
   const [availablePrintTypes, setAvailablePrintTypes] = useState([]);
+  const [availablePaperSizes, setAvailablePaperSizes] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
   const [loaderForPriceFetching, setLoaderForPriceFetching] = useState(true);
@@ -55,6 +57,7 @@ const UploadedFileConfigurations = ({
         uploadedFileInfo.printType,
         uploadedFileInfo.paperSize
       );
+      updateAvailablePaperSizes();
     }
   }, [xeroxStorePricing]);
 
@@ -81,6 +84,11 @@ const UploadedFileConfigurations = ({
     return true;
   };
 
+  const updateAvailablePaperSizes = () => {
+    const paperSizes = xeroxStorePricing.map((price) => price.paperSize);
+    setAvailablePaperSizes([...new Set(paperSizes)]);
+  };
+
   const handleAddItem = async () => {
     try {
       setIsLoading(true);
@@ -91,6 +99,7 @@ const UploadedFileConfigurations = ({
 
         toast.success("File added to cart");
         resetUploadedFileInfo();
+
         setIsFileUploadedSuccessfully(false);
       } else {
         toast.error("Please fill all the required fields");
@@ -260,24 +269,17 @@ const UploadedFileConfigurations = ({
                 onValueChange={handlePaperSizeChange}
               >
                 <div className={`grid grid-cols-2 gap-4`}>
-                  <div className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
-                    <RadioGroupItem value="A4" id="A4" />
-                    <label
-                      className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
-                      htmlFor="A4"
-                    >
-                      A4
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
-                    <RadioGroupItem value="A3" id="A3" />
-                    <label
-                      className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
-                      htmlFor="A3"
-                    >
-                      A3
-                    </label>
-                  </div>
+                  {availablePaperSizes.map((paperSize) => (
+                    <div className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
+                      <RadioGroupItem value={paperSize} id={paperSize} />
+                      <label
+                        className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
+                        htmlFor={paperSize}
+                      >
+                        {paperSize}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </RadioGroup>
             </div>
