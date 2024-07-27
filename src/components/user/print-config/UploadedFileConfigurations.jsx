@@ -59,7 +59,7 @@ const UploadedFileConfigurations = ({
       );
       updateAvailablePaperSizes();
     }
-  }, [xeroxStorePricing]);
+  }, [xeroxStorePricing, uploadedFileInfo]);
 
   const validateCartItem = (cartItem) => {
     const requiredFields = [
@@ -97,7 +97,9 @@ const UploadedFileConfigurations = ({
           addCartItem({ userId: user.id, cartItem: uploadedFileInfo })
         ).unwrap();
 
-        toast.success("File added to cart");
+        toast.success("File added to cart", {
+          duration: 500,
+        });
         resetUploadedFileInfo();
 
         setIsFileUploadedSuccessfully(false);
@@ -162,7 +164,9 @@ const UploadedFileConfigurations = ({
 
     // Ensure "mixed" is always available
     const printTypes = new Set(filteredPrintTypes);
-    printTypes.add("mixed");
+    if (uploadedFileInfo?.pageCount > 1) {
+      printTypes.add("mixed");
+    }
 
     setAvailablePrintTypes([...printTypes]);
   };
@@ -227,7 +231,9 @@ const UploadedFileConfigurations = ({
   return (
     <>
       {loaderForPriceFetching ? (
-        <FileConfigurationSkelton />
+        <div className="w-full h-full flex items-center justify-center">
+          <ClipLoader color="blue" size={16} />
+        </div>
       ) : (
         <div className={`min-h-32 rounded-lg border border-gray-200 p-4`}>
           <p className="font-semibold text-gray-700">Printing Preferences</p>

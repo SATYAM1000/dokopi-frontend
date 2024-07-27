@@ -15,7 +15,7 @@ const XeroxStoreFileUploadOption = () => {
     useUploadedFileInfo();
 
   return (
-    <section className="w-full mt-6 md:mt-6">
+    <section className="w-full mt-6 md:mt-6 ">
       <section className="w-full">
         <div className="h-auto">
           <main className="h-full">

@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ExternalLink } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { icon } from "leaflet";
 import Link from "next/link";
-import MapViewSkelton from "./MapViewSkelton";
 
 const ICON = icon({
   iconUrl: "/main/marker.png",

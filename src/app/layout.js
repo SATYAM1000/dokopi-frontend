@@ -15,7 +15,7 @@ import { auth } from "@/auth";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import NextTopLoader from "nextjs-toploader";
 import dynamic from "next/dynamic";
-import Head from "next/head";
+
 
 const DoKopiUserPhone = dynamic(() =>
   import("@/components/user/auth/DoKopiUserPhone")

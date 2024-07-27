@@ -12,7 +12,7 @@ const XeroxStoreFileUploadOption = dynamic(() =>
   import("../../print-config/XeroxStoreFileUploadOption")
 );
 import DoKopiStoreOverview from "./DoKopiStoreOverview";
-// const DoKopiStoreOverview = dynamic(() => import("./DoKopiStoreOverview"));
+
 const DoKopiStoreShop = dynamic(() => import("./DoKopiStoreShop"));
 const ErrorComponent = dynamic(() => import("../../global/Error"));
 
@@ -131,7 +131,7 @@ const StoreNavbar = ({ slug }) => {
   }
 
   return (
-    <section className="w-full">
+    <section className="w-full min-h-[calc(100vh-120px)]">
       <Wrapper>
         {isLoading ? (
           <div className="w-full h-[calc(100vh-120px)] flex items-center justify-center">
