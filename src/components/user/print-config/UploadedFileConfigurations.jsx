@@ -24,7 +24,6 @@ import DokopiCartComponent from "../cart/DokopiCartComponent";
 
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
-import FileConfigurationSkelton from "./FileConfigurationSkelton";
 
 const UploadedFileConfigurations = ({
   uploadedFileInfo,
@@ -101,7 +100,6 @@ const UploadedFileConfigurations = ({
           duration: 500,
         });
         resetUploadedFileInfo();
-
         setIsFileUploadedSuccessfully(false);
       } else {
         toast.error("Please fill all the required fields");
@@ -151,7 +149,7 @@ const UploadedFileConfigurations = ({
         updateAvailablePrintTypes(uploadedFileInfo.paperSize);
       }
     } catch (error) {
-      console.log("Error fetching store pricing:", error);
+      console.error("Error fetching store pricing:", error);
     } finally {
       setLoaderForPriceFetching(false);
     }
@@ -224,7 +222,6 @@ const UploadedFileConfigurations = ({
       setErrorForPageNumberInput(res.msg);
       return;
     }
-    console.log("res is from page selection ", res.data);
     setUploadedFileInfo((prev) => ({ ...prev, colorPages: res.data }));
   };
 
@@ -253,7 +250,7 @@ const UploadedFileConfigurations = ({
                 id="copiesCount"
                 type="number"
                 min="1"
-                defaultValue="1"
+                value={uploadedFileInfo.copiesCount || 1}
                 required={true}
                 className="w-full border border-gray-200 rounded-sm h-[40px] pl-2"
                 onChange={handleInputChange}
@@ -275,8 +272,8 @@ const UploadedFileConfigurations = ({
                 onValueChange={handlePaperSizeChange}
               >
                 <div className={`grid grid-cols-2 gap-4`}>
-                  {availablePaperSizes.map((paperSize) => (
-                    <div className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
+                  {availablePaperSizes.map((paperSize, index) => (
+                    <div key={index} className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
                       <RadioGroupItem value={paperSize} id={paperSize} />
                       <label
                         className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
@@ -398,8 +395,9 @@ const UploadedFileConfigurations = ({
                 )}
                 <section className="w-full flex items-center justify-start gap-4 mt-2 overflow-x-scroll pb-2 ">
                   {[...Array(uploadedFileInfo?.pageCount).keys()].map(
-                    (pageNumber) => (
+                    (pageNumber, index) => (
                       <button
+                    
                         type="button"
                         key={pageNumber}
                         onClick={() => {
@@ -503,6 +501,8 @@ const UploadedFileConfigurations = ({
               <div className="w-full">
                 <Textarea
                   id="xeroxStoreMessage"
+                  name="xeroxStoreMessage"
+                  value={uploadedFileInfo.xeroxStoreMessage || ""}
                   className="w-full bg-white border rounded-md pl-2"
                   onChange={handleInputChange}
                 />

@@ -21,7 +21,7 @@ const CartFileDetails = ({
   if (!product) return null;
 
   const [uploadedFileInfo, setUploadedFileInfo] = useState(product);
-  console.log("product is ", product);
+  
 
   return (
     <li className="flex flex-col border border-gray-200 relative p-1 bg-gray-100 rounded-md gap-1 w-full">

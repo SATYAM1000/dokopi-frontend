@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { TiPlus, TiStarFullOutline } from "react-icons/ti";
@@ -8,7 +7,6 @@ import { CalculateRating } from "@/lib/CalculateRating";
 const StoreInfo = ({ storeData, storeReviews }) => {
   const { storeDetails } = storeData;
   const { storeLocation } = storeDetails;
-  console.log(storeReviews)
   const rating = CalculateRating(storeReviews)
   const storeStatus =
     storeData?.storeTiming && getStoreStatus(storeData?.storeTiming || null);

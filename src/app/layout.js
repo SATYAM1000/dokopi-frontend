@@ -50,7 +50,7 @@ export default async function RootLayout({ children }) {
                 children
               )}
 
-              <Toaster richColors />
+              <Toaster richColors position="top-right" />
             </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>

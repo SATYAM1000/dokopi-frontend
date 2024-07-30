@@ -46,7 +46,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
         setPlatformFeeForThisOrder(price.platformCharge);
       }
     } catch (error) {
-      console.log("Error fetching store pricing:", error);
+      console.error("Error fetching store pricing:", error);
     }
   };
 
@@ -122,7 +122,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
               <ul className="space-y-4 rounded-md flex flex-col gap-4">
                 {items.map((product) => (
                   <CartFileDetails
-                    key={product.id}
+                    key={product.fileId}
                     handleDeleteItem={handleDeleteItem}
                     product={product}
                     loader={loadingItems[product.fileId]}

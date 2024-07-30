@@ -1,7 +1,4 @@
 export const calculateTotalPrice = (cartItems, storePrices) => {
-  console.log("storePrices", storePrices);
-  console.log("cartItems", cartItems);
-
   if (!storePrices) return { totalCharge: 0, platformCharge: 0 };
   if (!cartItems) return { totalCharge: 0, platformCharge: 0 };
 
@@ -88,8 +85,6 @@ export const calculateTotalPrice = (cartItems, storePrices) => {
   });
 
   totalCharge += platformCharge;
-
-  console.log("totalCharge is ", totalCharge);
 
   return {
     totalCharge: Math.ceil(totalCharge),

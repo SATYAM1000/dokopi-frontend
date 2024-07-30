@@ -41,7 +41,7 @@ const PaymentSuccessPage = () => {
       }
     };
     if (currentUser) verifyPayment();
-  }, [currentUser]);
+  }, []);
   return (
     <div className="h-[calc(100vh-70px)] bg-gray-100  md:h-[calc(100vh-80px)] flex items-center justify-center bg-grid-black/[0.05]">
       <div
@@ -49,8 +49,8 @@ const PaymentSuccessPage = () => {
           loading
             ? "bg-white"
             : isPaymentSuccess
-            ? "bg-green-100"
-            : "bg-red-100"
+            ? "bg-green-50"
+            : "bg-red-50"
         }`}
       >
         {loading ? (

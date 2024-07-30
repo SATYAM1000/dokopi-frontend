@@ -1,18 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { useUploadedFileInfo } from "@/hooks/use-uploaded-file-info";
 import FileUploaderComponent from "./FileUploaderComponent";
 import UploadedFileComponent from "./UploadedFileComponent";
 import UploadedFileConfigurations from "./UploadedFileConfigurations";
 import UploadedFileProgress from "./UploadedFileProgress";
+import { initialFileInfo } from "@/lib/constants";
 
 const XeroxStoreFileUploadOption = () => {
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
     useState(false);
   const [isFileUploading, setIsFileUploading] = useState(false);
-  const [uploadedFileInfo, setUploadedFileInfo, resetUploadedFileInfo] =
-    useUploadedFileInfo();
+  const [uploadedFileInfo, setUploadedFileInfo] = useState(initialFileInfo);
+
+  const resetUploadedFileInfo = () => {
+    setUploadedFileInfo(initialFileInfo);
+  };
+
 
   return (
     <section className="w-full mt-6 md:mt-6 ">
