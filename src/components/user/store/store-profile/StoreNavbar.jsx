@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { ClipLoader } from "react-spinners";
+import { usePathname, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const XeroxStoreFileUploadOption = dynamic(() =>
@@ -90,26 +91,39 @@ const NavbarMenuList = [
 ];
 
 const StoreNavbar = ({ slug }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("upload-files");
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
-    const savedTab = localStorage.getItem("activeTab");
-    if (savedTab) {
-      setActiveTab(savedTab);
+    const tabFromURL = searchParams.get("tab");
+
+    if (tabFromURL) {
+      setActiveTab(tabFromURL);
+      localStorage.setItem("activeTab", tabFromURL);
+    } else {
+      const defaultTab = "upload-files";
+      setActiveTab(defaultTab);
+      localStorage.setItem("activeTab", defaultTab);
+
+      // Update URL only if tab parameter is not present
+      const params = new URLSearchParams(searchParams);
+      params.set("tab", defaultTab);
+      const url = `${pathname}?${params.toString()}`;
+      window.history.replaceState(null, "", url);
     }
 
     if (slug) {
-      if (localStorage.getItem("storeId") !== slug) {
-        localStorage.removeItem("storeId");
-        localStorage.setItem("storeId", slug);
-      } else {
-        localStorage.setItem("storeId", slug);
-      }
+      localStorage.setItem("storeId", slug);
     }
-  }, [slug]);
+  }, [slug, searchParams, pathname]);
 
   const handleTabChange = (value) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("tab", value);
+    const url = `${pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
     setActiveTab(value);
     localStorage.setItem("activeTab", value);
   };
@@ -139,22 +153,19 @@ const StoreNavbar = ({ slug }) => {
           </div>
         ) : (
           <Tabs
-            defaultValue={activeTab}
             value={activeTab}
             className="w-full mt-4"
             onValueChange={handleTabChange}
           >
             <TabsList>
-              {NavbarMenuList.map((item) => {
-                return (
-                  <TabsTrigger key={item.index} value={item.value}>
-                    <div className="flex items-center gap-1.5">
-                      <span>{item.icon}</span>
-                      <h3>{item.title}</h3>
-                    </div>
-                  </TabsTrigger>
-                );
-              })}
+              {NavbarMenuList.map((item) => (
+                <TabsTrigger key={item.index} value={item.value}>
+                  <div className="flex items-center gap-1.5">
+                    <span>{item.icon}</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                </TabsTrigger>
+              ))}
             </TabsList>
             <TabsContent value="overview">
               {isLoading ? (
