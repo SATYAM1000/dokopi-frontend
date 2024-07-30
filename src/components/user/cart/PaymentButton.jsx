@@ -69,7 +69,7 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
         return;
       }
     } catch (error) {
-      console.error("Error while making payment ", error);
+      console.log("Error while making payment ", error);
       toast.error(error.response?.data?.msg || "Something went wrong");
     } finally {
       setLoading(false);

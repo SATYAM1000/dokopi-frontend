@@ -16,7 +16,6 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import NextTopLoader from "nextjs-toploader";
 import dynamic from "next/dynamic";
 
-
 const DoKopiUserPhone = dynamic(() =>
   import("@/components/user/auth/DoKopiUserPhone")
 );
@@ -32,11 +31,19 @@ export default async function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://api.dokopi.com" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
         <link rel="dns-prefetch" href="https://d28fpa5kkce5uk.cloudfront.net" />
+        <link
+          rel="dns-prefetch"
+          href="https://accounts.google.com/o/oauth2/v2/auth"
+        />
 
         <link rel="preconnect" href="https://maps.googleapis.com" />
         <link rel="preconnect" href="https://api.dokopi.com" />
         <link rel="preconnect" href="https://lh3.googleusercontent.com" />
         <link rel="preconnect" href="https://d28fpa5kkce5uk.cloudfront.net" />
+        <link
+          rel="preconnect"
+          href="https://accounts.google.com/o/oauth2/v2/auth"
+        />
       </head>
       <body className={archivo.className}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
