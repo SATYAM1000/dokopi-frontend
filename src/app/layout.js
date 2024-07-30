@@ -6,7 +6,7 @@ import ReduxProvider from "@/providers/redux/redux-provider";
 const archivo = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "DoKopi",
+  title: "DoKopi - Print with ease. Anywhere. Anytime.",
   description: "Print with ease. Anywhere. Anytime.",
 };
 
