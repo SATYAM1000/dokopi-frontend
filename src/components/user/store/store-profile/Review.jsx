@@ -35,10 +35,10 @@ const Review = ({ OneReview }) => {
         </div>
         <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
           {
-            rating && rating > 0 && Array.from({ length: rating }).map((_, index) => (<IoMdStar className="w-6 h-6 text-yellow-300" aria-hidden="true" key={`ColoredStar${index}`} />))
+            rating && rating > 0 && Array.from({ length: rating }).map((_, index) => (<IoMdStar className="w-6 h-6 text-yellow-400" aria-hidden="true" key={`ColoredStar${index}`} />))
           }
           {
-            rating && rating > 0 && Array.from({ length: 5 - rating }).map((_, index) => (<IoMdStar className="w-6 h-6" aria-hidden="true" key={`UnColoredStar${index}`} />))
+            rating && rating > 0 && Array.from({ length: 5 - rating }).map((_, index) => (<IoMdStar className="w-6 h-6 text-black/[0.25]" aria-hidden="true" key={`UnColoredStar${index}`} />))
           }
         </div>
       </div>

@@ -22,6 +22,7 @@ const SingleStoreCard = ({ storeData, location }) => {
       minutes < 10 ? `0${minutes}` : minutes
     } ${period}`;
   };
+  
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
     <div className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all">
