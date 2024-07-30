@@ -2,15 +2,22 @@ import { fetchAllStoresId } from "@/actions/get-all-stores";
 
 export default async function sitemap() {
   const baseURL = "https://dokopi.com";
-  const stores = await fetchAllStoresId();
-  const allStores = stores?.map((store) => {
-    return {
-      url: `${baseURL}/stores/${store?._id}`,
-      lastModified: `${store?.updatedAt}`,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    };
-  });
+  try {
+    const stores = await fetchAllStoresId();
+    let allStores = [];
+    if (stores?.length > 0) {
+      allStores = stores?.map((store) => {
+        return {
+          url: `${baseURL}/stores/${store?._id}`,
+          lastModified: `${store?.updatedAt}`,
+          changeFrequency: "weekly",
+          priority: 0.5,
+        };
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
   return [
     {
       url: "https://dokopi.com",
