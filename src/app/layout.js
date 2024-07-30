@@ -3,10 +3,33 @@ import "./globals.css";
 import Navbar from "@/components/user/global/Navbar";
 import { Toaster } from "sonner";
 import ReduxProvider from "@/providers/redux/redux-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const archivo = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "DoKopi - Print with ease. Anywhere. Anytime.",
+  metadataBase: new URL("https://dokopi.com"),
+  keywords: [
+    "print",
+    "xerox",
+    "dokopi",
+    "dokopi.com",
+    "dokopi.id",
+    "print.id",
+    "Dokopi",
+    "Print",
+    "Xerox",
+  ],
+  title: {
+    default: "Dokopi",
+    template: "%s | Dokopi",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://dokopi.com/",
+    siteName: "Dokopi",
+    images: [""],
+    description: "Print with ease. Anywhere. Anytime.",
+  },
   description: "Print with ease. Anywhere. Anytime.",
 };
 
@@ -61,6 +84,7 @@ export default async function RootLayout({ children }) {
             </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
