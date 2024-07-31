@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { redirect } from "next/navigation";
@@ -66,9 +65,11 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
       await dispatch(
         deleteCartItem({ userId: currentUser.id, fileId })
       ).unwrap();
-      toast.success("Item deleted successfully!");
+      toast.success("Item deleted successfully!", {
+        duration: 1500,
+      });
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { duration: 1500 });
       console.error("Failed to delete item:", error);
     } finally {
       setLoadingItems((prevState) => ({ ...prevState, [fileId]: false }));
@@ -77,6 +78,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
 
   const handleUpdateItem = async (fileId, updatedItem) => {
     try {
+      console.log("inside update item")
       const updatedCartItem = {
         fileId: updatedItem?.fileId,
         fileKey: updatedItem?.fileKey,

@@ -100,14 +100,6 @@ const UpdateFileInfo = ({
     }
   };
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setUploadedFileInfo((prevInfo) => ({
-      ...prevInfo,
-      [id]: value,
-    }));
-  };
-
   const handlePaperSizeChange = (value) => {
     setUploadedFileInfo((prevInfo) => ({
       ...prevInfo,
@@ -171,10 +163,7 @@ const UpdateFileInfo = ({
   return (
     <div className="min-h-32 rounded-lg border border-gray-200 p-4">
       <p className="font-semibold text-gray-700">Printing Preferences</p>
-      <form
-        onSubmit={handleSubmit}
-        className="mt-4 flex flex-col gap-6 w-full text-gray-700"
-      >
+      <form className="mt-4 flex flex-col gap-6 w-full text-gray-700">
         {error && <p className="text-red-500 text-xs">{error}</p>}
         {success && <p className="text-green-500 text-xs">{success}</p>}
 
@@ -185,6 +174,7 @@ const UpdateFileInfo = ({
           >
             Number of copies:
           </label>
+
           <Input
             id="updatedCopiesCount"
             type="number"
@@ -359,7 +349,8 @@ const UpdateFileInfo = ({
 
         <div className="w-full grid items-center gap-4">
           <Button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             disabled={isLoading || !isButtonEnabled}
             className={`w-full h-[40px] ${
               isButtonEnabled

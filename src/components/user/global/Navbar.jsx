@@ -48,6 +48,7 @@ const Navbar = ({ apiKey }) => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
+  
 
   const controlNavbar = () => {
     if (window.scrollY > 0) {

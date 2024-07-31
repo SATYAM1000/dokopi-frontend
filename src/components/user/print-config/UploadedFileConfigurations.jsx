@@ -102,7 +102,7 @@ const UploadedFileConfigurations = ({
         resetUploadedFileInfo();
         setIsFileUploadedSuccessfully(false);
       } else {
-        toast.error("Please fill all the required fields");
+        toast.error("My name is Khna fill all the required fields");
       }
     } catch (error) {
       console.error("Failed to add item:", error);
@@ -121,13 +121,13 @@ const UploadedFileConfigurations = ({
         ).unwrap();
 
         toast.success("File added to cart", {
-          duration: 500,
+          duration: 1000,
         });
         resetUploadedFileInfo();
         setIsFileUploadedSuccessfully(false);
       }
     } catch (error) {
-      console.error("Failed to add item:", error);
+      console.error("Failed to add item into cart:", error);
       toast.error(error?.msg || "Failed to add file");
     } finally {
       setIsLoader(false);
@@ -234,10 +234,7 @@ const UploadedFileConfigurations = ({
       ) : (
         <div className={`min-h-32 rounded-lg border border-gray-200 p-4`}>
           <p className="font-semibold text-gray-700">Printing Preferences</p>
-          <form
-            onSubmit={handleAddItem}
-            className="mt-4 flex flex-col gap-6 w-full text-gray-700"
-          >
+          <form className="mt-4 flex flex-col gap-6 w-full text-gray-700">
             {/* --------------🔥🔥FILE COPIES COUNT🔥🔥------------------- */}
             <div className="grid w-full items-center gap-2">
               <label
@@ -248,9 +245,10 @@ const UploadedFileConfigurations = ({
               </label>
               <Input
                 id="copiesCount"
+                name="copiesCount"
                 type="number"
                 min="1"
-                value={uploadedFileInfo.copiesCount || 1}
+                value={uploadedFileInfo.copiesCount}
                 required={true}
                 className="w-full border border-gray-200 rounded-sm h-[40px] pl-2"
                 onChange={handleInputChange}
@@ -273,7 +271,10 @@ const UploadedFileConfigurations = ({
               >
                 <div className={`grid grid-cols-2 gap-4`}>
                   {availablePaperSizes.map((paperSize, index) => (
-                    <div key={index} className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-2 bg-white border border-gray-200 h-[40px] rounded-md pl-2 cursor-pointer"
+                    >
                       <RadioGroupItem value={paperSize} id={paperSize} />
                       <label
                         className="uppercase w-full h-full flex items-center tracking-wide text-gray-500 text-xs font-medium"
@@ -397,7 +398,6 @@ const UploadedFileConfigurations = ({
                   {[...Array(uploadedFileInfo?.pageCount).keys()].map(
                     (pageNumber, index) => (
                       <button
-                    
                         type="button"
                         key={pageNumber}
                         onClick={() => {
@@ -523,21 +523,18 @@ const UploadedFileConfigurations = ({
                   <p>Upload more</p>
                 )}
               </Button>
+              <Button
+                onClick={handleCheckout}
+                type="button"
+                disabled={isLoader}
+                className="w-full h-[40px] bg-indigo-500 hover:bg-indigo-600 text-white rounded-md"
+              >
+                {isLoader ? <ClipLoader color="white" size={16} /> : "Checkout"}
+              </Button>
 
               <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
                 <SheetTrigger asChild>
-                  <Button
-                    onClick={handleCheckout}
-                    type="button"
-                    disabled={isLoader}
-                    className="w-full h-[40px] bg-indigo-500 hover:bg-indigo-600 text-white rounded-md"
-                  >
-                    {isLoader ? (
-                      <ClipLoader color="white" size={16} />
-                    ) : (
-                      "Checkout"
-                    )}
-                  </Button>
+                  <></>
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>

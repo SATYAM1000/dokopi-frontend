@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 import Image from "next/image";
 import { getStoreStatus } from "@/lib/get-store-status";
 
@@ -22,7 +22,7 @@ const SingleStoreCard = ({ storeData, location }) => {
       minutes < 10 ? `0${minutes}` : minutes
     } ${period}`;
   };
-  
+
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
   return (
     <div className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all">
@@ -31,7 +31,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           <div className="w-full h-full">
             <Image
               src={
-                storeData?.storeImagesKeys?.length>0
+                storeData?.storeImagesKeys?.length > 0
                   ? `https://d28fpa5kkce5uk.cloudfront.net/${storeData?.storeImagesKeys[0]}`
                   : "/test/blur.jpeg"
               }
@@ -105,17 +105,30 @@ const SingleStoreCard = ({ storeData, location }) => {
               )}
             </div>
           </div>
-          <Link
-            href={`/stores/${storeData?.storeId}`}
-            className="flex-1 flex items-center justify-center"
-          >
+          {storeStatus && storeStatus.isOpen ? (
+            <Link
+              href={`/stores/${storeData?.storeId}`}
+              className="flex-1 flex items-center justify-center"
+            >
+              <Button
+                type="button"
+                className="w-full py-1.5 px-1 text-white/[0.85] font-medium rounded-sm"
+              >
+                Send Documents
+              </Button>
+            </Link>
+          ) : (
             <Button
               type="button"
-              className="w-full py-1.5 px-1 text-white/[0.85] font-medium rounded-sm"
+              disabled={!storeStatus?.isOpen}
+              className="w-full py-1.5 px-1 text-white/[0.85] font-medium rounded-sm flex-1 flex items-center justify-center cursor-not-allowed"
             >
+              <span className={`mr-2 ${storeStatus?.isOpen && "hidden"}`}>
+                <Lock size={16} />
+              </span>
               Send Documents
             </Button>
-          </Link>
+          )}
         </div>
       </div>
     </div>
