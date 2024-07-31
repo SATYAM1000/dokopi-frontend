@@ -131,16 +131,14 @@ const UploadedFileConfigurations = ({
       toast.error(error?.msg || "Failed to add file");
     } finally {
       setIsLoader(false);
-      setIsCartOpen(true);
-      window.history.pushState({ sidebarOpen: true }, "");
+      openCart();
     }
   };
-
   useEffect(() => {
     const handlePopState = (event) => {
-      if (event.state && event.state.sidebarOpen) {
-        setIsCartOpen(false);
-      }
+      const params = new URLSearchParams(window.location.search);
+      const isCartOpen = params.get("isCartOpen") === "true";
+      setIsCartOpen(isCartOpen);
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -148,6 +146,20 @@ const UploadedFileConfigurations = ({
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
+
+  const openCart = () => {
+    setIsCartOpen(true);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set("isCartOpen", "true");
+    window.history.pushState({ sidebarOpen: true }, "", newUrl.toString());
+  };
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.delete("isCartOpen");
+    window.history.pushState({ sidebarOpen: false }, "", newUrl.toString());
+  };
 
   const fetchXeroxStorePricing = async () => {
     try {
@@ -237,11 +249,6 @@ const UploadedFileConfigurations = ({
       return;
     }
     setUploadedFileInfo((prev) => ({ ...prev, colorPages: res.data }));
-  };
-
-  const handleCartClose = () => {
-    setIsCartOpen(false);
-    window.history.back();
   };
 
   return (
@@ -551,7 +558,10 @@ const UploadedFileConfigurations = ({
                 {isLoader ? <ClipLoader color="white" size={16} /> : "Checkout"}
               </Button>
 
-              <Sheet open={isCartOpen} onOpenChange={handleCartClose}>
+              <Sheet
+                open={isCartOpen}
+                onOpenChange={(isOpen) => (isOpen ? openCart() : closeCart())}
+              >
                 <SheetTrigger asChild>
                   <></>
                 </SheetTrigger>
