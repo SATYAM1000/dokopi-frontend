@@ -23,7 +23,7 @@ const SingleStoreCard = ({ storeData, location }) => {
     } ${period}`;
   };
 
-  const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[0]},${coordinates[1]}`;
+  const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}`;
   return (
     <div className="rounded-xl shadow-md border hover:border-black/[0.25] transition-all">
       <div className="flex flex-col px-2 py-2 relative overflow-hidden">

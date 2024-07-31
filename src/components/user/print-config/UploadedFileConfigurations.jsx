@@ -132,8 +132,22 @@ const UploadedFileConfigurations = ({
     } finally {
       setIsLoader(false);
       setIsCartOpen(true);
+      window.history.pushState({ sidebarOpen: true }, "");
     }
   };
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.sidebarOpen) {
+        setIsCartOpen(false);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   const fetchXeroxStorePricing = async () => {
     try {
@@ -223,6 +237,11 @@ const UploadedFileConfigurations = ({
       return;
     }
     setUploadedFileInfo((prev) => ({ ...prev, colorPages: res.data }));
+  };
+
+  const handleCartClose = () => {
+    setIsCartOpen(false);
+    window.history.back();
   };
 
   return (
@@ -532,7 +551,7 @@ const UploadedFileConfigurations = ({
                 {isLoader ? <ClipLoader color="white" size={16} /> : "Checkout"}
               </Button>
 
-              <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+              <Sheet open={isCartOpen} onOpenChange={handleCartClose}>
                 <SheetTrigger asChild>
                   <></>
                 </SheetTrigger>
