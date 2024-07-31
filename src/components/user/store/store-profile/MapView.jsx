@@ -54,7 +54,7 @@ const MapView = ({ storeData }) => {
           <div className="w-full h-48 mt-2 relative">
             <MapContainer
               center={locationCoordinates}
-              zoom={17}
+              zoom={15}
               scrollWheelZoom={false}
               className="h-full -z-20"
               doubleClickZoom
