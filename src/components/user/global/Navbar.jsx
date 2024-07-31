@@ -48,7 +48,33 @@ const Navbar = ({ apiKey }) => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
-  
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      const params = new URLSearchParams(window.location.search);
+      const isCartOpen = params.get("isCartOpen") === "true";
+      setIsCartOpen(isCartOpen);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  const openCart = () => {
+    setIsCartOpen(true);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set("isCartOpen", "true");
+    window.history.pushState({ sidebarOpen: true }, "", newUrl.toString());
+  };
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.delete("isCartOpen");
+    window.history.pushState({ sidebarOpen: false }, "", newUrl.toString());
+  };
 
   const controlNavbar = () => {
     if (window.scrollY > 0) {
@@ -76,16 +102,23 @@ const Navbar = ({ apiKey }) => {
           <div className={`flex items-center`}>
             <div className="flex items-center gap-4 md:gap-6">
               <SearchComponent classNameForSearchBox={classNameForSearchBox} />
-              <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+              <div
+                onClick={openCart}
+                className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all"
+              >
+                <IoCartOutline size={30} className="text-gray-700" />
+                {cartItemCount > 0 ? (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
+                    {cartItemCount}
+                  </span>
+                ) : null}
+              </div>
+              <Sheet
+                open={isCartOpen}
+                onOpenChange={(isOpen) => (isOpen ? openCart() : closeCart())}
+              >
                 <SheetTrigger asChild>
-                  <div className="p-1 cursor-pointer relative hover:bg-gray-100 rounded-md border border-white hover:border hover:border-black/[0.1] transition-all">
-                    <IoCartOutline size={30} className="text-gray-700" />
-                    {cartItemCount > 0 ? (
-                      <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
-                        {cartItemCount}
-                      </span>
-                    ) : null}
-                  </div>
+                  <></>
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>
