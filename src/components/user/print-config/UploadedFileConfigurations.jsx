@@ -24,6 +24,8 @@ import DokopiCartComponent from "../cart/DokopiCartComponent";
 
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
+import { usePathname, useSearchParams } from "next/navigation";
+
 
 const UploadedFileConfigurations = ({
   uploadedFileInfo,
@@ -33,9 +35,11 @@ const UploadedFileConfigurations = ({
 }) => {
   const user = useCurrentUser();
   const dispatch = useDispatch();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { items, loading, error } = useSelector((state) => state.cart);
   const [xeroxStorePricing, setXeroxStorePricing] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(searchParams.get("isCartOpen") === "true");
   const [availablePrintSides, setAvailablePrintSides] = useState([]);
   const [availablePrintTypes, setAvailablePrintTypes] = useState([]);
   const [availablePaperSizes, setAvailablePaperSizes] = useState([]);
@@ -102,7 +106,7 @@ const UploadedFileConfigurations = ({
         resetUploadedFileInfo();
         setIsFileUploadedSuccessfully(false);
       } else {
-        toast.error("My name is Khna fill all the required fields");
+        toast.error("Fill all the required fields");
       }
     } catch (error) {
       console.error("Failed to add item:", error);
@@ -134,6 +138,7 @@ const UploadedFileConfigurations = ({
       openCart();
     }
   };
+
   useEffect(() => {
     const handlePopState = (event) => {
       const params = new URLSearchParams(window.location.search);
@@ -158,7 +163,7 @@ const UploadedFileConfigurations = ({
     setIsCartOpen(false);
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("isCartOpen");
-    window.history.pushState({ sidebarOpen: false }, "", newUrl.toString());
+    window.history.back();
   };
 
   const fetchXeroxStorePricing = async () => {

@@ -24,6 +24,7 @@ import { fetchCartItems } from "@/providers/redux/slices/new-cart-slice";
 
 const Navbar = ({ apiKey }) => {
   const currentUser = useCurrentUser();
+
   const [show, setShow] = useState("translate-y-0 ");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -73,7 +74,8 @@ const Navbar = ({ apiKey }) => {
     setIsCartOpen(false);
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("isCartOpen");
-    window.history.pushState({ sidebarOpen: false }, "", newUrl.toString());
+    window.history.back();
+    // window.history.pushState({ sidebarOpen: false }, "", newUrl.toString());
   };
 
   const controlNavbar = () => {
