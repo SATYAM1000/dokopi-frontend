@@ -31,13 +31,11 @@ const PaymentSuccessPage = () => {
         if (res.data.success) {
           setIsPaymentSuccess(true);
           setLoading(false);
-          toast.success("Payment Successful");
           return;
         }
       } catch (error) {
         setIsPaymentSuccess(false);
         setLoading(false);
-        toast.error(error.response?.data?.msg || "Something went wrong");
         return;
       }
     };
