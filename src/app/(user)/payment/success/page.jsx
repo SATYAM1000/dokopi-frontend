@@ -7,6 +7,7 @@ import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
 import { toast } from "sonner";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import Image from "next/image";
 
 const PaymentSuccessPage = () => {
   const currentUser = useCurrentUser();
@@ -43,14 +44,10 @@ const PaymentSuccessPage = () => {
     if (currentUser) verifyPayment();
   }, []);
   return (
-    <div className="h-[calc(100vh-70px)] bg-gray-100  md:h-[calc(100vh-80px)] flex items-center justify-center bg-grid-black/[0.05]">
+    <div className="h-[calc(100vh-70px)] md:h-[calc(100vh-80px)] flex items-center justify-center ">
       <div
         className={`flex flex-col rounded-3xl p-6   mx-auto max-w-[300px] md:max-w-[400px] md:min-w-[320px] border-2 border-r-8 border-b-8 border-primary ${
-          loading
-            ? "bg-white"
-            : isPaymentSuccess
-            ? "bg-green-50"
-            : "bg-red-50"
+          loading ? "bg-white" : isPaymentSuccess ? "bg-white" : "bg-white"
         }`}
       >
         {loading ? (
@@ -58,34 +55,23 @@ const PaymentSuccessPage = () => {
             <PuffLoader color="#2563eb" />
           </div>
         ) : isPaymentSuccess ? (
-          <svg
-            viewBox="0 0 24 24"
-            className="text-green-600 w-16 h-16 mx-auto my-6"
-          >
-            <path
-              fill="currentColor"
-              d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z"
-            ></path>
-          </svg>
+          <div className="w-full h-full flex items-center justify-center">
+            <Image
+              src="/main/success.gif"
+              alt="success"
+              width={100}
+              height={100}
+            />
+          </div>
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 48 48"
-            className="text-red-600 w-16 h-16 mx-auto my-6"
-          >
-            <path
-              fill="#f44336"
-              d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
-            ></path>
-            <path
-              fill="#fff"
-              d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"
-            ></path>
-            <path
-              fill="#fff"
-              d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"
-            ></path>
-          </svg>
+         <div className="w-full h-full flex items-center justify-center">
+          <Image
+            src="/main/failed.gif"
+            alt="fail"
+            width={100}
+            height={100}
+          />
+         </div>
         )}
         <div className="text-center">
           <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
