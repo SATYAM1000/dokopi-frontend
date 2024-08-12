@@ -14,8 +14,8 @@ const SingleStoreCard = ({ storeData, location }) => {
 
   const storeStatus =
     storeData?.storeHours && getStoreStatus(storeData?.storeHours || null);
-
   const formatTime = (time) => {
+    if (!time) return;
     const [hours, minutes] = time.split(":").map(Number);
     const period = hours >= 12 ? "PM" : "AM";
     const formattedHours = hours % 12 || 12;
@@ -50,21 +50,21 @@ const SingleStoreCard = ({ storeData, location }) => {
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"
-              className="h-[245px] object-cover object-center rounded-lg animate-blurred-fade-in"
+              className="h-[245px] object-cover object-center rounded-lg animate-blurred-fade-in "
             />
             <Badge
               className={
-                storeStatus
+                storeStatus?.isOpen
                   ? "absolute top-2 right-2 bg-green-100 text-green-600 border-green-600"
                   : "absolute top-2 right-2 bg-red-100 text-red-600 border-red-600"
               }
             >
               <div
                 className={`h-2 w-2 rounded-full mr-1 ${
-                  storeStatus ? "bg-green-600" : "bg-red-600"
+                  storeStatus?.isOpen ? "bg-green-600" : "bg-red-600"
                 }`}
               ></div>
-              {storeStatus ? "Open" : "Closed"}
+              {storeStatus?.isOpen ? "Open" : "Closed"}
             </Badge>
           </div>
         </div>

@@ -81,7 +81,7 @@ const StoreContainer = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-2">
                 {allStores.map((store, index) => (
-                  <SingleStoreCard key={store.id} storeData={store} location={address} />
+                  <SingleStoreCard key={index} storeData={store} location={address} />
                 ))}
               </div>
             )}
