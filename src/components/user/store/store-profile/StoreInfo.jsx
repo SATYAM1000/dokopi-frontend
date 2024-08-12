@@ -1,4 +1,3 @@
-
 import React from "react";
 import { TiPlus, TiStarFullOutline } from "react-icons/ti";
 import { getStoreStatus } from "@/lib/get-store-status";
@@ -7,16 +6,18 @@ import { CalculateRating } from "@/lib/CalculateRating";
 const StoreInfo = ({ storeData, storeReviews }) => {
   const { storeDetails } = storeData;
   const { storeLocation } = storeDetails;
-  const rating = CalculateRating(storeReviews)
+  const rating = CalculateRating(storeReviews);
   const storeStatus =
     storeData?.storeTiming && getStoreStatus(storeData?.storeTiming || null);
 
   const formatTime = (time) => {
+    if (!time) return;
     const [hours, minutes] = time.split(":").map(Number);
     const period = hours >= 12 ? "PM" : "AM";
     const formattedHours = hours % 12 || 12;
-    return `${formattedHours}:${minutes < 10 ? `0${minutes}` : minutes
-      } ${period}`;
+    return `${formattedHours}:${
+      minutes < 10 ? `0${minutes}` : minutes
+    } ${period}`;
   };
 
   return (
@@ -57,11 +58,9 @@ const StoreInfo = ({ storeData, storeReviews }) => {
         </h3>
         <div className="text-sm flex gap-2">
           {storeData?.storeTiming && storeStatus.isOpen ? (
-            <span className="text-green-500 font-medium">Open</span>
+            <span className="text-green-600 font-medium">Open</span>
           ) : (
-            <span className="text-red-500 font-medium">
-              Closed
-            </span>
+            <span className="text-red-600 font-medium">Closed</span>
           )}
 
           {storeStatus ? (
@@ -73,7 +72,7 @@ const StoreInfo = ({ storeData, storeReviews }) => {
               <p className="text-gray-600 text-[14px] font-medium block truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
-                  storeStatus.nextOpenTime.includes("at")
+                storeStatus.nextOpenTime.includes("at")
                   ? storeStatus.nextOpenTime
                   : `at ${formatTime(storeStatus.nextOpenTime)}`}
               </p>
