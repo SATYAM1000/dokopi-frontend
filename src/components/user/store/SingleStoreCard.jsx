@@ -2,15 +2,15 @@ import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { getStoreStatus } from "@/lib/get-store-status";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 
 const SingleStoreCard = ({ storeData, location }) => {
   if (!storeData) return null;
+
   const { storeLocationCoordinates } = storeData;
   const { coordinates } = storeLocationCoordinates;
-  const router = useRouter();
 
   const storeStatus =
     storeData?.storeHours && getStoreStatus(storeData?.storeHours || null);
@@ -24,18 +24,14 @@ const SingleStoreCard = ({ storeData, location }) => {
     } ${period}`;
   };
 
-  const handleCardClick = () => {
-    router.push(`/stores/${storeData?.storeId}`);
-  };
-
   const DirectionURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}`;
 
   return (
-    <div
-      onClick={handleCardClick}
+    <Link
+      href={`/stores/${storeData?.storeId}`}
       className="rounded-xl shadow-md border hover:border-gray-200 transition-all cursor-pointer"
     >
-      <div className="flex flex-col px-2 py-2 pb-4 relative overflow-hidden">
+      <div className="flex flex-col px-2 py-2 relative overflow-hidden">
         <div className="overflow-hidden rounded-md">
           <div className="w-full h-full relative">
             <Image
@@ -76,7 +72,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           <a
             href={DirectionURL}
             target="_blank"
-            onClick={(e) => e.stopPropagation()} // Prevents card click event
+            onClick={(e) => e.stopPropagation()} // Prevents Link click event
             className="flex items-center justify-center font-medium gap-1 text-[13px] border border-black/[0.25] cursor-pointer bg-gray-100 text-gray-700 px-2 py-1 rounded-md mt-2"
           >
             Direction
@@ -89,11 +85,11 @@ const SingleStoreCard = ({ storeData, location }) => {
         <div className="w-full flex items-center justify-between">
           {storeStatus ? (
             storeStatus.isOpen ? (
-              <p className="text-gray-500 text-sm font-medium block truncate">
+              <p className="text-gray-500 text-sm font-normal block truncate">
                 Closes at {formatTime(storeStatus.nextCloseTime)}
               </p>
             ) : (
-              <p className="text-gray-500 text-sm font-medium block truncate">
+              <p className="text-gray-500 text-sm font-normal block truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
                 storeStatus.nextOpenTime.includes("at")
@@ -102,12 +98,12 @@ const SingleStoreCard = ({ storeData, location }) => {
               </p>
             )
           ) : (
-            <p className="text-gray-500 text-sm font-medium block truncate">
+            <p className="text-gray-500 text-sm font-normal block truncate">
               Not available
             </p>
           )}
 
-          <p className="text-slate-500 font-medium text-[14px] truncate">
+          <p className="text-slate-500 font-normal text-[14px] truncate">
             {storeData?.distance < 1000
               ? `${storeData?.distance?.toFixed(0)} m`
               : `${(storeData?.distance / 1000).toFixed(1)} km`}
@@ -115,7 +111,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

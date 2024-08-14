@@ -62,6 +62,7 @@ const Navbar = ({ apiKey }) => {
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
+  
 
   const openCart = () => {
     setIsCartOpen(true);

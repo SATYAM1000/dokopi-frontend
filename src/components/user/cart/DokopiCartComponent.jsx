@@ -18,6 +18,7 @@ import {
   updateCartItem,
 } from "@/providers/redux/slices/new-cart-slice";
 import { ClipLoader } from "react-spinners";
+import AverageOrderMessage from "./AverageOrderMessage";
 
 const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
   const currentUser = useCurrentUser();
@@ -78,7 +79,6 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
 
   const handleUpdateItem = async (fileId, updatedItem) => {
     try {
-      console.log("inside update item")
       const updatedCartItem = {
         fileId: updatedItem?.fileId,
         fileKey: updatedItem?.fileKey,
@@ -138,6 +138,7 @@ const DokopiCartComponent = ({ setIsCartOpen, xeroxStorePricing }) => {
                   platformFee={platformFeeForThisOrder}
                 />
               )}
+              <AverageOrderMessage />
               <CancellationPolicy />
               {totalPriceForThisOrder > 0 && (
                 <PaymentButton

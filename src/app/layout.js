@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const archivo = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  metadataBase: new URL("https://dokopi.com"),
+  metadataBase: new URL("https://www.dokopi.com"),
   keywords: [
     "print",
     "xerox",
@@ -18,6 +18,8 @@ export const metadata = {
     "Dokopi",
     "Print",
     "Xerox",
+    "dokopy",
+    "docopy",
   ],
   title: {
     default: "Dokopi",
@@ -25,7 +27,7 @@ export const metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://dokopi.com/",
+    url: "https://dokopi.com",
     siteName: "Dokopi",
     images: [""],
     description: "Print with ease. Anywhere. Anytime.",
@@ -46,6 +48,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://api.dokopi.com" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
@@ -63,6 +68,9 @@ export default async function RootLayout({ children }) {
           rel="preconnect"
           href="https://accounts.google.com/o/oauth2/v2/auth"
         />
+
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={archivo.className}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
