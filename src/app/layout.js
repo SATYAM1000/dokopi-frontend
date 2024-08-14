@@ -41,6 +41,9 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import NextTopLoader from "nextjs-toploader";
 
 import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
+import Head from "next/head";
+import Script from "next/script";
+import { structuredData } from "@/lib/constants";
 export default async function RootLayout({ children }) {
   const session = await auth();
   const apiKey = process.env.GOOGLE_MAP_API_KEY;
@@ -48,8 +51,6 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-
-        <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://api.dokopi.com" />
@@ -71,6 +72,11 @@ export default async function RootLayout({ children }) {
 
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google" content="notranslate" />
+        <Script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body className={archivo.className}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />

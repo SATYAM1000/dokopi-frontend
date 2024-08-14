@@ -40,3 +40,27 @@ export const initialFileInfo = {
   colorPages: [],
   mixedPrintType: null,
 };
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Dokopi",
+  url: "https://www.dokopi.com",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://www.dokopi.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+  mainEntity: [
+    {
+      "@type": "SiteNavigationElement",
+      name: "Login",
+      url: "https://www.dokopi.com/auth/sign-in",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "Stores",
+      url: "https://www.dokopi.com/stores",
+    },
+  ],
+};
