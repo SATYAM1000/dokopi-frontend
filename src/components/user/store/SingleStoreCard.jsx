@@ -42,7 +42,6 @@ const SingleStoreCard = ({ storeData, location }) => {
               }
               width={600}
               height={400}
-              priority={true}
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"

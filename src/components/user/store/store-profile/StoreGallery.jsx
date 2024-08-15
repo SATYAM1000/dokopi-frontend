@@ -19,6 +19,7 @@ const StoreGallery = ({ storeData }) => {
           blurDataURL="/test/blur.jpeg"
           width={1000}
           height={1000}
+          priority
         />
       </div>
 
@@ -35,6 +36,7 @@ const StoreGallery = ({ storeData }) => {
             placeholder="blur"
             blurDataURL="/test/blur.jpeg"
             alt="store"
+            priority
             className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg transition duration-700 hover:scale-110"
           />
         </div>
@@ -52,6 +54,7 @@ const StoreGallery = ({ storeData }) => {
               height={350}
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
+              priority
               className="w-full h-full object-cover animate-blurred-fade-in object-center rounded-lg transition duration-700 hover:scale-110"
             />
           </div>
@@ -67,6 +70,7 @@ const StoreGallery = ({ storeData }) => {
               height={350}
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
+              priority
               className="w-full h-full object-cover animate-blurred-fade-in object-center rounded-lg transition duration-700 hover:scale-110"
             />
           </div>
@@ -84,6 +88,7 @@ const StoreGallery = ({ storeData }) => {
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"
+              priority
               className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg"
             />
           </div>
@@ -99,6 +104,7 @@ const StoreGallery = ({ storeData }) => {
               placeholder="blur"
               blurDataURL="/test/blur.jpeg"
               alt="store"
+              priority
               className="w-full h-full animate-blurred-fade-in object-cover object-center rounded-lg"
             />
           </div>
