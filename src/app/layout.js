@@ -4,7 +4,7 @@ import Navbar from "@/components/user/global/Navbar";
 import { Toaster } from "sonner";
 import ReduxProvider from "@/providers/redux/redux-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-const archivo = Noto_Sans({ subsets: ["latin"] });
+const noto = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   metadataBase: new URL("https://www.dokopi.com"),
@@ -41,12 +41,12 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import NextTopLoader from "nextjs-toploader";
 
 import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
-import Head from "next/head";
+
 import Script from "next/script";
 import { structuredData } from "@/lib/constants";
+
 export default async function RootLayout({ children }) {
   const session = await auth();
-  const apiKey = process.env.GOOGLE_MAP_API_KEY;
 
   return (
     <html lang="en">
@@ -78,12 +78,12 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={archivo.className}>
+      <body className={`${noto.className} antialiased overflow-x-hidden`}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
         <SessionProvider session={session}>
           <ReactQueryProvider>
             <ReduxProvider>
-              <Navbar apiKey={apiKey} />
+              <Navbar />
               {session?.user && session?.user?.phone === null ? (
                 <DoKopiUserPhone />
               ) : (

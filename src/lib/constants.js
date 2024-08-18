@@ -62,5 +62,26 @@ export const structuredData = {
       name: "Stores",
       url: "https://www.dokopi.com/stores",
     },
+
+    {
+      "@type": "SiteNavigationElement",
+      name: "Terms & Conditions",
+      url: "https://www.dokopi.com/terms-conditions",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "Privacy Policy",
+      url: "https://www.dokopi.com/privacy-policy",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "Contact Us",
+      url: "https://www.dokopi.com/contact",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "Refund Policy",
+      url: "https://www.dokopi.com/refund-shipping-policy",
+    },
   ],
 };

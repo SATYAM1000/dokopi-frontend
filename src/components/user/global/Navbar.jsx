@@ -22,9 +22,9 @@ import {
 import DokopiCartComponent from "../cart/DokopiCartComponent";
 import { fetchCartItems } from "@/providers/redux/slices/new-cart-slice";
 
-const Navbar = ({ apiKey }) => {
+const Navbar = () => {
+  const apiKey=process.env.GOOGLE_MAP_API_KEY
   const currentUser = useCurrentUser();
-
   const [show, setShow] = useState("translate-y-0 ");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
