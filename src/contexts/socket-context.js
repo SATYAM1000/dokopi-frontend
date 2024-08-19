@@ -45,7 +45,7 @@ export const SocketProvider = ({ children }) => {
       socketInstance.off("changeOrderStatusToProcessing");
       console.log("Disconnected from Web Socket Server");
     };
-  }, [currentUser.id]);
+  }, [currentUser?.id]);
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
