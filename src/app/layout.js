@@ -15,6 +15,8 @@ import HeadContent from "@/components/common/HeadContent";
 // Providers
 import ReduxProvider from "@/providers/redux/redux-provider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { SocketProvider } from "@/contexts/socket-context";
+
 
 // Utilities
 import { auth } from "@/auth";
@@ -73,13 +75,15 @@ export default async function RootLayout({ children }) {
         <SessionProvider session={session}>
           <ReactQueryProvider>
             <ReduxProvider>
-              <Navbar />
-              {session?.user && session?.user?.phone === null ? (
-                <DoKopiUserPhone />
-              ) : (
-                children
-              )}
-              <Toaster richColors duration={1500} />
+              <SocketProvider>
+                <Navbar />
+                {session?.user && session?.user?.phone === null ? (
+                  <DoKopiUserPhone />
+                ) : (
+                  children
+                )}
+                <Toaster richColors duration={1500} />
+              </SocketProvider>
             </ReduxProvider>
           </ReactQueryProvider>
         </SessionProvider>

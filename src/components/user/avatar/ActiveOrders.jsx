@@ -31,6 +31,7 @@ import {
 import { ClipLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
 import { Check, Copy, Loader, X } from "lucide-react";
+import { useSocket } from "@/contexts/socket-context";
 
 import {
   Sheet,
@@ -94,31 +95,47 @@ const columnsHeader = [
 
 const ActiveOrders = () => {
   const currentUser = useCurrentUser();
+  const socket = useSocket();
   const [ActiveOrders, setActiveOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  function formatDate(createdAt) {
-    const date = new Date(createdAt);
-    const now = new Date();
+  useEffect(() => {
+    if (!socket || !currentUser) return; // Ensure socket and currentUser are available
 
-    const diffTime = Math.abs(now - date);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    // Define the event handler
+    const handleChangeOrderStatus = (data) => {
+      if (data.userId === currentUser.id) {
+        // Update the state with the new order status
+        const updatedActiveOrders = ActiveOrders.map((order) => {
+          if (order._id === data.orderId) {
+            return {
+              ...order,
+              orderStatus: data.orderStatus,
+            };
+          }
+          return order;
+        });
+        setActiveOrders(updatedActiveOrders);
+      }
+    };
 
-    const timeOptions = { hour: "2-digit", minute: "2-digit" };
-    const formattedTime = date.toLocaleTimeString([], timeOptions);
+    // Attach the event listener
+    socket.on("changeOrderStatus", (data) => {
+      handleChangeOrderStatus(data);
+    });
 
-    if (diffDays === 0) {
-      return `Today at ${formattedTime}`;
-    } else if (diffDays === 1) {
-      return `Yesterday at ${formattedTime}`;
-    } else if (diffDays <= 2) {
-      return `${diffDays} days ago at ${formattedTime}`;
-    } else {
-      return date.toLocaleDateString();
-    }
-  }
+    socket.on("changeOrderStatus", (data) => {
+      handleChangeOrderStatus(data);
+    });
+
+    // Clean up the event listener on component unmount or when dependencies change
+    return () => {
+      socket.off("changeOrderStatusToProcessing");
+    };
+  }, [socket, currentUser, ActiveOrders]); // Include all relevant dependencies
+
   useEffect(() => {
     const getUserActiveOrders = async () => {
       setLoading(true);
@@ -151,6 +168,27 @@ const ActiveOrders = () => {
       return null;
     }
   }, [currentPage]);
+
+  function formatDate(createdAt) {
+    const date = new Date(createdAt);
+    const now = new Date();
+
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    const timeOptions = { hour: "2-digit", minute: "2-digit" };
+    const formattedTime = date.toLocaleTimeString([], timeOptions);
+
+    if (diffDays === 0) {
+      return `Today at ${formattedTime}`;
+    } else if (diffDays === 1) {
+      return `Yesterday at ${formattedTime}`;
+    } else if (diffDays <= 2) {
+      return `${diffDays} days ago at ${formattedTime}`;
+    } else {
+      return date.toLocaleDateString();
+    }
+  }
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -186,25 +224,25 @@ const ActiveOrders = () => {
             <ClipLoader color="blue" loading={loading} size={40} />
           </div>
         ) : ActiveOrders?.length > 0 ? (
-          <div className="w-full h-auto flex flex-col gap-1 mt-4">
+          <div className="flex flex-col w-full h-auto gap-1 mt-4">
             {/* ----container---------- */}
             <div className="w-full max-h-[100vh] min-h-[calc(100vh-250px)] overflow-hidden">
               <Table className="w-full max-h-[55vh] overflow-y-scroll hide-scrollbar  rounded-md ">
                 <TableHeader>
                   <TableRow>
-                    {columnsHeader.map((column) => (
+                    {columnsHeader.map((column, index) => (
                       <TableHead
-                        className=" whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        key={column.index}
+                        className="text-xs font-medium tracking-wider text-left text-gray-500 uppercase whitespace-nowrap"
+                        key={index}
                       >
                         {column.columnName}
                       </TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
-                <TableBody className="font-medium text-gray-700 text-sm">
-                  {ActiveOrders?.map((order) => (
-                    <TableRow>
+                <TableBody className="text-sm font-medium text-gray-700">
+                  {ActiveOrders?.map((order, index) => (
+                    <TableRow key={index}>
                       <TableCell className="w-[100px]">
                         {order?.orderNumber || "N/A"}
                       </TableCell>
@@ -233,7 +271,7 @@ const ActiveOrders = () => {
                             <span>
                               <Loader
                                 size={12}
-                                className="mr-1  text-indigo-500 animate-spin-clockwise repeat-infinite animate-duration-1000"
+                                className="mr-1 text-indigo-500 animate-spin-clockwise repeat-infinite animate-duration-1000"
                               />
                             </span>
                             Processing
@@ -272,7 +310,7 @@ const ActiveOrders = () => {
                         {order?.createdAt ? formatDate(order.createdAt) : "N/A"}
                       </TableCell>
 
-                      <TableCell className="w-fit flex items-center ">
+                      <TableCell className="flex items-center w-fit ">
                         {order?.phonePeTransactionId || "N/A"}
 
                         <TooltipProvider>
@@ -282,9 +320,9 @@ const ActiveOrders = () => {
                                 onClick={() =>
                                   copyToClipboard(order?.phonePeTransactionId)
                                 }
-                                className="bg-gray-100 px-1 py-1 border border-gray-300 rounded-sm flex items-center justify-center ml-3 cursor-pointer"
+                                className="flex items-center justify-center px-1 py-1 ml-3 bg-gray-100 border border-gray-300 rounded-sm cursor-pointer"
                               >
-                                <Copy size={14} className=" text-gray-500" />
+                                <Copy size={14} className="text-gray-500 " />
                               </span>
                             </TooltipTrigger>
                             <TooltipContent>

@@ -4,6 +4,8 @@ const nextConfig = {
     API_URL: process.env.API_URL,
     CLOUDFRONT_URL: process.env.CLOUDFRONT_URL,
     GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
+    NEXT_PUBLIC_SOCKET_URL:
+      process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "https://api.dokopi.com",
   },
   images: {
     remotePatterns: [
