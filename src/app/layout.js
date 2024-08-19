@@ -78,7 +78,7 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={`${noto.className} antialiased overflow-x-hidden`}>
+      <body className={`${noto.className}`}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
         <SessionProvider session={session}>
           <ReactQueryProvider>
