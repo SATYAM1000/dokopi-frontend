@@ -96,6 +96,8 @@ const columnsHeader = [
 const ActiveOrders = () => {
   const currentUser = useCurrentUser();
   const socket = useSocket();
+
+  console.log("socket is ",socket);
   const [ActiveOrders, setActiveOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);

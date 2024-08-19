@@ -29,7 +29,7 @@ const SingleStoreCard = ({ storeData, location }) => {
   return (
     <Link
       href={`/stores/${storeData?.storeId}`}
-      className="transition-all border cursor-pointer rounded-xl hover:shadow-[0_0_10px_0_rgba(0,0,0,0.15)] hover:border-gray-200"
+      className="transition-all border cursor-pointer rounded-xl shadow-md md:hover:shadow-[0_0_10px_0_rgba(0,0,0,0.15)] hover:border-gray-200"
     >
       <div className="relative flex flex-col px-2 py-2 overflow-hidden">
         <div className="overflow-hidden rounded-md">
