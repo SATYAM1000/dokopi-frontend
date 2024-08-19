@@ -29,11 +29,11 @@ const SingleStoreCard = ({ storeData, location }) => {
   return (
     <Link
       href={`/stores/${storeData?.storeId}`}
-      className="rounded-xl shadow-md border hover:border-gray-200 transition-all cursor-pointer"
+      className="transition-all border cursor-pointer rounded-xl hover:shadow-[0_0_10px_0_rgba(0,0,0,0.15)] hover:border-gray-200"
     >
-      <div className="flex flex-col px-2 py-2 relative overflow-hidden">
+      <div className="relative flex flex-col px-2 py-2 overflow-hidden">
         <div className="overflow-hidden rounded-md">
-          <div className="w-full h-full relative">
+          <div className="relative w-full h-full">
             <Image
               src={
                 storeData?.storeImagesKeys?.length > 0
@@ -64,7 +64,7 @@ const SingleStoreCard = ({ storeData, location }) => {
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-between">
+        <div className="flex items-center justify-between w-full">
           <h5 className="text-[17px] font-medium mt-3 text-gray-800 truncate">
             {storeData?.storeName}
           </h5>
@@ -81,14 +81,14 @@ const SingleStoreCard = ({ storeData, location }) => {
         <p className="text-gray-800 font-medium text-[15px] mt-1 truncate">
           {storeData?.storeLandmark}
         </p>
-        <div className="w-full flex items-center justify-between">
+        <div className="flex items-center justify-between w-full">
           {storeStatus ? (
             storeStatus.isOpen ? (
-              <p className="text-gray-500 text-sm font-normal block truncate">
+              <p className="block text-sm font-normal text-gray-500 truncate">
                 Closes at {formatTime(storeStatus.nextCloseTime)}
               </p>
             ) : (
-              <p className="text-gray-500 text-sm font-normal block truncate">
+              <p className="block text-sm font-normal text-gray-500 truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
                 storeStatus.nextOpenTime.includes("at")
@@ -97,7 +97,7 @@ const SingleStoreCard = ({ storeData, location }) => {
               </p>
             )
           ) : (
-            <p className="text-gray-500 text-sm font-normal block truncate">
+            <p className="block text-sm font-normal text-gray-500 truncate">
               Not available
             </p>
           )}
