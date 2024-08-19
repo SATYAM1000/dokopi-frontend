@@ -1,11 +1,29 @@
+// Next.js and React imports
 import { Noto_Sans } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/user/global/Navbar";
-import { Toaster } from "sonner";
-import ReduxProvider from "@/providers/redux/redux-provider";
+import { SessionProvider } from "next-auth/react";
+import NextTopLoader from "nextjs-toploader";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+// Global styles
+import "./globals.css";
+
+// Components
+import Navbar from "@/components/user/global/Navbar";
+import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
+import HeadContent from "@/components/common/HeadContent";
+
+// Providers
+import ReduxProvider from "@/providers/redux/redux-provider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+
+// Utilities
+import { auth } from "@/auth";
+import { Toaster } from "sonner";
+
+// Load fonts
 const noto = Noto_Sans({ subsets: ["latin"] });
 
+// Metadata
 export const metadata = {
   metadataBase: new URL("https://www.dokopi.com"),
   keywords: [
@@ -20,6 +38,13 @@ export const metadata = {
     "Xerox",
     "dokopy",
     "docopy",
+    "Xerox Store",
+    "Xerox Printer",
+    "Xerox Driver",
+    "Xerox Driver",
+    "Xerox Printer",
+    "Xerox Printer",
+    "Xerox Printer",
   ],
   title: {
     default: "Dokopi",
@@ -30,54 +55,19 @@ export const metadata = {
     url: "https://dokopi.com",
     siteName: "Dokopi",
     images: [""],
-    description: "Print with ease. Anywhere. Anytime.",
+    description:
+      "Find and connect with the nearest Xerox store based on your location with our platform. Easily upload documents, make secure payments, and get your prints ready in minutes. Simplifying your printing needs with fast, location-based service.",
   },
-  description: "Print with ease. Anywhere. Anytime.",
+  description:
+    "Find and connect with the nearest Xerox store based on your location with our platform. Easily upload documents, make secure payments, and get your prints ready in minutes. Simplifying your printing needs with fast, location-based service.",
 };
-
-import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import NextTopLoader from "nextjs-toploader";
-
-import DoKopiUserPhone from "@/components/user/auth/DoKopiUserPhone";
-
-import Script from "next/script";
-import { structuredData } from "@/lib/constants";
 
 export default async function RootLayout({ children }) {
   const session = await auth();
 
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
-        <link rel="dns-prefetch" href="https://api.dokopi.com" />
-        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
-        <link rel="dns-prefetch" href="https://d28fpa5kkce5uk.cloudfront.net" />
-        <link
-          rel="dns-prefetch"
-          href="https://accounts.google.com/o/oauth2/v2/auth"
-        />
-
-        <link rel="preconnect" href="https://maps.googleapis.com" />
-        <link rel="preconnect" href="https://api.dokopi.com" />
-        <link rel="preconnect" href="https://lh3.googleusercontent.com" />
-        <link rel="preconnect" href="https://d28fpa5kkce5uk.cloudfront.net" />
-        <link
-          rel="preconnect"
-          href="https://accounts.google.com/o/oauth2/v2/auth"
-        />
-
-        <meta name="robots" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="google" content="notranslate" />
-        <Script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
+      <HeadContent />
       <body className={`${noto.className}`}>
         <NextTopLoader color="#4f46e5" showSpinner={false} />
         <SessionProvider session={session}>
@@ -89,7 +79,6 @@ export default async function RootLayout({ children }) {
               ) : (
                 children
               )}
-
               <Toaster richColors duration={1500} />
             </ReduxProvider>
           </ReactQueryProvider>

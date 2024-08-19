@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { PuffLoader } from "react-spinners";
 import axios from "axios";
 import { API_DOMAIN } from "@/lib/constants";
-import { toast } from "sonner";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import Image from "next/image";
 
@@ -41,6 +40,7 @@ const PaymentSuccessPage = () => {
     };
     if (currentUser) verifyPayment();
   }, []);
+  
   return (
     <div className="h-[calc(100vh-70px)] md:h-[calc(100vh-80px)] flex items-center justify-center ">
       <div
@@ -49,11 +49,11 @@ const PaymentSuccessPage = () => {
         }`}
       >
         {loading ? (
-          <div className="w-full h-full flex items-center justify-center p-5">
+          <div className="flex items-center justify-center w-full h-full p-5">
             <PuffLoader color="#2563eb" />
           </div>
         ) : isPaymentSuccess ? (
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="flex items-center justify-center w-full h-full">
             <Image
               src="/main/success.gif"
               alt="success"
@@ -62,7 +62,7 @@ const PaymentSuccessPage = () => {
             />
           </div>
         ) : (
-         <div className="w-full h-full flex items-center justify-center">
+         <div className="flex items-center justify-center w-full h-full">
           <Image
             src="/main/failed.gif"
             alt="fail"
@@ -72,7 +72,7 @@ const PaymentSuccessPage = () => {
          </div>
         )}
         <div className="text-center">
-          <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
+          <h3 className="text-base font-semibold text-center text-gray-900 md:text-2xl">
             {loading
               ? "Verifying Payment"
               : isPaymentSuccess
@@ -96,14 +96,14 @@ const PaymentSuccessPage = () => {
           <div className="py-10 text-center">
             <Link
               href="/stores"
-              className="px-12 bg-white border-2 border-r-8 border-b-8 rounded-xl text-primary hover:bg-gray-200 border-primary font-semibold py-3"
+              className="px-12 py-3 font-semibold bg-white border-2 border-b-8 border-r-8 rounded-xl text-primary hover:bg-gray-200 border-primary"
             >
               GO BACK
             </Link>
           </div>
           <Link
             href="/active-orders"
-            className="inline-block text-sm  transition text-gray-900 underline underline-offset-4"
+            className="inline-block text-sm text-gray-900 underline transition underline-offset-4"
           >
             Track your order status &rarr;
           </Link>

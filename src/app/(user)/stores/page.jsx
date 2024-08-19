@@ -1,17 +1,18 @@
-import dynamic from "next/dynamic";
-const Footer = dynamic(() => import("@/components/user/global/Footer"));
-const Wrapper = dynamic(() => import("@/components/user/global/Wrapper"));
-const SearchMobileComponent = dynamic(() =>
-  import("@/components/user/store/SearchMobileComponent")
-);
-const StoreContainer = dynamic(() =>
-  import("@/components/user/store/StoreContainer")
-);
+import Footer from "@/components/user/global/Footer";
+import Wrapper from "@/components/user/global/Wrapper";
+import SearchMobileComponent from "@/components/user/store/SearchMobileComponent";
+import StoreContainer from "@/components/user/store/StoreContainer";
 
-export const metadata={
-  title:"Xerox Stores",
-  description:"Print with ease. Anywhere. Anytime."
-}
+export const metadata = {
+  title: "Xerox Stores",
+  description: "Print with ease. Anywhere. Anytime.",
+  openGraph: {
+    title: "Xerox Stores",
+    description: "Print with ease. Anywhere. Anytime.",
+    url: "https://dokopi.com/stores",
+    siteName: "Dokopi",
+  },
+};
 
 export default async function StoresPage() {
   return (

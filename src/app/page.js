@@ -6,12 +6,14 @@ import Footer from "@/components/user/global/Footer";
 
 export const metadata = {
   title: "Dokopi - Home",
-  description: "Dokopi - Print with ease. Anywhere. Anytime.",
+  description:
+    "Find and connect with the nearest Xerox store based on your location with our platform. Easily upload documents, make secure payments, and get your prints ready in minutes. Simplifying your printing needs with fast, location-based service.",
 };
 
 export default async function Home() {
   return (
-    <main>
+    <main className="w-full min-h-screen">
+      {/* ---Hero --- */}
       <Hero />
       <HowItWorks />
       <DoKopiFeatures />
