@@ -42,19 +42,14 @@ export const metadata = {
     "docopy",
     "Xerox Store",
     "Xerox Printer",
-    "Xerox Driver",
-    "Xerox Driver",
-    "Xerox Printer",
-    "Xerox Printer",
-    "Xerox Printer",
   ],
   title: {
-    default: "Dokopi",
-    template: "%s | Dokopi",
+    default: "DoKopi",
+    template: "%s | DoKopi",
   },
   openGraph: {
     type: "website",
-    url: "https://dokopi.com",
+    url: "https://www.dokopi.com",
     siteName: "Dokopi",
     images: [""],
     description:
