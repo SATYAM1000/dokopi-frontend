@@ -5,7 +5,7 @@ import CallToAction from "@/components/user/home/CallToAction";
 import Footer from "@/components/user/global/Footer";
 
 export const metadata = {
-  title: "Dokopi - Home",
+  title: "DoKopi - Home",
   description:
     "Find and connect with the nearest Xerox store based on your location with our platform. Easily upload documents, make secure payments, and get your prints ready in minutes. Simplifying your printing needs with fast, location-based service.",
 };
