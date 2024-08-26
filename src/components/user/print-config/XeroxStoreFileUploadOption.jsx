@@ -5,6 +5,7 @@ import UploadedFileComponent from "./UploadedFileComponent";
 import UploadedFileConfigurations from "./UploadedFileConfigurations";
 import UploadedFileProgress from "./UploadedFileProgress";
 import { initialFileInfo } from "@/lib/constants";
+import { ShieldCheck } from "lucide-react";
 
 const XeroxStoreFileUploadOption = () => {
   const [isFileUploadedSuccessfully, setIsFileUploadedSuccessfully] =
@@ -16,7 +17,6 @@ const XeroxStoreFileUploadOption = () => {
     setUploadedFileInfo(initialFileInfo);
   };
 
-
   return (
     <section className="w-full mt-6 md:mt-6 ">
       <section className="w-full">
@@ -24,21 +24,21 @@ const XeroxStoreFileUploadOption = () => {
           <main className="h-full">
             <article
               aria-label="File Upload Modal"
-              className="relative h-full flex flex-col bg-white  rounded-md"
+              className="relative flex flex-col h-full bg-white rounded-md"
             >
-              <section className="h-full overflow-auto p-0  w-full flex flex-col">
+              <section className="flex flex-col w-full h-full p-0 overflow-auto">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
                   <div
-                    className={`w-full flex flex-col h-fit rounded-lg border bg-gray-50 border-gray-200 p-4`}
+                    className={`w-full flex flex-col h-fit rounded-lg border bg-gray-50 border-gray-200 p-4 relative overflow-hidden pb-14`}
                   >
-                    <div className="w-full flex flex-col">
+                    <div className="flex flex-col w-full">
                       <h1 className="font-semibold text-gray-700">
                         {isFileUploadedSuccessfully
                           ? "Uploaded File"
                           : "Upload File"}
                       </h1>
                     </div>
-                    <div className="rounded-md mt-4">
+                    <div className="mt-4 rounded-md">
                       {isFileUploadedSuccessfully ? (
                         <UploadedFileComponent
                           file={uploadedFileInfo}
@@ -63,6 +63,10 @@ const XeroxStoreFileUploadOption = () => {
                           />
                         </header>
                       )}
+                    </div>
+                    <div className="absolute bottom-0 left-0 flex items-center w-full h-6 gap-2 p-1 text-gray-700 bg-gray-300">
+                      <ShieldCheck className="w-4 h-4 text-green-600" />
+                      <span className="text-[12px] font-medium">We will delete your files once printed</span>
                     </div>
                   </div>
                   <UploadedFileConfigurations

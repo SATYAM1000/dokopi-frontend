@@ -115,18 +115,18 @@ const FileUploaderComponent = ({
       })}
     >
       <input {...getInputProps()} />
-      <p className="mb-3 font-medium text-gray-500 text-xs md:text-sm flex flex-wrap justify-center">
+      <p className="flex flex-wrap justify-center mb-3 text-xs font-medium text-gray-500 md:text-sm">
         {isDragActive ? (
           <span>Drop the file here...</span>
         ) : (
-          <div className="text-center flex flex-col">
+          <div className="flex flex-col text-center">
             <div>
               <span>Drag and drop your</span>&nbsp;
               <span>files anywhere or</span>
             </div>
             <span className="text-[10px] text-gray-400 block">
               &nbsp;Allowed formats: PDF, JPG, JPEG, PNG, DOCX, PPT
-              <span className="text-red-500 ml-1">*</span>
+              <span className="ml-1 text-red-500">*</span>
             </span>
           </div>
         )}
@@ -134,7 +134,7 @@ const FileUploaderComponent = ({
       <Button
         id="button"
         size="sm"
-        className="mt-2 bg-indigo-600 hover:bg-indigo-800 rounded-sm px-3 py-1 flex items-center justify-center gap-2"
+        className="flex items-center justify-center gap-2 px-3 py-1 mt-2 bg-indigo-600 rounded-sm hover:bg-indigo-800"
       >
         <span>Upload File</span>
       </Button>
