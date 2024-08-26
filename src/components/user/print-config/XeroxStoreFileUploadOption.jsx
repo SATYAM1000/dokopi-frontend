@@ -29,7 +29,7 @@ const XeroxStoreFileUploadOption = () => {
               <section className="flex flex-col w-full h-full p-0 overflow-auto">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
                   <div
-                    className={`w-full flex flex-col h-fit rounded-lg border bg-gray-50 border-gray-200 p-4 relative overflow-hidden pb-14`}
+                    className={`w-full flex flex-col h-fit rounded-lg border bg-gray-50 border-gray-200 p-4 relative overflow-hidden`}
                   >
                     <div className="flex flex-col w-full">
                       <h1 className="font-semibold text-gray-700">
