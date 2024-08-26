@@ -64,10 +64,6 @@ const XeroxStoreFileUploadOption = () => {
                         </header>
                       )}
                     </div>
-                    <div className="absolute bottom-0 left-0 flex items-center w-full h-6 gap-2 p-1 text-gray-700 bg-gray-300">
-                      <ShieldCheck className="w-4 h-4 text-green-600" />
-                      <span className="text-[12px] font-medium">We will delete your files once printed</span>
-                    </div>
                   </div>
                   <UploadedFileConfigurations
                     uploadedFileInfo={uploadedFileInfo}
