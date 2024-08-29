@@ -84,7 +84,7 @@ const LocationAccess = ({ apiKey }) => {
         }, 3000);
       }
     } catch (error) {
-      console.log("error is ", error);
+      console.log("location error is ", error);
       if (error?.code === 1) {
         setLocationError(
           "We do not have permission to determine your location. Please enter manually."
@@ -107,10 +107,9 @@ const LocationAccess = ({ apiKey }) => {
       setSuccess(null);
       const coordinates = await getUserCoordinates();
       fetchLocationUsingCoordinates(coordinates);
-    } catch {
-      setLocationError(
-        "An error occurred while detecting your location. Please enter manually."
-      );
+    } catch (error) {
+      console.log("location error is ", error);
+      setLocationError(error.message);
     } finally {
       setLoading(false);
     }
@@ -134,7 +133,7 @@ const LocationAccess = ({ apiKey }) => {
                 {userAddress
                   ? userAddress.split(",").slice(-2, -1)[0].trim()
                   : "Location"}
-                <ChevronDown className="ml-2 h-4 w-4" />
+                <ChevronDown className="w-4 h-4 ml-2" />
               </button>
             </div>
           </DialogTrigger>
@@ -152,10 +151,10 @@ const LocationAccess = ({ apiKey }) => {
             {userAddress === null ? (
               <div className="grid gap-4 py-4">
                 <div className="flex flex-col gap-1">
-                  <div className="flex gap-2 items-center flex-col md:flex-row">
+                  <div className="flex flex-col items-center gap-2 md:flex-row">
                     <Button
                       onClick={handleLocationDetection}
-                      className="bg-green-700 w-full md:flex-1 text-white font-normal tracking-wide hover:bg-green-700"
+                      className="w-full font-normal tracking-wide text-white bg-green-700 md:flex-1 hover:bg-green-700"
                     >
                       {loading ? (
                         <ClipLoader color="white" size={20} />
@@ -163,20 +162,20 @@ const LocationAccess = ({ apiKey }) => {
                         "Detect my location"
                       )}
                     </Button>
-                    <p className=" text-black font-bold text-center">OR</p>
+                    <p className="font-bold text-center text-black ">OR</p>
                     <div className="relative w-full">
                       <Input
                         type="search"
                         id="location"
                         defaultValue={userAddress}
                         placeholder="Enter your location"
-                        className="col-span-3 flex-1"
+                        className="flex-1 col-span-3"
                         onChange={(e) => setSearchboxQuery(e.target.value)}
                         autoComplete="off"
                       />
                       {/* Location Search Result  */}
                       <div
-                        className="absolute w-full bg-white mt-3"
+                        className="absolute w-full mt-3 bg-white"
                         onClick={(e) => {
                           if (e.target.tagName == "P")
                             fetchLocationUsingCoordinates(e.target.dataset);
