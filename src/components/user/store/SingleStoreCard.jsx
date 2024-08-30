@@ -29,7 +29,7 @@ const SingleStoreCard = ({ storeData, location }) => {
   return (
     <Link
       href={`/stores/${storeData?.storeId}`}
-      className="transition-all border cursor-pointer rounded-xl shadow-sm md:hover:shadow-[0_0_10px_0_rgba(0,0,0,0.15)] hover:border-gray-200"
+      className="transition-all border border-gray-200 cursor-pointer rounded-xl shadow-sm md:hover:shadow-[0_0_10px_0_rgba(0,0,0,0.15)] hover:border-gray-200"
     >
       <div className="relative flex flex-col px-2 py-2 overflow-hidden">
         <div className="overflow-hidden rounded-md">
@@ -72,7 +72,7 @@ const SingleStoreCard = ({ storeData, location }) => {
             href={DirectionURL}
             target="_blank"
             onClick={(e) => e.stopPropagation()} // Prevents Link click event
-            className="flex items-center justify-center font-medium gap-1 text-[12px] border border-indigo-400 cursor-pointer bg-indigo-200 text-indigo-700 px-2 py-1 rounded-md mt-2"
+            className="flex items-center justify-center font-medium gap-1 text-[12px] border border-gray-200 cursor-pointer bg-gray-50 text-gray-900 px-2 py-1 rounded-md mt-2"
           >
             Direction
             <ArrowUpRight size={16} />
@@ -84,11 +84,11 @@ const SingleStoreCard = ({ storeData, location }) => {
         <div className="flex items-center justify-end w-full mt-1 ">
           {storeStatus ? (
             storeStatus.isOpen ? (
-              <p className="block text-xs font-normal text-gray-800 truncate">
+              <p className="block text-xs font-medium text-gray-800 truncate">
                 Closes at {formatTime(storeStatus.nextCloseTime)}
               </p>
             ) : (
-              <p className="block text-xs font-normal text-gray-800 truncate">
+              <p className="block text-xs font-medium text-gray-800 truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
                 storeStatus.nextOpenTime.includes("at")
@@ -97,7 +97,7 @@ const SingleStoreCard = ({ storeData, location }) => {
               </p>
             )
           ) : (
-            <p className="block text-xs font-normal text-gray-800 truncate">
+            <p className="block text-xs font-medium text-gray-800 truncate">
               Not available
             </p>
           )}
