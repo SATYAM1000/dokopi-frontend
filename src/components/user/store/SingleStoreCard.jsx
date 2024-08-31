@@ -102,12 +102,12 @@ const SingleStoreCard = ({ storeData, location }) => {
             </p>
           )}
 
-          <p className="text-slate-500 font-normal text-[14px] truncate">
+          {/* <p className="text-slate-500 font-normal text-[14px] truncate">
             {storeData?.distance < 1000
               ? `${storeData?.distance?.toFixed(0)} m`
               : `${(storeData?.distance / 1000).toFixed(1)} km`}
             <span className="ml-1.5">away</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </Link>
