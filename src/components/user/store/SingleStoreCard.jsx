@@ -81,7 +81,7 @@ const SingleStoreCard = ({ storeData, location }) => {
         <p className="text-gray-500 font-medium text-[14px] mt-1 truncate">
           {storeData?.storeLandmark}
         </p>
-        <div className="flex items-center justify-start w-full mt-1 ">
+        <div className="flex items-center justify-end w-full mt-1 ">
           {storeStatus ? (
             storeStatus.isOpen ? (
               <p className="block text-xs font-medium text-gray-800 truncate">
