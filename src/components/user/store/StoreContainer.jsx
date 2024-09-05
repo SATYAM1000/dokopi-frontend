@@ -75,11 +75,11 @@ const StoreContainer = () => {
             Nearest Stores
           </h1>
           {/* ------------stores container---------- */}
-          <div className="w-full min-h-screen flex flex-col gap-2 mt-2 ">
+          <div className="flex flex-col w-full min-h-screen gap-2 mt-2 ">
             {isLoading && firstTime ? (
               <StoreSkelton />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-2">
+              <div className="grid grid-cols-1 gap-8 my-2 md:grid-cols-2 lg:grid-cols-3">
                 {allStores.map((store, index) => (
                   <SingleStoreCard key={index} storeData={store} location={address} />
                 ))}
@@ -87,7 +87,7 @@ const StoreContainer = () => {
             )}
 
             {isFetching && !firstTime && (
-              <div className="text-center text-gray-600 mt-2">
+              <div className="mt-2 text-center text-gray-600">
                 Loading more...
               </div>
             )}
@@ -95,7 +95,7 @@ const StoreContainer = () => {
               <button
                 onClick={handleLoadMore}
                 disabled={isFetching}
-                className="text-center text-gray-600 mt-2"
+                className="mt-2 text-center text-gray-600"
               >
                 {isFetching && !firstTime ? "Loading..." : "Load More"}
               </button>

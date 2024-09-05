@@ -78,17 +78,17 @@ const SingleStoreCard = ({ storeData, location }) => {
             <ArrowUpRight size={16} />
           </a>
         </div>
-        <p className="text-gray-500 font-medium text-[14px] mt-1 truncate">
+        <p className="text-[#696969] font-normal text-[14px] mt-1 truncate">
           {storeData?.storeLandmark}
         </p>
         <div className="flex items-center justify-end w-full mt-1 ">
           {storeStatus ? (
             storeStatus.isOpen ? (
-              <p className="block text-xs font-medium text-gray-800 truncate">
+              <p className="block text-xs font-medium truncate text-[#363636]">
                 Closes at {formatTime(storeStatus.nextCloseTime)}
               </p>
             ) : (
-              <p className="block text-xs font-medium text-gray-800 truncate">
+              <p className="block text-xs font-medium text-[#363636] truncate">
                 Opens{" "}
                 {storeStatus.nextOpenTime &&
                 storeStatus.nextOpenTime.includes("at")
@@ -97,7 +97,7 @@ const SingleStoreCard = ({ storeData, location }) => {
               </p>
             )
           ) : (
-            <p className="block text-xs font-medium text-gray-800 truncate">
+            <p className="block text-xs font-medium text-[#363636] truncate">
               Not available
             </p>
           )}

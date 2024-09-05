@@ -64,7 +64,7 @@ const SearchComponent = ({ classNameForSearchBox }) => {
         setOuterSearchHoverColor("bg-gray-200 border-[2px] border-white ")
       }
       onMouseLeave={() =>
-        setOuterSearchHoverColor("bg-white border-[2px] border-gray-600/[0.2]")
+        setOuterSearchHoverColor("bg-white border-[2px] border-gray-600/[0.2] ")
       }
     >
       <form
@@ -140,7 +140,7 @@ const SearchComponent = ({ classNameForSearchBox }) => {
           queryInput.length > 2 && data && <ShowSearchResult Iserror={error} Response={data} />
         }
         {
-          isError && <span className="text-red-600 text-xs">Some Error is being occured while fetching the result</span>
+          isError && <span className="text-xs text-red-600">Some Error is being occured while fetching the result</span>
         }
 
       </div>

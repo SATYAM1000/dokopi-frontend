@@ -1,31 +1,31 @@
-
 import { CloudUpload } from "lucide-react";
 import { Store } from "lucide-react";
 import { SquareMenu } from "lucide-react";
-import { FaTelegramPlane } from "react-icons/fa";
+import { FaW } from "react-icons/fa";
 import { Clock } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const DoKopiFeatures = () => {
   return (
     <section className="py-12  sm:py-16 lg:py-20  mt-12 bg-black/[0.03]">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 ">
-        <div className=" mx-auto text-center">
+        <div className="mx-auto text-center ">
           <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
             Revolutionize Your Printing Workflow
           </h2>
-          <p className="max-w-lg mx-auto mt-4 text-gray-600  text-lg leading-8 ">
+          <p className="max-w-lg mx-auto mt-4 text-lg leading-8 text-gray-600 ">
             Explore the seamless process of uploading, printing, and managing
             your documents effortlessly with our intuitive platform.
           </p>
         </div>
 
         <div className="grid grid-cols-1 mt-10 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-0 xl:mt-24">
-          <div className="p-4 md:p-8 lg:p-14 hover:bg-indigo-50 transition-all ">
+          <div className="p-4 transition-all md:p-8 lg:p-14 hover:bg-black/5 ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <Store className="h-7 w-7 text-indigo-500" />{" "}
+                <Store className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -38,11 +38,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50 transition-all">
-            <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow  ">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-black/5">
+            <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow ">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <CloudUpload className="h-7 w-7 text-indigo-500" />{" "}
+                <CloudUpload className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -54,11 +54,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className=" p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50 transition-all">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-black/5">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <SquareMenu className="h-7 w-7 text-indigo-500" />{" "}
+                <SquareMenu className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -71,28 +71,28 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-indigo-50 transition-all ">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-black/5 ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <FaTelegramPlane className="h-7 w-7 text-indigo-500" />{" "}
+                <FaWhatsapp className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
-              Telegram Bot Integration
+              WhatsApp Integration
             </h3>
             <p className="mt-5 text-base text-gray-600 font-pj">
-              Send documents to xerox stores directly through our Telegram bot.
-              Enjoy the convenience of printing without leaving your messaging
-              app.
+              Get real-time order status updates directly on WhatsApp. Enjoy the
+              convenience of tracking your orders without leaving your messaging
+              app!
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50 transition-all">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-black/5">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <CircleDollarSign className="h-7 w-7 text-indigo-500" />{" "}
+                <CircleDollarSign className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
@@ -104,11 +104,11 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50 transition-all">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-black/5">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <Clock className="h-7 w-7 text-indigo-500" />{" "}
+                <Clock className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
