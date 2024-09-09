@@ -1,10 +1,10 @@
+
 import { CloudUpload } from "lucide-react";
 import { Store } from "lucide-react";
 import { SquareMenu } from "lucide-react";
-import { FaW } from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
 import { Clock } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
 
 const DoKopiFeatures = () => {
   return (
@@ -21,7 +21,7 @@ const DoKopiFeatures = () => {
         </div>
 
         <div className="grid grid-cols-1 mt-10 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-0 xl:mt-24">
-          <div className="p-4 transition-all md:p-8 lg:p-14 hover:bg-black/5 ">
+          <div className="p-4 transition-all md:p-8 lg:p-14 hover:bg-indigo-50 ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -38,7 +38,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-black/5">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow ">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -54,7 +54,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-black/5">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 hover:bg-indigo-50">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -71,24 +71,24 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-black/5 ">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-t md:border-gray-200 hover:bg-indigo-50 ">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <FaWhatsapp className="text-indigo-500 h-7 w-7" />{" "}
+                <FaTelegramPlane className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
-              WhatsApp Integration
+              Telegram Bot Integration
             </h3>
             <p className="mt-5 text-base text-gray-600 font-pj">
-              Get real-time order status updates directly on WhatsApp. Enjoy the
-              convenience of tracking your orders without leaving your messaging
-              app!
+              Send documents to xerox stores directly through our Telegram bot.
+              Enjoy the convenience of printing without leaving your messaging
+              app.
             </p>
           </div>
 
-          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-black/5">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
@@ -104,7 +104,7 @@ const DoKopiFeatures = () => {
             </p>
           </div>
 
-          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-black/5">
+          <div className="p-4 transition-all md:p-8 lg:p-14 md:border-l md:border-gray-200 md:border-t hover:bg-indigo-50">
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}

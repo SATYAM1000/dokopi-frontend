@@ -6,6 +6,7 @@ export default function HeadContent() {
   return (
     <head>
       <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="manifest" href="/manifest.json" />
       <link rel="dns-prefetch" href="https://maps.googleapis.com" />
       <link rel="dns-prefetch" href="https://api.dokopi.com" />
       <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
