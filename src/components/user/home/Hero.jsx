@@ -7,10 +7,10 @@ export default function Hero() {
   return (
     <div
       className="min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-80px)]
-     relative isolate bg-grid-black/[0.03] px-6 pt-2 lg:px-8 "
+     relative isolate bg-grid-black/[0.02] px-6 pt-2 lg:px-8 "
     >
       <div
-        className="absolute inset-x-0 -top-10 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-10"
+        className="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-10"
         aria-hidden="true"
       >
         <div
@@ -21,7 +21,7 @@ export default function Hero() {
           }}
         />
       </div>
-      <div className="mx-auto max-w-2xl py-32 sm:py-32 lg:py-28">
+      <div className="max-w-2xl py-32 mx-auto sm:py-32 lg:py-28">
         <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -32,7 +32,7 @@ export default function Hero() {
             outlets, streamlining operations and setting new benchmarks in the
             printing sector.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
+          <div className="flex items-center justify-center mt-10 gap-x-6">
             <Link prefetch={true} href="/stores">
               <Button className="px-12 py-6  rounded-full bg-black tracking-wide text-[16px] flex items-center gap-2">
                 Explore Now

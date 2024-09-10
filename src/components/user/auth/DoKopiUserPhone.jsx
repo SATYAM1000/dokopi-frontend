@@ -78,14 +78,14 @@ const DoKopiUserPhone = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit}>
-                <div className="grid w-full items-center gap-2">
+                <div className="grid items-center w-full gap-2">
                   <label
-                    className="block uppercase tracking-wide text-gray-800 text-xs font-bold mb-2"
+                    className="block mb-2 text-xs font-bold tracking-wide text-gray-800 uppercase"
                     htmlFor="phoneNumber"
                   >
                     Phone Number
                   </label>
-                  <div className="w-full flex gap-2">
+                  <div className="flex w-full gap-2">
                     <input
                       name="phoneNumber"
                       className={`appearance-none block w-full text-gray-700 border ${
@@ -105,7 +105,7 @@ const DoKopiUserPhone = () => {
                     </Button>
                   </div>
                   {error && (
-                    <p className="text-red-500 text-xs italic">{error}</p>
+                    <p className="text-xs italic text-red-500">{error}</p>
                   )}
                 </div>
               </form>

@@ -1,10 +1,11 @@
-
 import { CloudUpload } from "lucide-react";
 import { Store } from "lucide-react";
 import { SquareMenu } from "lucide-react";
 import { FaTelegramPlane } from "react-icons/fa";
 import { Clock } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
+
+import { FaWhatsapp } from "react-icons/fa";
 
 const DoKopiFeatures = () => {
   return (
@@ -75,16 +76,16 @@ const DoKopiFeatures = () => {
             <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
               <span className="text-xl font-semibold text-gray-700">
                 {" "}
-                <FaTelegramPlane className="text-indigo-500 h-7 w-7" />{" "}
+                <FaWhatsapp className="text-indigo-500 h-7 w-7" />{" "}
               </span>
             </div>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">
-              Telegram Bot Integration
+              WhatsApp Integration
             </h3>
             <p className="mt-5 text-base text-gray-600 font-pj">
-              Send documents to xerox stores directly through our Telegram bot.
-              Enjoy the convenience of printing without leaving your messaging
-              app.
+              Get real-time updates of your order directly via WhatsApp.
+              Experience the ease of tracking your documents without leaving
+              your chat app.
             </p>
           </div>
 
