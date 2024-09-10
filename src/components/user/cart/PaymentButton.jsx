@@ -10,6 +10,7 @@ import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import ShortUniqueId from "short-unique-id";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
   const currentUser = useCurrentUser();
@@ -111,7 +112,7 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
       ) : (
         <div
           className={`fixed p-4 space-y-4 overflow-hidden text-center  rounded-md bottom-2 ${
-            isStoreOpen ? "bg-indigo-600" : "bg-red-500"
+            isStoreOpen ? "bg-indigo-600" : "bg-gray-200"
           } `}
         >
           <Button
@@ -121,19 +122,21 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
             className={`w-full px-3 py-2 text-sm font-semibold rounded-md shadow-sm hover:bg-white/90 ${
               isStoreOpen
                 ? "text-indigo-600 bg-white"
-                : " text-red-500  disabled:bg-white disabled:opacity-100 cursor-not-allowed"
+                : " text-red-400  disabled:bg-white disabled:opacity-100 cursor-not-allowed"
             } `}
           >
             {isStoreOpen ? "Proceed to Payment" : "Store is currently closed"}
             {loading ? (
               <ClipLoader color="#4f46e5" size={17} className="ml-6" />
             ) : (
-              <>&nbsp;&nbsp;&nbsp;&rarr;</>
+              <FaArrowRightLong className="ml-2" />
             )}
           </Button>
           <Link
             href="/stores"
-            className="inline-block text-sm underline transition text-white/90 underline-offset-4"
+            className={`inline-block text-sm underline transition ${
+              isStoreOpen ? "text-white/90" : "text-black"
+            } underline-offset-4`}
           >
             Continue uploading documents &rarr;
           </Link>
