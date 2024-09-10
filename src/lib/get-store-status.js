@@ -59,5 +59,6 @@ export function getStoreStatus(storeTiming) {
       nextOpenTime: null,
       nextCloseTime: null,
     };
+  
   }
   

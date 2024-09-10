@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import axios from "axios";
@@ -17,11 +17,13 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
   const uid = new ShortUniqueId();
 
   const [loading, setLoading] = React.useState(false);
+  const [isStoreOpen, setIsStoreOpen] = React.useState(false);
+  const [loadingForStoreStatus, setLoadingForStoreStatus] =
+    React.useState(true);
   const cartItems = useSelector((state) => state.cart.items);
   const handlePhonePePaymentClick = async () => {
     try {
       setLoading(true);
-
       if (!currentUser) {
         toast.error("Please login to continue");
         setLoading(false);
@@ -77,29 +79,66 @@ const PaymentButton = ({ setIsCartOpen, totalPrice, platformFee }) => {
     }
   };
 
+  useEffect(() => {
+    const checkIsStoreOpen = async () => {
+      try {
+        const res = await axios.get(
+          `${API_DOMAIN}/api/v1/user/stores/is-open/${localStorage.getItem(
+            "storeId"
+          )}`
+        );
+        if (res.data.success) {
+          setIsStoreOpen(res.data.data.isOpen);
+        } else {
+          setIsStoreOpen(false);
+        }
+      } catch {
+        console.log("error");
+      } finally {
+        setLoadingForStoreStatus(false);
+      }
+    };
+
+    checkIsStoreOpen();
+  }, [localStorage.getItem("storeId")]);
+
   return (
-    <div className=" pt-6 flex items-center justify-center">
-      <div className="space-y-4 text-center fixed overflow-hidden bottom-2  p-4 bg-indigo-600 rounded-md ">
-        <Button
-          onClick={handlePhonePePaymentClick}
-          disabled={loading}
-          type="button"
-          className="w-full rounded-md bg-white hover:bg-white/90 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm "
+    <div className="flex items-center justify-center pt-6 ">
+      {loadingForStoreStatus ? (
+        <div className="fixed p-4 space-y-4 overflow-auto text-center rounded-md bottom-2">
+          <ClipLoader color="#4f46e5" size={17} className="ml-6" />
+        </div>
+      ) : (
+        <div
+          className={`fixed p-4 space-y-4 overflow-hidden text-center  rounded-md bottom-2 ${
+            isStoreOpen ? "bg-indigo-600" : "bg-red-500"
+          } `}
         >
-          Proceed to Payment
-          {loading ? (
-            <ClipLoader color="#4f46e5" size={17} className="ml-6" />
-          ) : (
-            <>&nbsp;&nbsp;&nbsp;&rarr;</>
-          )}
-        </Button>
-        <Link
-          href="/stores"
-          className="inline-block text-sm  transition text-white/90 underline underline-offset-4"
-        >
-          Continue uploading documents &rarr;
-        </Link>
-      </div>
+          <Button
+            onClick={handlePhonePePaymentClick}
+            disabled={loading || !isStoreOpen}
+            type="button"
+            className={`w-full px-3 py-2 text-sm font-semibold rounded-md shadow-sm hover:bg-white/90 ${
+              isStoreOpen
+                ? "text-indigo-600 bg-white"
+                : " text-red-500  disabled:bg-white disabled:opacity-100 cursor-not-allowed"
+            } `}
+          >
+            {isStoreOpen ? "Proceed to Payment" : "Store is currently closed"}
+            {loading ? (
+              <ClipLoader color="#4f46e5" size={17} className="ml-6" />
+            ) : (
+              <>&nbsp;&nbsp;&nbsp;&rarr;</>
+            )}
+          </Button>
+          <Link
+            href="/stores"
+            className="inline-block text-sm underline transition text-white/90 underline-offset-4"
+          >
+            Continue uploading documents &rarr;
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
